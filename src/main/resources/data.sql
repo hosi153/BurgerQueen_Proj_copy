@@ -9,3 +9,4 @@ insert into "PRODUCT" (product_id,product_name, product_count, product_price, ca
 insert into "PRODUCT" (product_id,product_name, product_count, product_price, category_id) values (3,'콜라',10,1000,2);
 insert into "PRODUCT" (product_id,product_name, product_count, product_price, category_id) values (4,'감튀',10,1000,3);
 
+insert into "USER" (USER_ID,EMAIL) values (1,'test@test.com');

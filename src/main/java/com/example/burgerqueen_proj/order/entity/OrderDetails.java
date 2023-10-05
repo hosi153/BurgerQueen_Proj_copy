@@ -15,14 +15,14 @@ public class OrderDetails {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-
-    private long productId;
-
-    private int count;
-
-    private int price;
-
-    private int discountPrice;
+//
+//    private long productId;
+//
+//    private int count;
+//
+//    private int price;
+//
+//    private int discountPrice;
 
 
 

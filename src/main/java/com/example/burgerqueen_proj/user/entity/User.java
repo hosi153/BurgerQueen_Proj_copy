@@ -35,33 +35,33 @@ public class User {
     }
 
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders = new ArrayList<>();
-
-    public void setOrder(Order order){
-        orders.add(order);
-        if (order.getUser() != this){
-            order.setUser(this);
-        }
-    }
+//    @OneToMany(mappedBy = "user")
+//    private List<Order> orders = new ArrayList<>();
+//
+//    public void setOrder(Order order){
+//        orders.add(order);
+//        if (order.getUser() != this){
+//            order.setUser(this);
+//        }
+//    }
 
 
 
 
     private String email;
-
-    private String password;
-
-    private String userName;
-
-    private Date birth;
-
-    private String sex;
-
-    private Date lastLogin;
-
-    private LocalDateTime createAt;
-
-    private LocalDateTime modifiedAt;
+//
+//    private String password;
+//
+//    private String userName;
+//
+//    private Date birth;
+//
+//    private String sex;
+//
+//    private Date lastLogin;
+//
+//    private LocalDateTime createAt;
+//
+//    private LocalDateTime modifiedAt;
 
 }
