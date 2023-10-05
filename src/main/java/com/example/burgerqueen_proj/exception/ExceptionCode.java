@@ -7,7 +7,8 @@ public enum ExceptionCode {
     PRODUCT_NOT_READY(404,"Product not Ready"),
 
     PRODUCT_NOT_FOUND(404, "Product not found"),
-    PRODUCT_EXISTS(409, "Product exists");
+    CATEGORY_NOT_FOUND(404, "Category not found"),
+    PRODUCT_EXISTS(409, "Product already exists");
 
     @Getter
     private int status;
