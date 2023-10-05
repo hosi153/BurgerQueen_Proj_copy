@@ -2,6 +2,8 @@ package com.example.burgerqueen_proj.category.service;
 
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.category.repository.CategoryRepository;
+import com.example.burgerqueen_proj.exception.BusinessLogicException;
+import com.example.burgerqueen_proj.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,6 +24,11 @@ public class CategoryService {
         Category category = optionalCategory.orElseThrow();
         return category;
 
+    }
+
+    public Category findCategoryByName(String categoryName){
+        Optional<Category> optionalCategory = categoryRepository.findByCategoryName(categoryName);
+        return optionalCategory.orElseThrow(()-> new BusinessLogicException(ExceptionCode.CATEGORY_NOT_FOUND));
     }
 
 }

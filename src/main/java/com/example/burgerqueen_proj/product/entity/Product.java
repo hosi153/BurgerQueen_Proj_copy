@@ -1,10 +1,12 @@
 package com.example.burgerqueen_proj.product.entity;
 
 import com.example.burgerqueen_proj.category.entity.Category;
+import com.example.burgerqueen_proj.entity.BasicEntity;
 import com.example.burgerqueen_proj.promotion.entity.PromotionDetails;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +18,8 @@ import java.util.List;
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @AllArgsConstructor @Builder
 @DynamicInsert @DynamicUpdate
-public class Product {
+@EntityListeners(AuditingEntityListener.class)
+public class Product extends BasicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

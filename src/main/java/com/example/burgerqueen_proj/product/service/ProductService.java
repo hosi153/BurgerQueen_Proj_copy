@@ -2,6 +2,8 @@ package com.example.burgerqueen_proj.product.service;
 
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.category.service.CategoryService;
+import com.example.burgerqueen_proj.exception.BusinessLogicException;
+import com.example.burgerqueen_proj.exception.ExceptionCode;
 import com.example.burgerqueen_proj.product.entity.Product;
 import com.example.burgerqueen_proj.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,12 @@ public class ProductService {
         return findVerifyProduct(productId);
     }
 
+    public Product findVerifyProduct(long productId){
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        Product product = optionalProduct.orElseThrow(() -> new BusinessLogicException(ExceptionCode.PRODUCT_NOT_FOUND));
+        return product;
+    }
+
 
     public List<Product> findAllProductByCategory() {
         Category category = categoryService.findCategoryById(1L);
@@ -31,11 +39,39 @@ public class ProductService {
 
     }
 
-
-    public Product findVerifyProduct(long productId){
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        Product product = optionalProduct.orElseThrow(() -> new RuntimeException());
-        return product;
+    public List<Product> findAllProduct() {
+        List<Product> products = productRepository.findAllByOrderByCategoryAsc();
+        return products;
     }
+
+
+
+
+    public Product createProduct(Product product) {
+        Category findCategory = categoryService.findCategoryByName(product.getCategory().getCategoryName());
+        product.setCategory(findCategory);
+        return productRepository.save(product);
+    }
+
+    public Product updateProduct(Product product) {
+        Product findProduct = findVerifyProduct(product.getProductId());
+        Category findCategory = categoryService.findCategoryByName(product.getCategory().getCategoryName());
+        product.setCategory(findCategory);
+
+        Optional.ofNullable(product.getProductName()).ifPresent(findProduct::setProductName);
+        Optional.of(product.getProductPrice()).ifPresent(findProduct::setProductPrice);
+        Optional.of(product.getProductCount()).ifPresent(findProduct::setProductCount);
+        Optional.ofNullable(product.getCategory()).ifPresent(findProduct::setCategory);
+        Optional.ofNullable(product.getProductImage()).ifPresent(findProduct::setProductImage);
+        Optional.ofNullable(product.getProductStatus()).ifPresent(findProduct::setProductStatus);
+
+        return productRepository.save(findProduct);
+    }
+
+    public void deleteProduct(long productId) {
+        findVerifyProduct(productId);
+        productRepository.deleteById(productId);
+    }
+
 
 }

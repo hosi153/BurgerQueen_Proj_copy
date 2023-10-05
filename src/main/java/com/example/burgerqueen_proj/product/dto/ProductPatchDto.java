@@ -2,24 +2,24 @@ package com.example.burgerqueen_proj.product.dto;
 
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.product.entity.Product;
-import com.example.burgerqueen_proj.promotion.entity.PromotionDetails;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-@AllArgsConstructor @Builder
 @Getter
-public class ProductPostDto {
+@AllArgsConstructor
+@Builder
+public class ProductPatchDto {
+    @Setter
+    private long productId;
     private String productName;
     private int productPrice;
     private int productCount;
     private String productImage;
+    private Long editUserId;
     private String categoryName;
-
+    private Product.ProductStatus status;
 
     public Category getCategory(){
         Category category = new Category();
@@ -29,11 +29,13 @@ public class ProductPostDto {
 
     public Product toEntity(){
         return Product.builder()
+                .productId(this.productId)
                 .productName(this.productName)
                 .productPrice(this.productPrice)
                 .productImage(this.productImage)
                 .productCount(this.productCount)
                 .category(this.getCategory())
+                .productStatus(this.status)
                 .build();
     }
 }
