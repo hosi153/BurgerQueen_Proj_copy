@@ -9,6 +9,7 @@ import com.example.burgerqueen_proj.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,6 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
-
 
 
     public Product findProduct(long productId){
@@ -32,7 +32,8 @@ public class ProductService {
     }
 
 
-    public List<Product> findAllProductByCategory() {
+    public List<Product> findAllProductByCategory(long categoryId) {
+
         Category category = categoryService.findCategoryById(1L);
         List<Product> products = productRepository.findAllByCategory(category);
         return products;
@@ -45,17 +46,15 @@ public class ProductService {
     }
 
 
-
-
     public Product createProduct(Product product) {
-        Category findCategory = categoryService.findCategoryByName(product.getCategory().getCategoryName());
+        Category findCategory = categoryService.findVerifiedCategoryByName(product.getCategory().getCategoryName());
         product.setCategory(findCategory);
         return productRepository.save(product);
     }
 
     public Product updateProduct(Product product) {
         Product findProduct = findVerifyProduct(product.getProductId());
-        Category findCategory = categoryService.findCategoryByName(product.getCategory().getCategoryName());
+        Category findCategory = categoryService.findVerifiedCategoryByName(product.getCategory().getCategoryName());
         product.setCategory(findCategory);
 
         Optional.ofNullable(product.getProductName()).ifPresent(findProduct::setProductName);

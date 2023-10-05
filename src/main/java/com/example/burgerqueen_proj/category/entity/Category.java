@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@AllArgsConstructor @Builder
 @NoArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -29,7 +29,24 @@ public class Category extends BasicEntity {
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 
+    @Transient
+    private int countProduct;
 
+    public int getCountProduct(){
+        this.countProduct = this.products.toArray().length;
+        return countProduct;
+    }
+    public void setProduct(Product product){
+        this.products.add(product);
+        if(product.getCategory() !=this){
+            product.setCategory(this);
+        }
+    }
+
+    public Category updateCategory(Category category){
+        this.categoryName=category.getCategoryName();
+        return this;
+    }
 
 
 }
