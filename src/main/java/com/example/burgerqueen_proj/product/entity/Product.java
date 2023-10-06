@@ -1,9 +1,7 @@
 package com.example.burgerqueen_proj.product.entity;
 
-import com.example.burgerqueen_proj.cart.entity.CartDetail;
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.entity.BasicEntity;
-import com.example.burgerqueen_proj.order.entity.OrderProduct;
 import com.example.burgerqueen_proj.promotion.entity.PromotionDetails;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -17,7 +15,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@NoArgsConstructor//(access=AccessLevel.PROTECTED)
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
 @AllArgsConstructor @Builder
 @DynamicInsert @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
@@ -39,7 +37,7 @@ public class Product extends BasicEntity {
 
     //TODO : 할인가격을 entity에 넣어서 편하게 사용할 수 있도록 함
     @Transient
-    private int discountPrice;
+    private int discountPrice = setDiscountPrice();
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
@@ -53,50 +51,18 @@ public class Product extends BasicEntity {
     @OneToMany(mappedBy = "product")
     private List<PromotionDetails> promotionDetails = new ArrayList<>();
 
-    public int getDiscountPrice(){
+    private int setDiscountPrice(){
         //상품에 연동된 promotiondetails 중, 단품할인+판매중인 데이터가 있는 경우 discoutprice 업데이트
 
-        return productPrice;
+        return 1;
     }
     public void setCategory(Category category){
         this.category = category;
         if(!this.category.getProducts().contains(this)){
             this.category.getProducts().add(this);
         }
+
     }
-
-    public void updateProductStatus(int statusNum){
-        ProductStatus changeStatus;
-    }
-
-//    @OneToMany(mappedBy = "product")
-//    private List<OrderProduct> orderProducts = new ArrayList<>();
-//
-//    public void addOrderProduct(OrderProduct orderProduct) {
-//        this.orderProducts.add(orderProduct);
-//        if (orderProduct.getProduct() != this){
-//            orderProduct.addProduct(this);
-//        }
-//
-//
-//    }
-
-
-    @OneToMany(mappedBy = "product")
-    private List<CartDetail> cartDetails = new ArrayList<>();
-
-    public void addCartDetail(CartDetail cartDetail){
-        this.cartDetails.add(cartDetail);
-        if (cartDetail.getProduct() != this){
-            cartDetail.addProduct(this);
-        }
-    }
-
-
-
-
-
-
 
 
 
