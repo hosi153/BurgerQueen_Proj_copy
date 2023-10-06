@@ -28,7 +28,7 @@ public class Product extends BasicEntity {
     private long productId;
 
     private String productName;
-
+    private String productDescription ="";
     private int productPrice;
 
     @Builder.Default
@@ -74,6 +74,11 @@ public class Product extends BasicEntity {
         if (cartDetail.getProduct() != this) {
             cartDetail.addProduct(this);
         }
+    }
+
+    public String getProductDescription(){
+        if(this.productDescription==null) this.productDescription="";
+        return this.productDescription;
     }
 
 

@@ -14,6 +14,7 @@ import java.util.List;
 public class ProductResponseDto {
     private long productId;
     private String productName;
+    private String productDescription;
     private int productPrice;
     private int discountPrice;
     private String productImage;
@@ -24,6 +25,7 @@ public class ProductResponseDto {
     public ProductResponseDto(Product product){
         this.productId = product.getProductId();
         this.productName = product.getProductName();
+        this.productDescription = product.getProductDescription();
         this.productPrice = product.getProductPrice();
         this.productImage = product.getProductImage();
         this.category = product.getCategory().getCategoryName();

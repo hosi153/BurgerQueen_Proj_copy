@@ -2,6 +2,7 @@ package com.example.burgerqueen_proj.category.entity;
 
 import com.example.burgerqueen_proj.entity.BasicEntity;
 import com.example.burgerqueen_proj.product.entity.Product;
+import com.example.burgerqueen_proj.promotion.entity.Promotion;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +28,15 @@ public class Category extends BasicEntity {
     private String categoryName;
 
     @OneToMany(mappedBy = "category")
-    private List<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();;
 
     @Transient
     private int countProduct;
+
+    //@OneToOne
+   // @JoinColumn(name="promotionId")
+    //private Promotion promotion;
+
 
     public int getCountProduct(){
         this.countProduct = this.products.toArray().length;

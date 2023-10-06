@@ -6,6 +6,8 @@ public enum ExceptionCode {
 
     PRODUCT_NOT_READY(404,"Product not Ready"),
     PRODUCT_NOT_FOUND(404, "Product not found"),
+    PROMOTION_NOT_FOUND(404, "Promotion not found"),
+    CATEGORY_NOT_EMPTY(404, "Category is not empty"),
     CATEGORY_NOT_FOUND(404, "Category not found"),
     CATEGORY_DUPLICATED(409, "Category already exists"),
     PRODUCT_EXISTS(409, "Product already exists"),
