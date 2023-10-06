@@ -2,7 +2,7 @@ package com.example.burgerqueen_proj.promotion.entity;
 
 
 import com.example.burgerqueen_proj.product.entity.Product;
-import com.example.burgerqueen_proj.user.entity.Role;
+import com.example.burgerqueen_proj.member.entity.Role;
 import lombok.*;
 
 import javax.persistence.*;

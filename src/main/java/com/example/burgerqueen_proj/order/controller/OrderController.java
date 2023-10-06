@@ -4,10 +4,8 @@ import com.example.burgerqueen_proj.order.dto.OrderPostDto;
 import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.mapper.OrderMapper;
 import com.example.burgerqueen_proj.order.service.OrderService;
-import com.example.burgerqueen_proj.user.entity.User;
-import com.example.burgerqueen_proj.user.service.UserService;
+import com.example.burgerqueen_proj.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +22,14 @@ public class OrderController {
 
     private final OrderService orderService;
     private final OrderMapper orderMapper;
-    private final UserService userService;
+    private final MemberService memberService;
     @PostMapping
     public ResponseEntity postOrder(@RequestBody OrderPostDto orderPostDto){
         Order order = orderService.creatOrder(orderMapper.orderPostDtoToOrder(orderPostDto));
 
 //        System.out.println(userService.findUser(1L));
 
-        System.out.println("email : " + order.getUser().getEmail());
+        System.out.println("email : " + order.getMember().getEmail());
 
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
