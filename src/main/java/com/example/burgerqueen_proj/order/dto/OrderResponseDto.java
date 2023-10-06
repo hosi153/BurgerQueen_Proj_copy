@@ -1,7 +1,7 @@
 package com.example.burgerqueen_proj.order.dto;
 
 import com.example.burgerqueen_proj.order.entity.Order;
-import com.example.burgerqueen_proj.user.entity.User;
+import com.example.burgerqueen_proj.member.entity.Member;
 import lombok.Data;
 
 @Data
@@ -12,7 +12,7 @@ public class OrderResponseDto {
 
     private Order.OrderStatus orderStatus;
 
-    public void setUser(User user){
-        this.userId = user.getUserId();
+    public void setMember(Member member){
+        this.userId = member.getMemberId();
     }
 }
