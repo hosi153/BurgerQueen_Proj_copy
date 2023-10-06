@@ -15,9 +15,11 @@ public class ProductResponseDto {
     private long productId;
     private String productName;
     private int productPrice;
+    private int discountPrice;
     private String productImage;
     private String category;
     private Product.ProductStatus status;
+
 
     public ProductResponseDto(Product product){
         this.productId = product.getProductId();
@@ -26,6 +28,7 @@ public class ProductResponseDto {
         this.productImage = product.getProductImage();
         this.category = product.getCategory().getCategoryName();
         this.status = product.getProductStatus();
+        this.discountPrice=product.getDiscountPrice();
     }
     public static List<ProductResponseDto> productResponseDtos(List<Product> products){
         List<ProductResponseDto> dtos = new ArrayList(products.size());

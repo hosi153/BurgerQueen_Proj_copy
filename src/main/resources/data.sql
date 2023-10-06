@@ -1,8 +1,8 @@
-insert into "CATEGORY" (category_id, category_name) values ( 1, 'HAMBURGER');
-insert into "CATEGORY" (category_id, category_name) values ( 2, 'DRINK' );
-insert into "CATEGORY" (category_id, category_name) values ( 3, 'SIDE' );
-insert into "CATEGORY" (category_id, category_name) values ( 4, 'OPTION' );
-insert into "CATEGORY" (category_id, category_name) values ( 5, 'SET' );
+insert into "CATEGORY" (category_name) values ('HAMBURGER');
+insert into "CATEGORY" (category_name) values ('DRINK' );
+insert into "CATEGORY" (category_name) values ('SIDE' );
+insert into "CATEGORY" (category_name) values ('OPTION' );
+insert into "CATEGORY" (category_name) values ( 'SET' );
 
 insert into "PRODUCT" (product_name, product_count, product_price, category_id) values ('새우',10,1000,1);
 insert into "PRODUCT" (product_name, product_count, product_price, category_id) values ('불고기',10,2000,1);
