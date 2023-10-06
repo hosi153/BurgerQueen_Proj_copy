@@ -1,5 +1,6 @@
 package com.example.burgerqueen_proj.product.entity;
 
+import com.example.burgerqueen_proj.cart.entity.CartDetail;
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.entity.BasicEntity;
 import com.example.burgerqueen_proj.promotion.entity.PromotionDetails;
@@ -63,6 +64,18 @@ public class Product extends BasicEntity {
         }
 
     }
+
+
+    @OneToMany(mappedBy = "product")
+    private List<CartDetail> cartDetails = new ArrayList<>();
+
+    public void addCartDetail(CartDetail cartDetail) {
+        this.cartDetails.add(cartDetail);
+        if (cartDetail.getProduct() != this) {
+            cartDetail.addProduct(this);
+        }
+    }
+
 
 
 
