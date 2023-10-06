@@ -39,7 +39,7 @@ public class Product extends BasicEntity {
 
     //TODO : 할인가격을 entity에 넣어서 편하게 사용할 수 있도록 함
     @Transient
-    private int discountPrice = setDiscountPrice();
+    private int discountPrice;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
@@ -53,17 +53,20 @@ public class Product extends BasicEntity {
     @OneToMany(mappedBy = "product")
     private List<PromotionDetails> promotionDetails = new ArrayList<>();
 
-    private int setDiscountPrice(){
+    public int getDiscountPrice(){
         //상품에 연동된 promotiondetails 중, 단품할인+판매중인 데이터가 있는 경우 discoutprice 업데이트
 
-        return 1;
+        return productPrice;
     }
     public void setCategory(Category category){
         this.category = category;
         if(!this.category.getProducts().contains(this)){
             this.category.getProducts().add(this);
         }
+    }
 
+    public void updateProductStatus(int statusNum){
+        ProductStatus changeStatus;
     }
 
 //    @OneToMany(mappedBy = "product")
