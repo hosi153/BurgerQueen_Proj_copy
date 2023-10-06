@@ -1,36 +1,31 @@
-package com.example.burgerqueen_proj.user.entity;
+package com.example.burgerqueen_proj.member.entity;
 
-import com.example.burgerqueen_proj.order.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table
-public class User {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
+    private long memberId;
 
 
 
-    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private  Role role;
 
     public void setRole(Role role){
         this.role = role;
-        if (role.getUser()!= this){
-            role.setUser(this);
+        if (role.getMember()!= this){
+            role.setMember(this);
         }
     }
 
@@ -40,8 +35,8 @@ public class User {
 //
 //    public void setOrder(Order order){
 //        orders.add(order);
-//        if (order.getUser() != this){
-//            order.setUser(this);
+//        if (order.getMember() != this){
+//            order.setMember(this);
 //        }
 //    }
 

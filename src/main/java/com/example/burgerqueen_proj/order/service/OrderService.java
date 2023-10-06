@@ -5,9 +5,7 @@ import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
 import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.repository.OrderRepository;
-import com.example.burgerqueen_proj.user.entity.User;
-import com.example.burgerqueen_proj.user.repository.UserRepository;
-import com.example.burgerqueen_proj.user.service.UserService;
+import com.example.burgerqueen_proj.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,11 +19,11 @@ import java.util.Optional;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final UserService userService;
+    private final MemberService memberService;
 
     public Order creatOrder(Order order){
         order.setOrderStatus(Order.OrderStatus.ORDER_REQUEST);
-        order.setUser(userService.findUser(order.getUser().getUserId()));
+        order.setMember(memberService.findUser(order.getMember().getMemberId())); //굳이 주문에서 유저를 찾아갈 필요가 있는가?
         return orderRepository.save(order);
     }
 

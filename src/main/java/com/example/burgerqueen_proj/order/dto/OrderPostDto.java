@@ -1,7 +1,6 @@
 package com.example.burgerqueen_proj.order.dto;
 
-import com.example.burgerqueen_proj.order.entity.Order;
-import com.example.burgerqueen_proj.user.entity.User;
+import com.example.burgerqueen_proj.member.entity.Member;
 import lombok.Getter;
 
 @Getter
@@ -12,10 +11,10 @@ public class OrderPostDto {
 //
 //    private Order.OrderStatus orderStatus;
 
-    public User getUser(){
-        User user = new User();
-        user.setUserId(userId);
-        return user;
+    public Member getUser(){
+        Member member = new Member();
+        member.setMemberId(userId);
+        return member;
     }
 
 }

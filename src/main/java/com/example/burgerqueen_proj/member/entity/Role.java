@@ -1,4 +1,4 @@
-package com.example.burgerqueen_proj.user.entity;
+package com.example.burgerqueen_proj.member.entity;
 
 import com.example.burgerqueen_proj.promotion.entity.PromotionDetails;
 import lombok.AllArgsConstructor;
@@ -24,13 +24,13 @@ public class Role {
     private List<PromotionDetails> promotionDetails = new ArrayList<>();
 
     @OneToOne
-    @JoinColumn(name="USER_ID")
-    private User user;
+    @JoinColumn(name="MEMBER_ID")
+    private Member member;
 
-    public void setUser(User user){
-        this.user =user;
-        if (user.getRole()!=this){
-            user.setRole(this);
+    public void setMember(Member member){
+        this.member = member;
+        if (member.getRole()!=this){
+            member.setRole(this);
         }
 
     }
