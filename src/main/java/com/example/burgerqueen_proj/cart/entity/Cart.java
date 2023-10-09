@@ -1,11 +1,9 @@
 package com.example.burgerqueen_proj.cart.entity;
 
 
-import com.example.burgerqueen_proj.entity.BasicEntity;
 import com.example.burgerqueen_proj.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,12 +32,12 @@ public class Cart {//extends BasicEntity {
 
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.PERSIST)
-    private List <CartDetail> cartDetails = new ArrayList<>();
+    private List <CartProduct> cartProducts = new ArrayList<>();
 
-    public void addCartProduct(CartDetail cartDetail){
-        this.cartDetails.add(cartDetail);
-        if (cartDetail.getCart() != this){
-            cartDetail.addCart(this);
+    public void addCartProduct(CartProduct cartProduct){
+        this.cartProducts.add(cartProduct);
+        if (cartProduct.getCart() != this){
+            cartProduct.addCart(this);
         }
     }
 //

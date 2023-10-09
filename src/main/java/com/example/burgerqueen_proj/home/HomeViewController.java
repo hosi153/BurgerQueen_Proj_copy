@@ -1,5 +1,10 @@
 package com.example.burgerqueen_proj.home;
 
+import com.example.burgerqueen_proj.cart.dto.CartProductResponseDto;
+import com.example.burgerqueen_proj.cart.dto.CartResponseDto;
+import com.example.burgerqueen_proj.cart.mapper.CartMapper;
+import com.example.burgerqueen_proj.cart.repository.CartRepository;
+import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.category.dto.CategoryResponseDto;
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.category.service.CategoryService;
@@ -22,6 +27,10 @@ public class HomeViewController {
     private final ProductService productService;
     private final CategoryService categoryService;
 
+    private final CartMapper cartMapper;
+    private final CartService cartService;
+    private final CartRepository cartRepository;
+
     //홈화면 출력 : header, fotter 및 주문가능한 상품정보 출력
     @GetMapping("/home")
     public String viewHome(Model model){
@@ -31,6 +40,19 @@ public class HomeViewController {
         model.addAttribute("categories", categories);
         model.addAttribute("products",products);
         return "home";
+    }
+
+
+
+    @GetMapping("/cart")
+    public String viewCart(Model model){
+
+        List<CartResponseDto> cartResponseDtos = cartMapper.cartToCartResponseDtos(cartRepository.findAll());
+
+
+        model.addAttribute("cart",cartResponseDtos);
+
+        return "cart";
     }
 
 

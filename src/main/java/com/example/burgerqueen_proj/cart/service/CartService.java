@@ -26,7 +26,10 @@ public class CartService {
 
 
     public Cart createCart(Cart cart){
+        verifyCart(cart);
         Cart savedCart = saveCart(cart);
+        savedCart.setCartProducts(cartRepository.findById(cart.getCartId()).get().getCartProducts());
+
 
         return savedCart;
     }
@@ -61,12 +64,16 @@ public class CartService {
         memberService.findVerifiedUser(cart.getMember().getMemberId());
 
         // 커피가 존재하는지 확인
-//        cart.getCartDetails().stream()
-//                .forEach(cartProduct -> productService.
-//                        findVerifyProduct(cartProduct.getProduct().getProductId()));
+        cart.getCartProducts().stream()
+                .forEach(cartProduct ->  productService.findVerifyProduct(cartProduct.getProduct().getProductId()));
+
     }
 
     private Cart saveCart(Cart cart) {
+        if (memberService.findVerifiedUser(cart.getMember().getMemberId())!=null){
+            return cartRepository.findById(cart.getCartId()).orElseThrow();
+        }
+
         return cartRepository.save(cart);
     }
 
