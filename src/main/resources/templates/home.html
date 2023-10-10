@@ -6,18 +6,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container" style="width:55rem; padding: 1rem;">
+<div class="container" style="width:57rem; padding: 1rem;">
     <div class="row">
         <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>
         <div class="col text-right">
             <a href="/cart">
-            <button type="button" id="cartBTN" class="btn btn-primary btn-sm">장바구니 보기</button></a>
+            <button type="button" id="cartBTN" class="btn btn-danger btn-sm">장바구니 보기</button></a>
             <a href="/myPage" class="btn btn-primary btn-sm">My</a>
         </div>
     </div>
 
     <div th:each="ctg : ${categories}" style="padding: 0.5rem;">
-        <h5 class="row text-capitalize" th:text="| ${ctg.categoryName} / ${ctg.countPorducts}건 조회 |"></h5>
+        <h5 class="row text-capitalize" th:text="| ${ctg.categoryName} / (${ctg.countPorducts}) |"></h5>
 
         <div class="row row-cols-6">
             <div th:each="item : ${products}" style="padding-bottom: 0.3rem;">
@@ -26,13 +26,12 @@
                         <!--<img src="..." class="card-img-top" alt="...">-->
                         <div class="card-body text-center">
                             <h5 class="card-title" th:text="| ${item.productName}|"></h5>
-                            <p class="card-text">상품 소개~~~</p>
+                            <p class="card-text" th:text="| ${item.productDescription}|"></p>
                             <p class="card-text text-left">
                                 <span th:text="|가격 : ${item.productPrice}원|"></span>
-                                <span th:if="${item.productPrice} > ${item.discountPrice}" th:text="|할인가격 : ${item.discountPrice}원|"></span>
+                                <span th:if="${item.productPrice} > ${item.discountPrice}" th:text="|/ 할인가격 : ${item.discountPrice}원|"></span>
                             </p>
-                            <p class="card-text">세트상품 둘러보기</p>
-                            <a href="#" class="btn btn-primary btn-sm" style="width: 6rem;">바로 주문</a>
+<!--                            <a href="#" class="btn btn-primary btn-sm" style="width: 6rem;">바로 주문</a>-->
                             <a href="#" id="add-cart-btn" class="btn btn-primary btn-sm" style="width: 6rem;">장바구니 담기</a>
         <!--                <a th:href="@{/articles/{id}(id=${item.articleId})}"> 상세 </a>-->
         <!--                <p class="card-text" th:text="|내용 : ${item.content}|"></p>-->

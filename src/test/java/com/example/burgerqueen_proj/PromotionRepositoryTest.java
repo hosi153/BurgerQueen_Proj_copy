@@ -47,7 +47,7 @@ public class PromotionRepositoryTest {
         Promotion promotionInfo2 = Promotion.builder().amount(1000).promotionName("테스트 프로모션2").promotionStatus(Promotion.PromotionStatus.PROMOTION_STOP).build();
 
         Promotion savedPromotion1 = promotionRepository.save(promotionInfo1);
-        Promotion savedPromotion2 = promotionRepository.save(promotionInfo2);
+        Promotion savedPromotion = promotionRepository.save(promotionInfo2);
 
         //3. 프로모션 디테일 데이터 생성
         PromotionDetails promotionDetails1 = PromotionDetails.builder().promotion(promotionInfo1).product(product).build();

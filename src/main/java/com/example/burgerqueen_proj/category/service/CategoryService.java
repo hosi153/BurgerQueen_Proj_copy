@@ -40,7 +40,11 @@ public class CategoryService {
     }
 
     public void deleteCategory(long categoryId) {
-        findCategoryById(categoryId);
+        Category category = findCategoryById(categoryId);
+        if(category.getCountProduct() != 0){
+            throw new BusinessLogicException(ExceptionCode.CATEGORY_NOT_EMPTY);
+        }
+
         categoryRepository.deleteById(categoryId);
     }
 

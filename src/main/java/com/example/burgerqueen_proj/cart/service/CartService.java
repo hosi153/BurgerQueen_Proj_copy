@@ -70,9 +70,11 @@ public class CartService {
     }
 
     private Cart saveCart(Cart cart) {
-        if (memberService.findVerifiedUser(cart.getMember().getMemberId())!=null){
-            return cartRepository.findById(cart.getCartId()).orElseThrow();
-        }
+//        if (memberService.findVerifiedUser(cart.getMember().getMemberId())!=null){
+//            return cartRepository.findById(cart.getCartId()).orElseThrow();
+//        }
+        //프로덕트 세팅
+        //카트프로덕트 세팅
 
         return cartRepository.save(cart);
     }
