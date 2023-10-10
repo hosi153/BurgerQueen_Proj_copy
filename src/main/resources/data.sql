@@ -16,3 +16,7 @@ insert into "PRODUCT" (product_name, product_description, product_count, product
 insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id) values ('와퍼 세트','와퍼 단품 + 음료 + 감자튀김',10,5000,1);
 
 insert into "MEMBER" (MEMBER_ID,EMAIL) values (1,'test@test.com');
+
+insert into "CART" (CART_ID,MEMBER_ID) values (1,1);
+
+insert into "CART_PRODUCT" (CART_DETAIL_ID  ,QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1,1);

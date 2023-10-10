@@ -4,9 +4,11 @@ package com.example.burgerqueen_proj.cart.controller;
 import com.example.burgerqueen_proj.cart.dto.CartPatchDto;
 import com.example.burgerqueen_proj.cart.dto.CartPostDto;
 import com.example.burgerqueen_proj.cart.entity.Cart;
+import com.example.burgerqueen_proj.cart.entity.CartProduct;
 import com.example.burgerqueen_proj.cart.mapper.CartMapper;
 import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.member.service.MemberService;
+import com.example.burgerqueen_proj.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -25,10 +27,21 @@ public class CartController {
     private final CartService cartService;
     private final CartMapper cartMapper;
     private final MemberService memberService;
+    private final ProductService productService;
 
     @PostMapping
     public ResponseEntity postCart(@RequestBody CartPostDto cartPostDto){
         Cart cart = cartService.createCart(cartMapper.cartPostDtoToCart(cartPostDto));
+
+        cart.setMember(memberService.findUser(cartPostDto.getMemberId()));
+        CartProduct cartProduct = new CartProduct();
+        cartProduct.setCart(cart);
+        cartProduct.setProduct(productService.findProduct(1));
+        System.out.println(productService.findProduct(1).getProductName());
+
+
+
+
         return new ResponseEntity<>(cart, HttpStatus.CREATED);
     }
 

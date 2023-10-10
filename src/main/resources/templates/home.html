@@ -10,7 +10,8 @@
     <div class="row">
         <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>
         <div class="col text-right">
-            <button type="button" id="cartBTN" class="btn btn-primary btn-sm">장바구니 보기</button>
+            <a href="/cart">
+            <button type="button" id="cartBTN" class="btn btn-primary btn-sm">장바구니 보기</button></a>
             <a href="/myPage" class="btn btn-primary btn-sm">My</a>
         </div>
     </div>
@@ -31,7 +32,7 @@
                                 <span th:if="${item.productPrice} > ${item.discountPrice}" th:text="|/ 할인가격 : ${item.discountPrice}원|"></span>
                             </p>
                             <a href="#" class="btn btn-primary btn-sm" style="width: 6rem;">바로 주문</a>
-                            <a href="#" class="btn btn-primary btn-sm" style="width: 6rem;">장바구니 담기</a>
+                            <a href="#" id="add-cart-btn" class="btn btn-primary btn-sm" style="width: 6rem;">장바구니 담기</a>
         <!--                <a th:href="@{/articles/{id}(id=${item.articleId})}"> 상세 </a>-->
         <!--                <p class="card-text" th:text="|내용 : ${item.content}|"></p>-->
                     </div>
