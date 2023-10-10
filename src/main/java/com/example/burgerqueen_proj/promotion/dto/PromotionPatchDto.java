@@ -14,8 +14,8 @@ public class PromotionPatchDto {
     private long promotionId;
     private String promotionName;
     //private Promotion.PromotionType promotionType;
-    private String targetCategory;
-    private Promotion.DiscountType discountType;
+    //private String targetCategory;
+    private Promotion.PromotionStatus promotionStatus;
     private int amount;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime startDate;
@@ -23,20 +23,20 @@ public class PromotionPatchDto {
     private LocalDateTime endDate;
 
 
-    public Category getTargetCategory(){
-        Category category = new Category();
-        category.setCategoryName(this.targetCategory);
-        return category;
-    }
+//    public Category getTargetCategory(){
+//        Category category = new Category();
+//        category.setCategoryName(this.targetCategory);
+//        return category;
+//    }
 
     public Promotion toEntity(){
         return Promotion.builder()
                 .promotionId(this.promotionId)
                 .promotionName(this.promotionName)
                 //.promotionType(this.promotionType)
-                .targetCategory(this.getTargetCategory())
+                //.targetCategory(this.getTargetCategory())
                 .amount(this.amount)
-                .discountType(this.discountType)
+                .promotionStatus(this.promotionStatus)
                 .startDate(this.startDate)
                 .endDate(this.endDate)
                 .build();

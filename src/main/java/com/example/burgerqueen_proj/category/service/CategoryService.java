@@ -44,6 +44,7 @@ public class CategoryService {
         if(category.getCountProduct() != 0){
             throw new BusinessLogicException(ExceptionCode.CATEGORY_NOT_EMPTY);
         }
+
         categoryRepository.deleteById(categoryId);
     }
 

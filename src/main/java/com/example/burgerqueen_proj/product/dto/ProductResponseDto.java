@@ -30,7 +30,7 @@ public class ProductResponseDto {
         this.productImage = product.getProductImage();
         this.category = product.getCategory().getCategoryName();
         this.status = product.getProductStatus();
-        this.discountPrice=product.getDiscountPrice();
+        this.discountPrice=(int) product.getDiscountPrice();
     }
     public static List<ProductResponseDto> productResponseDtos(List<Product> products){
         List<ProductResponseDto> dtos = new ArrayList(products.size());

@@ -3,6 +3,7 @@ package com.example.burgerqueen_proj.product.entity;
 import com.example.burgerqueen_proj.cart.entity.CartProduct;
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.entity.BasicEntity;
+import com.example.burgerqueen_proj.promotion.entity.Promotion;
 import com.example.burgerqueen_proj.promotion.entity.PromotionDetails;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Setter
 @Getter
@@ -38,7 +40,7 @@ public class Product extends BasicEntity {
 
     //TODO : 할인가격을 entity에 넣어서 편하게 사용할 수 있도록 함
     @Transient
-    private int discountPrice = setDiscountPrice();
+    private double discountPrice=1;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
@@ -52,10 +54,14 @@ public class Product extends BasicEntity {
     @OneToMany(mappedBy = "product")
     private List<PromotionDetails> promotionDetails = new ArrayList<>();
 
-    private int setDiscountPrice(){
+    public double getDiscountPrice(){
+        this.discountPrice=productPrice;
         //상품에 연동된 promotiondetails 중, 단품할인+판매중인 데이터가 있는 경우 discoutprice 업데이트
 
-        return 1;
+        Optional<Promotion> optionalPromotion = Optional.ofNullable(category.getPromotion());
+        optionalPromotion.ifPresent(promotion-> this.discountPrice = promotion.calculatePromotion(this.productPrice));
+        //System.out.println(">>>>>>>>"+this.discountPrice+"========"+category.getPromotion().calculatePromotion(this.productPrice));
+        return this.discountPrice;
     }
     public void setCategory(Category category){
         this.category = category;

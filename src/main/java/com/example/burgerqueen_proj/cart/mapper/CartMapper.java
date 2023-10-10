@@ -28,7 +28,7 @@ public interface CartMapper {
                 .map(cartProductDto ->  {
                     CartProduct cartProduct = new CartProduct();
                     Product product = new Product();
-                    product.setProductId(cartProductDto.getProduct().getProductId());
+                    product.setProductId(cartProductDto.getProductId());
                     cartProduct.addCart(cart);
                     cartProduct.addProduct(product);
                     cartProduct.setQuantity(cartProductDto.getQuantity());

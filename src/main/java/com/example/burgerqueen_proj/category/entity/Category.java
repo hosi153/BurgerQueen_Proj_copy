@@ -33,9 +33,9 @@ public class Category extends BasicEntity {
     @Transient
     private int countProduct;
 
-    //@OneToOne
-   // @JoinColumn(name="promotionId")
-    //private Promotion promotion;
+    @OneToOne
+    @JoinColumn(name="promotionId")
+    private Promotion promotion;
 
 
     public int getCountProduct(){

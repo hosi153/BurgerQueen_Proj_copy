@@ -33,6 +33,7 @@ public class ProductPostDto {
                 .productPrice(this.productPrice)
                 .productImage(this.productImage)
                 .productCount(this.productCount)
+                .discountPrice(this.productPrice)
                 .category(this.getCategory())
                 .build();
     }

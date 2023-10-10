@@ -1,3 +1,4 @@
+insert into "CATEGORY" (category_id, category_name) values ( 0,'미분류' );
 insert into "CATEGORY" (category_name) values ( 'SET' );
 insert into "CATEGORY" (category_name) values ('HAMBURGER');
 insert into "CATEGORY" (category_name) values ('DRINK' );

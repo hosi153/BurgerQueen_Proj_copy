@@ -22,6 +22,11 @@ public class PromotionController {
         return new ResponseEntity(PromotionResponseDto.promotionResponseDtos(promotionService.getAllPromotion()), HttpStatus.OK);
     }
 
+//    @GetMapping("/{ctg-id}")
+//    public ResponseEntity findAllPromotionByCategory(@PathVariable("ctg-id")long categoryId){
+//        return new ResponseEntity(PromotionResponseDto.promotionResponseDtos(promotionService.getAllPromotionByCategory(categoryId)), HttpStatus.OK);
+//    }
+
     //관리자 기능
     //CREAT : 프로모션 생성
     @PostMapping("/adm/new")

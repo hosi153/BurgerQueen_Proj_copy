@@ -2,6 +2,8 @@ package com.example.burgerqueen_proj.promotion.entity;
 
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.entity.BasicEntity;
+import com.example.burgerqueen_proj.exception.BusinessLogicException;
+import com.example.burgerqueen_proj.exception.ExceptionCode;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter @Builder
 @Setter
@@ -43,7 +46,7 @@ public class Promotion extends BasicEntity {
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    private PromotionStatus promotionStatus =PromotionStatus.PROMOTION_ING;
+    private PromotionStatus promotionStatus =PromotionStatus.PROMOTION_STOP;
 
     @Builder.Default
     @OneToMany(mappedBy = "promotion")
@@ -52,20 +55,37 @@ public class Promotion extends BasicEntity {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-
     public void makeStop(){
         this.promotionStatus = PromotionStatus.PROMOTION_STOP;
+        targetCategory.setPromotion(null);
     }
 
     public void updatePromotion(Promotion promotion) {
-        this.promotionName = promotion.getPromotionName();
+        Optional.ofNullable(promotion.getPromotionName()).ifPresent(this::setPromotionName);
+        //Optional.ofNullable(promotion.getTargetCategory()).ifPresent(this::setTargetCategory);
+        if(promotion.getAmount() > 0) this.amount = promotion.getAmount();
+        //Optional.ofNullable(promotion.getAmount()).ifPresent(this::setAmount);
+        Optional.ofNullable(promotion.getPromotionStatus()).ifPresent(this::setPromotionStatus);
+        Optional.ofNullable(promotion.getStartDate()).ifPresent(this::setStartDate);
+        Optional.ofNullable(promotion.getEndDate()).ifPresent(this::setEndDate);
+
         //this.promotionType = promotion.getPromotionType();
-        this.discountType = promotion.getDiscountType();
-        this.amount = promotion.getAmount();
-        this.promotionStatus = promotion.getPromotionStatus();
-        this.startDate = promotion.getStartDate();
-        this.endDate = promotion.getEndDate();
+//        this.discountType = promotion.getDiscountType();
+//        this.amount = promotion.getAmount();
+//        this.promotionStatus = promotion.getPromotionStatus();
+//        this.startDate = promotion.getStartDate();
+//        this.endDate = promotion.getEndDate();
+        if(promotionStatus.equals(PromotionStatus.PROMOTION_ING)) mappingCategory();
     }
+
+    private void mappingCategory() {
+        if(targetCategory.getPromotion() == null) {
+            targetCategory.setPromotion(this);
+        }else if(targetCategory.getPromotion() !=this){
+            throw new BusinessLogicException(ExceptionCode.CATEGORY_HAVE_ANOTHER_PROMOTION);
+        }
+    }
+
 
 //    public enum PromotionType{
 //        PROMOTION_SET(0, "세트상인할품 "),// 세트 상품 할인
@@ -83,6 +103,25 @@ public class Promotion extends BasicEntity {
 //
 //
 //    }
+    public double calculatePromotion(int originalPrice){
+        double discountPrice;
+        switch(this.discountType){
+            case DISCOUNT_AMOUNT :
+                discountPrice = originalPrice - amount;
+                break;
+            case DISCOUNT_RATE:
+                //5000 * (100-20)/100
+                discountPrice = originalPrice - ((double) (originalPrice * amount) /100);
+                System.out.println(originalPrice+">>>>>"+amount+"==="+discountPrice);
+                break;
+            default:
+                discountPrice = originalPrice;
+                break;
+        }
+
+        return discountPrice;
+
+    }
 
     public enum DiscountType{
         DISCOUNT_AMOUNT(0, "정액할인"), // 정액 할인
