@@ -47,10 +47,10 @@ public class HomeViewController {
     @GetMapping("/cart")
     public String viewCart(Model model){
 
-        List<CartResponseDto> cartResponseDtos = cartMapper.cartToCartResponseDtos(cartRepository.findAll());
+        CartResponseDto cartResponseDto = cartMapper.cartToCartResponseDto(cartRepository.findById(1L).orElseThrow());
 
 
-        model.addAttribute("cart",cartResponseDtos);
+        model.addAttribute("cart",cartResponseDto);
 
         return "cart";
     }

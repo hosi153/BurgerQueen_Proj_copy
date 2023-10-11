@@ -2,6 +2,7 @@ package com.example.burgerqueen_proj.cart.service;
 
 
 import com.example.burgerqueen_proj.cart.entity.Cart;
+import com.example.burgerqueen_proj.cart.entity.CartProduct;
 import com.example.burgerqueen_proj.cart.repository.CartRepository;
 import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
@@ -28,8 +29,6 @@ public class CartService {
     public Cart createCart(Cart cart){
         verifyCart(cart);
         Cart savedCart = saveCart(cart);
-        savedCart.setCartProducts(cartRepository.findById(cart.getCartId()).get().getCartProducts());
-
 
         return savedCart;
     }
@@ -38,11 +37,16 @@ public class CartService {
     public Cart updateCart(Cart cart){
         Cart findCart = findVerifiedCart(cart.getCartId());
 
-//        Optional.ofNullable(cart.getTotalCount()).ifPresent(totalCount -> findCart.setTotalCount(totalCount));
+        Optional.ofNullable(cart.getTotalCount()).ifPresent(totalCount -> findCart.setTotalCount(totalCount));
         return cartRepository.save(findCart);
     }
 
-    public Page<Cart> findCart(int page, int size){
+    public Cart findcart(long cartId){
+        Cart findCart = findVerifiedCart(cartId);
+        return findCart;
+    }
+
+    public Page<Cart> findCarts(int page, int size){
         return cartRepository.findAll(PageRequest.of(page,size, Sort.by("cartId").descending()));
     }
 
@@ -75,6 +79,14 @@ public class CartService {
 //        }
         //프로덕트 세팅
         //카트프로덕트 세팅
+        int totalPrice = 0;
+        for(int i=0;i<cart.getCartProducts().size();i++){
+            cart.getCartProducts().get(i).setProduct(productService.findProduct(cart.getCartProducts().get(i).getProduct().getProductId()));
+            totalPrice+=cart.getCartProducts().get(i).getProduct().getProductPrice()*cart.getCartProducts().get(i).getProduct().getProductCount();
+        }
+        cart.setTotalPrice(totalPrice);
+
+
 
         return cartRepository.save(cart);
     }

@@ -22,11 +22,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="item:${cart}">
-                    <td th:text="${item.getCartId()}"></td>
-                    <td th:text="${item.getCartProducts().get(0).getProductName()}"></td>
-                    <td th:text="${item.getCartProducts().get(0).getQuantity()}"></td>
-                    <td th:text="${item.getCartProducts().get(0).getPrice()}"></td>
+                <tr th:each="item:${cart.getCartProducts()}">
+                        <td th:text="${item.getProductName()}"></td>
+                        <td th:text="${item.getQuantity()}"></td>
+                        <td th:text="${item.getPrice()}"></td><tr></tr>
+
+
+
+                    </th:block>
+
+
+
 
 
                 </tr>
@@ -44,6 +50,6 @@
     <a href="/home">
         <button type="button" id="home-btn" class="btn btn-primary btn-sm">홈</button>
     </a>
-    <button type="button" id="order-btn" class="btn btn-primary btn-sm">주문</button>
+    <button type="button" id="order-btn" class="btn btn-primary btn-sm">결제</button>
 </body>
 </html>
