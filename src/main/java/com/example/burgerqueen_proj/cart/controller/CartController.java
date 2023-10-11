@@ -8,6 +8,7 @@ import com.example.burgerqueen_proj.cart.entity.CartProduct;
 import com.example.burgerqueen_proj.cart.mapper.CartMapper;
 import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.member.service.MemberService;
+import com.example.burgerqueen_proj.product.entity.Product;
 import com.example.burgerqueen_proj.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,10 +35,13 @@ public class CartController {
         Cart cart = cartService.createCart(cartMapper.cartPostDtoToCart(cartPostDto));
 
         cart.setMember(memberService.findUser(cartPostDto.getMemberId()));
-        CartProduct cartProduct = new CartProduct();
-        cartProduct.setCart(cart);
-        cartProduct.setProduct(productService.findProduct(1));
-        System.out.println(productService.findProduct(1).getProductName());
+
+
+        for (CartProduct cartProduct : cart.getCartProducts()){
+            System.out.println(cartProduct.getProduct().getProductName());
+            System.out.println(cartProduct.getProduct().getProductPrice()+"원");
+        }
+
 
 
 
@@ -51,12 +55,21 @@ public class CartController {
         Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
 
         return new ResponseEntity<>(cart,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/{cart-id}")
+    public ResponseEntity getCart(@PathVariable("cart-id")long cartId){
+        Cart cart = cartService.findcart(cartId);
+       return new ResponseEntity(cartMapper.cartToCartResponseDto(cart),HttpStatus.OK);
+
+
     }
 
     @GetMapping
-    public ResponseEntity getCart( @RequestParam int page,
+    public ResponseEntity getCarts( @RequestParam int page,
                                    @RequestParam int size){
-        Page<Cart> cartPage = cartService.findCart(page,size);
+        Page<Cart> cartPage = cartService.findCarts(page,size);
         List<Cart> carts = cartPage.getContent();
 
         return new ResponseEntity<>(cartMapper.cartToCartResponseDtos(carts),HttpStatus.OK);

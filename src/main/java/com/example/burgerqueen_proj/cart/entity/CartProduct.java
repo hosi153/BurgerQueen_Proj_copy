@@ -30,6 +30,7 @@ public class CartProduct {// extends BasicEntity {
 
 
     public void addProduct(Product product) {
+
         this.product=product;
         if (!this.product.getCartProducts().contains(this)) {
             this.product.addCartProduct(this);
