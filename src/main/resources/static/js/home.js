@@ -4,7 +4,6 @@ var cols = document.querySelectorAll('#cartDiv .btn');
 
 // var cartList = {};
 
-
 //해당 사용자의 카트 정보를 자바스크립트 변수에 저장 (html소스 내)
 
 //장바구니 버튼 클릭이벤트 처리(자바스크립트 장바구니에 저장)
@@ -35,13 +34,14 @@ if(buyBtn){
     buyBtn.addEventListener('click',event =>{
         let cartId = document.getElementById('cartId').value;
         console.log(`cartId: ${cartId}`)
+        //location.href=`/cart`;
         fetch(`/api/cart/${cartId}`,{
             method :'PATCH',
             headers : {"Content-Type": "application/json",},
             body : JSON.stringify({
                 cartId : cartId,
                 memberId : 1,
-                cartProducts : cartListTest
+                cartProducts : cartListAll
                 //content: document.getElementById("editContent").value,
                 // member:document.getElementById("author").value
 
