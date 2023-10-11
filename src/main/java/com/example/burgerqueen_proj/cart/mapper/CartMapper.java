@@ -59,7 +59,7 @@ public interface CartMapper {
 
         cart.setCartProducts(cartPatchDto.getCartProducts());
         cart.setCartId(cartPatchDto.getCartId());
-        cart.setMember(cartPatchDto.getMember());
+
 
 
         return cart;
@@ -75,6 +75,8 @@ public interface CartMapper {
         cartResponseDto.setCartId(cart.getCartId());
         cartResponseDto.setMember(cart.getMember());
         cartResponseDto.setCartProducts(cartProductToCartProductResponseDto(cartProducts));
+        cartResponseDto.setTotalCount(cart.getTotalCount());
+        cartResponseDto.setTotalPrice(cart.getTotalPrice());
 
         return cartResponseDto;
 

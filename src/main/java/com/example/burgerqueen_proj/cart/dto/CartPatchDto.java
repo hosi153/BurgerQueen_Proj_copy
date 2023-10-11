@@ -11,7 +11,7 @@ import java.util.List;
 public class CartPatchDto {
     private long cartId;
 
-    private long memberId;
+//    private long memberId;
 
     private List<CartProduct> cartProducts;
 
@@ -20,11 +20,11 @@ public class CartPatchDto {
         this.cartId = cartId;
     }
 
-    public Member getMember(){
-        Member member = new Member();
-        member.setMemberId(memberId);
-
-        return member;
-    }
+//    public Member getMember(){
+//        Member member = new Member();
+//        member.setMemberId(memberId);
+//
+//        return member;
+//    }
 
 }

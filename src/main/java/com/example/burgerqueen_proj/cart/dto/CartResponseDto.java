@@ -19,6 +19,10 @@ public class CartResponseDto {
     private List<CartProductResponseDto> cartProducts;
 
 
+    private int totalCount;
+    private int totalPrice;
+
+
     public void setMember(Member member){
         this.memberId=member.getMemberId();
     }

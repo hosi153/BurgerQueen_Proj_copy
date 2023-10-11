@@ -50,7 +50,7 @@ public class CartService {
         return cartRepository.findAll(PageRequest.of(page,size, Sort.by("cartId").descending()));
     }
 
-    public void cancelCart(long cartId){
+    public void cancelCart(long cartId){ ////////// 수정수정수정 수정
         Cart findCart = findVerifiedCart(cartId);
         cartRepository.delete(findCart);
     }
@@ -82,7 +82,7 @@ public class CartService {
         int totalPrice = 0;
         for(int i=0;i<cart.getCartProducts().size();i++){
             cart.getCartProducts().get(i).setProduct(productService.findProduct(cart.getCartProducts().get(i).getProduct().getProductId()));
-            totalPrice+=cart.getCartProducts().get(i).getProduct().getProductPrice()*cart.getCartProducts().get(i).getProduct().getProductCount();
+            totalPrice+=cart.getCartProducts().get(i).getProduct().getProductPrice()*cart.getCartProducts().get(i).getQuantity();
         }
         cart.setTotalPrice(totalPrice);
 
