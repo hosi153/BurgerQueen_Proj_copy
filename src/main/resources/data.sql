@@ -25,6 +25,6 @@ update "CATEGORY" SET promotion_id=2 WHERE category_name='HAMBURGER';
 
 insert into "MEMBER" (MEMBER_ID,EMAIL) values (1,'test@test.com');
 
--- insert into "CART" (CART_ID,MEMBER_ID) values (1,1);
---
--- insert into "CART_PRODUCT" (CART_DETAIL_ID  ,QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1,1);
+insert into "CART" (CART_ID,MEMBER_ID, TOTAL_COUNT, total_price) values (1,1,1, 100);
+
+insert into "CART_PRODUCT" (CART_DETAIL_ID  ,QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1,1);

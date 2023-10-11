@@ -4,6 +4,7 @@ var cols = document.querySelectorAll('#cartDiv .btn');
 
 // var cartList = {};
 
+
 //해당 사용자의 카트 정보를 자바스크립트 변수에 저장 (html소스 내)
 
 //장바구니 버튼 클릭이벤트 처리(자바스크립트 장바구니에 저장)
@@ -20,7 +21,9 @@ function click(e){
         alert("이미 장바구니에 있습니다.");
     }
     else {
+        cartListAll.push({productId : productId, quantity : 1})
         cartList[productId] = 1;
+        console.log(cartListAll)
         window.alert(`${productName} 상품이 장바구니에 추가되었습니다.`);
     }
     console.log(cartList)
@@ -36,8 +39,12 @@ if(buyBtn){
             method :'PATCH',
             headers : {"Content-Type": "application/json",},
             body : JSON.stringify({
+                cartId : cartId,
+                memberId : 1,
+                cartProducts : cartListTest
                 //content: document.getElementById("editContent").value,
                 // member:document.getElementById("author").value
+
             })
         })
             .then((response) => {
