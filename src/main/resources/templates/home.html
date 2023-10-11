@@ -35,7 +35,7 @@
     </div>
 
     <div th:each="ctg : ${categories}" style="padding: 0.5rem;">
-        <h5 class="row text-capitalize" th:text="| ${ctg.categoryName} / (${ctg.countPorducts}) |"></h5>
+        <h5 class="row text-capitalize" th:text="| ${ctg.categoryName} (${ctg.countPorducts}) |"></h5>
 
         <div class="row">
             <div th:each="item : ${products}" style="padding-bottom: 0.3rem;">
