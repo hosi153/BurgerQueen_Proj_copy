@@ -6,6 +6,7 @@ import com.example.burgerqueen_proj.cart.entity.CartProduct;
 import com.example.burgerqueen_proj.cart.repository.CartRepository;
 import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
+import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.service.MemberService;
 import com.example.burgerqueen_proj.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,6 +33,11 @@ public class CartService {
         Cart savedCart = saveCart(cart);
 
         return savedCart;
+    }
+
+    public Cart findCartByMemberId(long memberId){
+        Member member = memberService.findUser(1L);
+        return cartRepository.findByMember(member);
     }
 
 

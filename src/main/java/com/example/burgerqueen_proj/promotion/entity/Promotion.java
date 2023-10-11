@@ -28,6 +28,7 @@ public class Promotion extends BasicEntity {
     private long promotionId;
 
     private String promotionName;
+    private String promotionDescription;
 
 //    @Builder.Default
 //    @Enumerated(EnumType.STRING)

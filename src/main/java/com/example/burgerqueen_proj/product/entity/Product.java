@@ -40,7 +40,7 @@ public class Product extends BasicEntity {
 
     //TODO : 할인가격을 entity에 넣어서 편하게 사용할 수 있도록 함
     @Transient
-    private double discountPrice=1;
+    private double discountPrice;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
