@@ -1,30 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>BurgerQueen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<script>
+    var cartList = {};
+</script>
 </head>
 <body>
-<div class="container" style="width:57rem; padding: 1rem;">
-    <div class="row">
-        <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>
-        <div class="col text-right">
-            <a href="/cart">
-            <button type="button" id="cartBTN" class="btn btn-danger btn-sm">장바구니 보기</button></a>
-            <a href="/myPage" class="btn btn-primary btn-sm">My</a>
+
+    <nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <span class="navbar-text">님! 환영합니다.</span>
+<!--            <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>-->
+            <div class="col text-right">
+
+                <button class="btn btn-outline-success" type="button" id="buyBtn">구매하기</button>
+                <button class="btn btn-outline-secondary" type="button">마이페이지</button>
+
+            </div>
+        </div>
+    </nav>
+<div class="container" style="width:60rem; padding: 1rem;">
+    <div class="row" style="margin-top:3rem">
+        <h5>진행중인 프로모션</h5>
+    </div>
+
+    <div th:each="promotion : ${promotions}" style="padding: 0.5rem;">
+        <div class="row text-primary">
+            <li th:text="|${promotion.promotionName} : ${promotion.promotionDescription}|"></li>
         </div>
     </div>
 
     <div th:each="ctg : ${categories}" style="padding: 0.5rem;">
         <h5 class="row text-capitalize" th:text="| ${ctg.categoryName} / (${ctg.countPorducts}) |"></h5>
 
-        <div class="row row-cols-6">
+        <div class="row">
             <div th:each="item : ${products}" style="padding-bottom: 0.3rem;">
                 <div class="col" th:if="${item.category == ctg.categoryName}">
-                    <div class="card" style="width: 16.5rem;">
-                        <!--<img src="..." class="card-img-top" alt="...">-->
-                        <div class="card-body text-center">
+                    <div class="card h-100" style="width: 17rem; ">
+                        <img th:if="${item.productImage} != null" th:src="${item.productImage}" class="card-img-top" style="height:13rem; object-fit:cover;" alt="...">
+                        <div class="card-body text-center" id="cartDiv">
                             <h5 class="card-title" th:text="| ${item.productName}|"></h5>
                             <p class="card-text" th:text="| ${item.productDescription}|"></p>
                             <p class="card-text text-left">
@@ -32,19 +50,49 @@
                                 <span th:if="${item.productPrice} > ${item.discountPrice}" th:text="|/ 할인가격 : ${item.discountPrice}원|"></span>
                             </p>
 <!--                            <a href="#" class="btn btn-primary btn-sm" style="width: 6rem;">바로 주문</a>-->
-                            <a href="#" id="add-cart-btn" class="btn btn-primary btn-sm" style="width: 6rem;">장바구니 담기</a>
+                            <button type="button" th:id="${item.productId}" th:name="${item.productName}" class="btn btn-outline-success btn-sm" style="width: 6rem;">장바구니 담기</button>
+<!--                            <script>-->
+<!--                                document.getElementById("add-cart-btn").onclick = function () {-->
+<!--                                    alert("Hello World");-->
+<!--                                };-->
+<!--                            </script>-->
         <!--                <a th:href="@{/articles/{id}(id=${item.articleId})}"> 상세 </a>-->
         <!--                <p class="card-text" th:text="|내용 : ${item.content}|"></p>-->
+                        </div>
                     </div>
     <!--                    <div class="card-footer">-->
     <!--                        <small class="text-muted">Last updated 3 mins ago</small>-->
     <!--                    </div>-->
-                     </div>
-                </div>
+                 </div>
             </div>
         </div>
+    </div>
+
+    <div>카트내용</div>
+
+
+    <div th:each="cart : ${cart}" style="padding: 0.5rem;">
+<!--        해당 사용자의 카트 정보를 자바스크립트 변수에 저장-->
+        <input type="hidden" id="cartId" th:value="${cartId}">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var cartList = {};
+            let productId = [[${cart.productId}]]
+            let productName = [[${cart.productName}]]
+            cartList[productId] = [[${cart.quantity}]]
+            console.log(cartList)
+            /*]]>*/
+        </script>
+        <li th:text="|${cart.productId} : ${cart.productName} : ${cart.quantity}|"></li>
+    </div>
 
 </div>
+
+<footer class="navbar navbar-expand-lg navbar-light bg-light">
+    <p>copyright 2023. 박지영, 최호균 </p>
+</footer>
+
+
 <script th:inline="javascript" src="/js/home.js"></script>
 </body>
 </html>
