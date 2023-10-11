@@ -77,9 +77,12 @@
         <script th:inline="javascript">
             /*<![CDATA[*/
             var cartList = {};
+            var cartListAll = [];
+
             let productId = [[${cart.productId}]]
             let productName = [[${cart.productName}]]
             cartList[productId] = [[${cart.quantity}]]
+            cartListAll.push({productId : productId, quantity : [[${cart.quantity}]]})
             console.log(cartList)
             /*]]>*/
         </script>
