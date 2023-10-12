@@ -9,6 +9,9 @@ import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.category.dto.CategoryResponseDto;
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.category.service.CategoryService;
+import com.example.burgerqueen_proj.member.dto.MemberResponseDto;
+import com.example.burgerqueen_proj.member.entity.Member;
+import com.example.burgerqueen_proj.member.service.MemberService;
 import com.example.burgerqueen_proj.product.dto.ProductResponseDto;
 import com.example.burgerqueen_proj.product.entity.Product;
 import com.example.burgerqueen_proj.product.service.ProductService;
@@ -30,6 +33,7 @@ public class HomeViewController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final PromotionService promotionService;
+    private final MemberService memberService;
 
     private final CartMapper cartMapper;
     private final CartService cartService;
@@ -41,12 +45,16 @@ public class HomeViewController {
         List<CategoryResponseDto> categories = CategoryResponseDto.categoiresResponseDtos(categoryService.findAllCategoryHaveProduct());
         List<ProductResponseDto> products = ProductResponseDto.productResponseDtos(productService.findAllProduct());
         List<PromotionResponseDto> promotions = PromotionResponseDto.promotionResponseDtos(promotionService.getActivePromotions());
-        CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMemberId(1L));
+
+        Member member = memberService.findMember(1L);
+        MemberResponseDto memberDto = new MemberResponseDto(member);
+        CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
 
         model.addAttribute("cartId", cart.getCartId());
         model.addAttribute("promotions", promotions);
         model.addAttribute("categories", categories);
         model.addAttribute("products",products);
+        model.addAttribute("member",memberDto);
         model.addAttribute("cart", cart.getCartProducts());
         return "home";
     }
@@ -62,6 +70,15 @@ public class HomeViewController {
         model.addAttribute("cart",cartResponseDto);
 
         return "cart";
+    }
+
+    @GetMapping("/myPage")
+    public String viewMyPage(Model model){
+        MemberResponseDto member = new MemberResponseDto(memberService.findMember(1L));
+
+        model.addAttribute("member",member);
+
+        return "myPage";
     }
 
 

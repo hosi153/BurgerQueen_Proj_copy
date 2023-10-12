@@ -20,6 +20,7 @@ public class Role {
 
     private String Name;
 
+
     @OneToMany(mappedBy = "role")
     private List<PromotionDetails> promotionDetails = new ArrayList<>();
 

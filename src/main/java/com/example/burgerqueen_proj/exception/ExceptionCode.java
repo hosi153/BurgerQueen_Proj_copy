@@ -13,6 +13,7 @@ public enum ExceptionCode {
     PRODUCT_EXISTS(409, "Product already exists"),
     CATEGORY_HAVE_ANOTHER_PROMOTION(409, "Category already have promotion"),
     USER_NOT_FOUND(404, "Member not found"),
+    MEMBER_EXISTS(409, "Member already exists"),
     CART_NOT_FOUND(404, "Cart not found"),
     ORDER_NOT_FOUND(404, "Order not found");
 

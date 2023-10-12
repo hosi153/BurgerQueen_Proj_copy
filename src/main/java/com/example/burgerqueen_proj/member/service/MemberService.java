@@ -1,5 +1,7 @@
 package com.example.burgerqueen_proj.member.service;
 
+import com.example.burgerqueen_proj.cart.entity.Cart;
+import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
 import com.example.burgerqueen_proj.member.entity.Member;
@@ -7,6 +9,8 @@ import com.example.burgerqueen_proj.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Transient;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -14,16 +18,18 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final CartService cartService;
 
 
 
-    public Member findUser(long userId) {
-        return findVerifiedUser(userId);
+    public Member findMember(long memberId) {
+
+        return findVerifiedMember(memberId);
     }
 
-    public Member findVerifiedUser(long userId) {
+    public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember =
-                memberRepository.findById(userId);
+                memberRepository.findById(memberId);
         Member findMember =
                 optionalMember.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
@@ -31,4 +37,33 @@ public class MemberService {
     }
 
 
+
+
+    @Transactional
+    public Member joinMember(Member member) {
+        //이메일 기준으로 존재하는 사용자인지 확인
+        verifyExistsEmail(member.getEmail());
+        Member joinedMember = memberRepository.save(member);
+
+        //카트 생성
+        Cart newCart = new Cart();
+        newCart.setMember(joinedMember);
+        cartService.createCart(newCart);
+
+        return joinedMember;
+    }
+
+
+    private void verifyExistsEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if(member.isPresent())
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+    }
+
+
+    public Member findMemberByEmail(String email) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        Member findMember = optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        return findMember;
+    }
 }

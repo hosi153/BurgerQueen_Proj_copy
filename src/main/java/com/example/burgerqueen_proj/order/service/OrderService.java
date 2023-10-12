@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -21,9 +22,11 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final MemberService memberService;
 
+    @Transactional
     public Order creatOrder(Order order){
         order.setOrderStatus(Order.OrderStatus.ORDER_REQUEST);
-        order.setMember(memberService.findUser(order.getMember().getMemberId())); //굳이 주문에서 유저를 찾아갈 필요가 있는가?
+        order.setMember(memberService.findMember(order.getMember().getMemberId())); //굳이 주문에서 유저를 찾아갈 필요가 있는가?
+        order.getMember().addStamp();
         return orderRepository.save(order);
     }
 

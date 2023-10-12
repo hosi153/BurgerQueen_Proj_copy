@@ -23,7 +23,7 @@ insert into "PROMOTION" (promotion_name, promotion_description, amount, discount
 update "CATEGORY" SET promotion_id=1 WHERE category_name='SET';
 update "CATEGORY" SET promotion_id=2 WHERE category_name='HAMBURGER';
 
-insert into "MEMBER" (MEMBER_ID,EMAIL) values (1,'test@test.com');
+insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, address3, phone) values ('test@test.com','테스트사용자','GRADE_JOIN',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
 
 insert into "CART" (CART_ID,MEMBER_ID, TOTAL_COUNT, total_price) values (1,1,1, 100);
 

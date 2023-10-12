@@ -26,7 +26,7 @@ import java.util.Optional;
 public class CartService {
 
 
-    private final MemberService memberService;
+    //private final MemberService memberService;
     private final CartRepository cartRepository;
     private final ProductService productService;
 
@@ -40,8 +40,8 @@ public class CartService {
         return savedCart;
     }
 
-    public Cart findCartByMemberId(long memberId){
-        Member member = memberService.findUser(1L);
+    public Cart findCartByMember(Member member){
+
         return cartRepository.findByMember(member);
     }
 
@@ -100,7 +100,7 @@ public class CartService {
 
     private void verifyCart(Cart cart) {
         // 회원이 존재하는지 확인
-        memberService.findVerifiedUser(cart.getMember().getMemberId());
+        //memberService.findVerifiedUser(cart.getMember().getMemberId());
 
 //        // 커피가 존재하는지 확인
 //        cart.getCartProducts().stream()
