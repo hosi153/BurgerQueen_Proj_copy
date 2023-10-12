@@ -76,6 +76,11 @@ public class PromotionService {
         return promotionRepository.save(updatedPromotion);
     }
 
+    public List<Promotion> getActivePromotions() {
+        Promotion.PromotionStatus activePromotion = Promotion.PromotionStatus.PROMOTION_ING;
+        return promotionRepository.findAllByPromotionStatus(activePromotion);
+    }
+
 //    public List<Promotion> getAllPromotionByCategory(long categoryId) {
 //        return promotionRepository.findAllByTargetCategory(categoryId);
 //    }

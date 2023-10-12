@@ -6,6 +6,8 @@ import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +35,18 @@ public class CategoryService {
     }
     public Optional<Category> findCategoryByName(String categoryName){
         return categoryRepository.findByCategoryName(categoryName);
+    }
+
+    public List<Category> findAllCategoryHaveProduct(){
+        //List<Category> returnCategories = new ArrayList<>();
+        List<Category> categories= findAllCategory();
+        Iterator it = categories.iterator();
+        while(it.hasNext()){
+            Category tmp = (Category) it.next();
+            if(tmp.getCountProduct() < 1) it.remove();
+        }
+
+        return categories;
     }
 
     public List<Category> findAllCategory(){

@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 public class PromotionResponseDto {
     private String promotionName;
+    private String promotionDescription;
     //private Promotion.PromotionType promotionType;
     private String targetCategory;
     private Promotion.DiscountType discountType;
@@ -23,6 +24,7 @@ public class PromotionResponseDto {
 
     public PromotionResponseDto(Promotion promotion) {
         this.promotionName = promotion.getPromotionName();
+        this.promotionDescription = promotion.getPromotionDescription();
         //this.promotionType = promotion.getPromotionType();
         this.targetCategory = promotion.getTargetCategory().getCategoryName();
         this.discountType = promotion.getDiscountType();
