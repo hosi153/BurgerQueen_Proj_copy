@@ -50,20 +50,21 @@ public class CartService {
         Cart findCart = findVerifiedCart(cart.getCartId());
 
 
+
         findCart.setCartProducts(cart.getCartProducts());
 
 
         Optional.ofNullable(cart.getCartProducts())
                 .ifPresent(cartProducts -> findCart.setCartProducts(cartProducts));
 
-        findCart.updateCartProducts(cart.getCartProducts());
+        findCart.setCartProducts(cart.getCartProducts());
 
 
-        cartProductRepository.save(cart.getCartProducts().get(0));
+        cartProductRepository.save(findCart.getCartProducts().get(0));
 
 
-
-        return cartRepository.save(findCart);
+        cartRepository.save(findCart);
+        return findCart;
     }
 
     public Cart findcart(long cartId){
@@ -114,11 +115,17 @@ public class CartService {
 
         //카트프로덕트 세팅
         int totalPrice = 0;
+        int totalCount = 0;
         for(int i=0;i<cart.getCartProducts().size();i++){
+
             cart.getCartProducts().get(i).setProduct(productService.findProduct(cart.getCartProducts().get(i).getProduct().getProductId()));
+
+
             totalPrice+=cart.getCartProducts().get(i).getProduct().getProductPrice()*cart.getCartProducts().get(i).getQuantity();
+            totalCount+=cart.getCartProducts().get(i).getQuantity();
         }
         cart.setTotalPrice(totalPrice);
+        cart.setTotalCount(totalCount);
 
 
 

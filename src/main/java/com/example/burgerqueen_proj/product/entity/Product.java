@@ -3,6 +3,7 @@ package com.example.burgerqueen_proj.product.entity;
 import com.example.burgerqueen_proj.cart.entity.CartProduct;
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.entity.BasicEntity;
+import com.example.burgerqueen_proj.order.entity.OrderProduct;
 import com.example.burgerqueen_proj.promotion.entity.Promotion;
 import com.example.burgerqueen_proj.promotion.entity.PromotionDetails;
 import lombok.*;
@@ -87,6 +88,16 @@ public class Product extends BasicEntity {
         return this.productDescription;
     }
 
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderProduct> orderProducts = new ArrayList<>();
+
+    public void addOrderProduct(OrderProduct orderProduct) {
+        this.orderProducts.add(orderProduct);
+        if (orderProduct.getProduct() != this) {
+            orderProduct.addProduct(this);
+        }
+    }
 
 
 
