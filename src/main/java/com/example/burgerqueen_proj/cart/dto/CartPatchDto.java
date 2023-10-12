@@ -4,27 +4,26 @@ import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.cart.entity.CartProduct;
 import com.example.burgerqueen_proj.member.entity.Member;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-@Getter
+@Getter @Setter
 public class CartPatchDto {
     private long cartId;
 
-    private long memberId;
+//    private long memberId;
 
-    private List<CartProduct> cartProducts;
+    private List<CartProductPatchDto> cartProductPatchDtos;
 
 
-    public void setCartId(long cartId){
-        this.cartId = cartId;
-    }
 
-    public Member getMember(){
-        Member member = new Member();
-        member.setMemberId(memberId);
 
-        return member;
-    }
+//    public Member getMember(){
+//        Member member = new Member();
+//        member.setMemberId(memberId);
+//
+//        return member;
+//    }
 
 }

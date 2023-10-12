@@ -8,6 +8,7 @@ import com.example.burgerqueen_proj.product.entity.Product;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,22 @@ public interface CartMapper {
 
 //    Cart cartPatchDtoToCart(CartPatchDto cartPatchDto);
 
+    default CartProduct cartProductPatchDtoToCart(CartProductPatchDto cartProductPatchDto){
+        CartProduct cartProduct = new CartProduct();
+        Product product = new Product();
+
+        product.setProductId(cartProductPatchDto.getProductId());
+        cartProduct.setCartProductId(cartProductPatchDto.getCartProductId());
+        cartProduct.setQuantity(cartProductPatchDto.getQuantity());
+        cartProduct.setProduct(product);
+
+        return cartProduct;
+
+    }
+
+
+
+
     List<CartResponseDto> cartToCartResponseDtos(List<Cart> carts);
 
     //        Cart cartPostDtoToCart(CartPostDto cartPostDto);
@@ -25,7 +42,7 @@ public interface CartMapper {
         Member member = new Member();
         member.setMemberId(cartPostDto.getMemberId());
 
-        List<CartProduct> cartProducts = cartPostDto.getCartProducts().stream()
+        List<CartProduct> cartProducts = cartPostDto.getCartProductDtos().stream()
                 .map(cartProductDto -> {
                     CartProduct cartProduct = new CartProduct();
                     Product product = new Product();
@@ -56,10 +73,32 @@ public interface CartMapper {
             return null;
         }
         Cart cart = new Cart();
-
-        cart.setCartProducts(cartPatchDto.getCartProducts());
         cart.setCartId(cartPatchDto.getCartId());
-        cart.setMember(cartPatchDto.getMember());
+
+
+        List<CartProduct> cartProducts = cartPatchDto.getCartProductPatchDtos().stream()
+                .map(cartProductPatchDto -> {
+                    CartProduct cartProduct = new CartProduct();
+                    Product product = new Product();
+                    product.setProductId(cartProductPatchDto.getProductId());
+                    cartProduct.setCartProductId(cartProductPatchDto.getCartProductId());
+                    cartProduct.setCart(cart);
+                    cartProduct.setProduct(product);
+                    cartProduct.setQuantity(cartProductPatchDto.getQuantity());
+
+
+                    return cartProduct;
+                }).collect(Collectors.toList());
+
+
+
+
+
+
+        cart.setCartProducts(cartProducts);
+
+
+
 
 
         return cart;
@@ -75,6 +114,8 @@ public interface CartMapper {
         cartResponseDto.setCartId(cart.getCartId());
         cartResponseDto.setMember(cart.getMember());
         cartResponseDto.setCartProducts(cartProductToCartProductResponseDto(cartProducts));
+        cartResponseDto.setTotalCount(cart.getTotalCount());
+        cartResponseDto.setTotalPrice(cart.getTotalPrice());
 
         return cartResponseDto;
 
@@ -92,4 +133,6 @@ public interface CartMapper {
                         .build())
                 .collect(Collectors.toList());
     }
+
+
 }

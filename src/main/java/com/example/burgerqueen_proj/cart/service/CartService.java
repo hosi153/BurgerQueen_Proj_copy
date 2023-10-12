@@ -3,6 +3,7 @@ package com.example.burgerqueen_proj.cart.service;
 
 import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.cart.entity.CartProduct;
+import com.example.burgerqueen_proj.cart.repository.CartProductRepository;
 import com.example.burgerqueen_proj.cart.repository.CartRepository;
 import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +29,8 @@ public class CartService {
     //private final MemberService memberService;
     private final CartRepository cartRepository;
     private final ProductService productService;
+
+    private  final CartProductRepository cartProductRepository;
 
 
     public Cart createCart(Cart cart){
@@ -40,11 +45,24 @@ public class CartService {
         return cartRepository.findByMember(member);
     }
 
-
+    @Transactional
     public Cart updateCart(Cart cart){
         Cart findCart = findVerifiedCart(cart.getCartId());
 
-        Optional.ofNullable(cart.getTotalCount()).ifPresent(totalCount -> findCart.setTotalCount(totalCount));
+
+        findCart.setCartProducts(cart.getCartProducts());
+
+
+        Optional.ofNullable(cart.getCartProducts())
+                .ifPresent(cartProducts -> findCart.setCartProducts(cartProducts));
+
+        findCart.updateCartProducts(cart.getCartProducts());
+
+
+        cartProductRepository.save(cart.getCartProducts().get(0));
+
+
+
         return cartRepository.save(findCart);
     }
 
@@ -57,39 +75,48 @@ public class CartService {
         return cartRepository.findAll(PageRequest.of(page,size, Sort.by("cartId").descending()));
     }
 
-    public void cancelCart(long cartId){
+    public void cancelCart(long cartId){ ////////// 수정수정수정 수정
         Cart findCart = findVerifiedCart(cartId);
         cartRepository.delete(findCart);
     }
 
     private Cart findVerifiedCart   (long cartId) {
-        Optional<Cart> optionalOrder = cartRepository.findById(cartId);
-        Cart findOrder =
-                optionalOrder.orElseThrow(() ->
+        Optional<Cart> optionalCart = cartRepository.findById(cartId);
+        Cart findCart =
+                optionalCart.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.CART_NOT_FOUND));
-        return findOrder;
+        return findCart;
     }
+
+    public CartProduct findVerifiedCartProduct   (long cartProductId) {
+        Optional<CartProduct> optionalCartProduct = cartProductRepository.findById(cartProductId);
+        CartProduct findCart =
+                optionalCartProduct.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.CART_NOT_FOUND));
+        return findCart;
+    }
+
+
 
     private void verifyCart(Cart cart) {
         // 회원이 존재하는지 확인
         //memberService.findVerifiedUser(cart.getMember().getMemberId());
 
-        // 커피가 존재하는지 확인
-        cart.getCartProducts().stream()
-                .forEach(cartProduct ->  productService.findVerifyProduct(cartProduct.getProduct().getProductId()));
+//        // 커피가 존재하는지 확인
+//        cart.getCartProducts().stream()
+//                .forEach(cartProduct ->  productService.findVerifyProduct(cartProduct.getProduct().getProductId()));
 
     }
 
     private Cart saveCart(Cart cart) {
-//        if (memberService.findVerifiedUser(cart.getMember().getMemberId())!=null){
-//            return cartRepository.findById(cart.getCartId()).orElseThrow();
-//        }
+
         //프로덕트 세팅
+
         //카트프로덕트 세팅
         int totalPrice = 0;
         for(int i=0;i<cart.getCartProducts().size();i++){
             cart.getCartProducts().get(i).setProduct(productService.findProduct(cart.getCartProducts().get(i).getProduct().getProductId()));
-            totalPrice+=cart.getCartProducts().get(i).getProduct().getProductPrice()*cart.getCartProducts().get(i).getProduct().getProductCount();
+            totalPrice+=cart.getCartProducts().get(i).getProduct().getProductPrice()*cart.getCartProducts().get(i).getQuantity();
         }
         cart.setTotalPrice(totalPrice);
 
