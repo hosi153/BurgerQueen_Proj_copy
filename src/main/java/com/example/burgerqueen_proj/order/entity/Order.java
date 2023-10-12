@@ -21,25 +21,34 @@ public class Order extends BasicEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long orderId;
 
-
-
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+
+    private int totalCount;
+
+    private int totalDiscountPrice;
+    private int totalPrice;
+
+
+
+
+
+
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
-    private List<OrderProduct> orders = new ArrayList<>();
+    private List<OrderProduct> orderProducts = new ArrayList<>();
 
     public void setMember(Member member) {
         this.member = member;
     }
-//
-//    public void addOrderProduct(OrderProduct orderProduct) {
-//        this.orders.add(orderProduct);
-//        if (orderProduct.getOrder() != this) {
-//            orderProduct.addOrder(this);
-//        }
-//    }
+    public void addOrderProduct(OrderProduct orderProduct) {
+        this.orderProducts.add(orderProduct);
+        if (orderProduct.getOrder() != this) {
+            orderProduct.addOrder(this);
+        }
+    }
 
 
 
@@ -52,10 +61,19 @@ public class Order extends BasicEntity {
     private OrderStatus orderStatus = OrderStatus.ORDER_REQUEST;
 
 
+
+
+
+
+
+
+//    private int stampCount;
+
+
     // cart ->
     public enum OrderStatus {
         ORDER_REQUEST(1, "주문 요청"),
-//        ORDER_CONFIRM(2, "주문 확정"),
+        //        ORDER_CONFIRM(2, "주문 확정"),
 //        ORDER_COMPLETE(3, "주문 처리 완료"),
         ORDER_CANCEL(4, "주문 취소");
 
@@ -71,15 +89,6 @@ public class Order extends BasicEntity {
             this.stepDescription = stepDescription;
         }
     }
-
-
-
-    private int totalCount;
-
-    private int totalDiscountPrice;
-    private int totalPrice;
-
-    private int stampCount;
 
 
 

@@ -64,10 +64,10 @@ public class HomeViewController {
     @GetMapping("/cart")
     public String viewCart(Model model){
 
-        CartResponseDto cartResponseDto = cartMapper.cartToCartResponseDto(cartRepository.findById(1L).orElseThrow());
+        Member member = memberService.findMember(1L);
+        CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
 
-
-        model.addAttribute("cart",cartResponseDto);
+        model.addAttribute("cart",cart);
 
         return "cart";
     }

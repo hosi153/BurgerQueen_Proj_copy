@@ -54,13 +54,8 @@ public interface CartMapper {
 
                     return cartProduct;
                 }).collect(Collectors.toList());
-        int totalCount = 0;
-        for(CartProduct cartProduct : cartProducts){
-            totalCount+= cartProduct.getQuantity();
-        }
 
 
-        cart.setTotalCount(totalCount);
         cart.setMember(member);
         cart.setCartProducts(cartProducts);
 
