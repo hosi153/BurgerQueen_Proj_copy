@@ -16,7 +16,7 @@ public class CartProduct {// extends BasicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long cartDetailId;
+    private long cartProductId;
 
 
     @Column(nullable = false)

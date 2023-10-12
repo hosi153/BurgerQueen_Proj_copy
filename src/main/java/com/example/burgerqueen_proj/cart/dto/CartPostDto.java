@@ -15,7 +15,7 @@ public class CartPostDto {
 
 //    private long productId;
 
-    private List<CartProductDto> cartProducts;
+    private List<CartProductDto> cartProductDtos;
 
 
 

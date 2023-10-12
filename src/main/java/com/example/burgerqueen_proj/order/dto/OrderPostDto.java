@@ -8,8 +8,6 @@ public class OrderPostDto {
 
 
     private long userId;
-//
-//    private Order.OrderStatus orderStatus;
 
     public Member getUser(){
         Member member = new Member();

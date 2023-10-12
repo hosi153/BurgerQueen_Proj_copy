@@ -20,7 +20,7 @@ function click(e){
         alert("이미 장바구니에 있습니다.");
     }
     else {
-        cartListAll.push({productId : productId, quantity : 1})
+        cartListAll.push({productId : productId , quantity : 1})
         cartList[productId] = 1;
         console.log(cartListAll)
         window.alert(`${productName} 상품이 장바구니에 추가되었습니다.`);

@@ -3,6 +3,8 @@ package com.example.burgerqueen_proj.cart.controller;
 
 import com.example.burgerqueen_proj.cart.dto.CartPatchDto;
 import com.example.burgerqueen_proj.cart.dto.CartPostDto;
+import com.example.burgerqueen_proj.cart.dto.CartProductDto;
+import com.example.burgerqueen_proj.cart.dto.CartProductPatchDto;
 import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.cart.entity.CartProduct;
 import com.example.burgerqueen_proj.cart.mapper.CartMapper;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.nio.channels.Pipe;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/cart")
@@ -37,13 +40,6 @@ public class CartController {
         cart.setMember(memberService.findUser(cartPostDto.getMemberId()));
 
 
-        for (CartProduct cartProduct : cart.getCartProducts()){
-            System.out.println(cartProduct.getProduct().getProductName());
-            System.out.println(cartProduct.getProduct().getProductPrice()+"원");
-        }
-
-
-
 
 
         return new ResponseEntity<>(cart, HttpStatus.CREATED);
@@ -54,7 +50,9 @@ public class CartController {
         cartPatchDto.setCartId(cartId);
         Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
 
-        return new ResponseEntity<>(cart,HttpStatus.OK);
+
+
+        return new ResponseEntity<>(cartMapper.cartToCartResponseDto(cart),HttpStatus.OK);
 
     }
 
