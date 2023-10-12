@@ -31,7 +31,7 @@ public class Cart {//extends BasicEntity {
 
 
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartProduct> cartProducts = new ArrayList<>();
 
     public void updateCartProducts(List<CartProduct> cartProducts) {
