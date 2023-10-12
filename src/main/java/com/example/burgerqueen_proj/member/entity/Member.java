@@ -1,8 +1,11 @@
 package com.example.burgerqueen_proj.member.entity;
 
+import com.example.burgerqueen_proj.cart.entity.Cart;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,6 +36,10 @@ public class Member {
 
     private int stamp=0;
 
+    @OneToOne(mappedBy = "member")
+    private Cart cart;
+
+
     @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private  Role role;
 
@@ -40,6 +47,13 @@ public class Member {
         this.role = role;
         if (role.getMember()!= this){
             role.setMember(this);
+        }
+    }
+
+    public void setCart(Cart cart){
+        this.cart = cart;
+        if(this.cart.getMember() != this){
+            this.cart.setMember(this);
         }
     }
 

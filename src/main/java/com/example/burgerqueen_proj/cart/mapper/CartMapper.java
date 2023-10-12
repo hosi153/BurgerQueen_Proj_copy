@@ -23,7 +23,7 @@ public interface CartMapper {
         Product product = new Product();
 
         product.setProductId(cartProductPatchDto.getProductId());
-        cartProduct.setCartProductId(cartProductPatchDto.getCartProductId());
+        //cartProduct.setCartProductId(cartProductPatchDto.getCartProductId());
         cartProduct.setQuantity(cartProductPatchDto.getQuantity());
         cartProduct.setProduct(product);
 
@@ -81,8 +81,8 @@ public interface CartMapper {
                     CartProduct cartProduct = new CartProduct();
                     Product product = new Product();
                     product.setProductId(cartProductPatchDto.getProductId());
-                    cartProduct.setCartProductId(cartProductPatchDto.getCartProductId());
-                    cartProduct.setCart(cart);
+                    //cartProduct.setCartProductId(cartProductPatchDto.getCartProductId());
+                    //cartProduct.setCart(cart);
                     cartProduct.setProduct(product);
                     cartProduct.setQuantity(cartProductPatchDto.getQuantity());
 
@@ -112,7 +112,7 @@ public interface CartMapper {
         List<CartProduct> cartProducts = cart.getCartProducts();
         CartResponseDto cartResponseDto = new CartResponseDto();
         cartResponseDto.setCartId(cart.getCartId());
-        cartResponseDto.setMember(cart.getMember());
+        cartResponseDto.setMemberId(cart.getMember().getMemberId());
         cartResponseDto.setCartProducts(cartProductToCartProductResponseDto(cartProducts));
         cartResponseDto.setTotalCount(cart.getTotalCount());
         cartResponseDto.setTotalPrice(cart.getTotalPrice());

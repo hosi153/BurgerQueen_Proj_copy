@@ -20,7 +20,7 @@ public class Cart {//extends BasicEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long cartId;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
@@ -31,21 +31,16 @@ public class Cart {//extends BasicEntity {
 
 
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartProduct> cartProducts = new ArrayList<>();
 
     public void updateCartProducts(List<CartProduct> cartProducts) {
-        this.cartProducts = cartProducts;
-        for (int i = 0; i < cartProducts.size() -1; i++) {
-            addCartProduct(cartProducts.get(i));
-
-        }
+        this.cartProducts = new ArrayList<>();
+        cartProducts.forEach(this::addCartProduct);
     }
 
 
     public void addCartProduct(CartProduct cartProduct){
-        System.out.println(cartProduct.getQuantity());
-        cartProduct.setQuantity(111111);
         this.cartProducts.add(cartProduct);
         if (cartProduct.getCart() != this){
             cartProduct.addCart(this);

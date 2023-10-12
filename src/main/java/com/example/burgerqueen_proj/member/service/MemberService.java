@@ -18,7 +18,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final CartService cartService;
+    //private final CartService cartService;
 
 
 
@@ -46,9 +46,7 @@ public class MemberService {
         Member joinedMember = memberRepository.save(member);
 
         //카트 생성
-        Cart newCart = new Cart();
-        newCart.setMember(joinedMember);
-        cartService.createCart(newCart);
+        joinedMember.setCart(new Cart());
 
         return joinedMember;
     }

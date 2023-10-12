@@ -36,21 +36,13 @@ public class CartController {
     @PostMapping
     public ResponseEntity postCart(@RequestBody CartPostDto cartPostDto){
         Cart cart = cartService.createCart(cartMapper.cartPostDtoToCart(cartPostDto));
-
-        cart.setMember(memberService.findMember(cartPostDto.getMemberId()));
-
-
-
-
-        return new ResponseEntity<>(cart, HttpStatus.CREATED);
+        return new ResponseEntity<>(cartMapper.cartToCartResponseDto(cart), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{cart-id}")
     public ResponseEntity patchCart(@PathVariable("cart-id")long cartId , @RequestBody CartPatchDto cartPatchDto){
         cartPatchDto.setCartId(cartId);
         Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
-
-
 
         return new ResponseEntity<>(cartMapper.cartToCartResponseDto(cart),HttpStatus.OK);
 

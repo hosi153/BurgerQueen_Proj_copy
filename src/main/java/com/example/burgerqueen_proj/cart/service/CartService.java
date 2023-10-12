@@ -26,7 +26,7 @@ import java.util.Optional;
 public class CartService {
 
 
-    //private final MemberService memberService;
+    private final MemberService memberService;
     private final CartRepository cartRepository;
     private final ProductService productService;
 
@@ -34,6 +34,8 @@ public class CartService {
 
 
     public Cart createCart(Cart cart){
+        //회원이 존재하는지 확인하고, cart를 생성함
+
         verifyCart(cart);
         Cart savedCart = saveCart(cart);
 
@@ -50,21 +52,36 @@ public class CartService {
         Cart findCart = findVerifiedCart(cart.getCartId());
 
 
-        findCart.setCartProducts(cart.getCartProducts());
 
 
-        Optional.ofNullable(cart.getCartProducts())
-                .ifPresent(cartProducts -> findCart.setCartProducts(cartProducts));
+//        Optional.ofNullable(cart.getCartProducts())
+//                .ifPresent(cartProducts -> findCart.setCartProducts(cartProducts));
 
+        cartProductRepository.deleteAllByCart(findCart);
+
+        cart.getCartProducts()
+                .forEach(cartProduct ->  {
+                    cartProduct.addProduct(productService.findVerifyProduct(cartProduct.getProduct().getProductId()));
+                    System.out.println(cartProduct.getProduct().getProductId());
+                    //findCart.addCartProduct(cartProduct);
+                    //System.out.println(findCart.getCartProducts().get(0).getProduct().getProductId());
+                });
         findCart.updateCartProducts(cart.getCartProducts());
+        System.out.println(findCart.getCartProducts().get(0).getProduct().getProductId());
+//
+//
+//
+//
+//        findCart.setCartProducts(changeCartProduct);
+//        findCart.updateCartProducts(cart.getCartProducts());
 
-
-        cartProductRepository.save(cart.getCartProducts().get(0));
-
-
+        //cartProductRepository.save(cart.getCartProducts().get(0));
 
         return cartRepository.save(findCart);
     }
+
+
+
 
     public Cart findcart(long cartId){
         Cart findCart = findVerifiedCart(cartId);
@@ -100,7 +117,13 @@ public class CartService {
 
     private void verifyCart(Cart cart) {
         // 회원이 존재하는지 확인
-        //memberService.findVerifiedUser(cart.getMember().getMemberId());
+        cart.setMember(memberService.findMember(cart.getMember().getMemberId()));
+
+        //상품이 존재하는지 확인
+        cart.getCartProducts().stream()
+                .forEach(cartProduct ->  productService.findVerifyProduct(cartProduct.getProduct().getProductId()));
+
+
 
 //        // 커피가 존재하는지 확인
 //        cart.getCartProducts().stream()

@@ -27,4 +27,4 @@ insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, addres
 
 insert into "CART" (CART_ID,MEMBER_ID, TOTAL_COUNT, total_price) values (1,1,1, 100);
 
-insert into "CART_PRODUCT" (CART_DETAIL_ID  ,QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1,1);
+insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1);
