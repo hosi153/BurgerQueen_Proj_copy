@@ -52,7 +52,7 @@ public class Product extends BasicEntity {
     private Category category;
 
     @Builder.Default
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
     private List<PromotionDetails> promotionDetails = new ArrayList<>();
 
     public double getDiscountPrice(){

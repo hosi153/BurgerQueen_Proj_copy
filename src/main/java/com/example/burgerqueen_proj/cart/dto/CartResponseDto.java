@@ -23,8 +23,8 @@ public class CartResponseDto {
     private int totalPrice;
 
 
-    public void setMember(Member member){
-        this.memberId=member.getMemberId();
-    }
+//    public void setMember(Member member){
+//        this.memberId=member.getMemberId();
+//    }
 
 }

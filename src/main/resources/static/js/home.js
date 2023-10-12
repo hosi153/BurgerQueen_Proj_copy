@@ -34,13 +34,12 @@ if(buyBtn){
     buyBtn.addEventListener('click',event =>{
         let cartId = document.getElementById('cartId').value;
         console.log(`cartId: ${cartId}`)
-        //location.href=`/cart`;
+        location.href=`/cart`;
         fetch(`/api/cart/${cartId}`,{
             method :'PATCH',
             headers : {"Content-Type": "application/json",},
             body : JSON.stringify({
                 cartId : cartId,
-                memberId : 1,
                 cartProducts : cartListAll
                 //content: document.getElementById("editContent").value,
                 // member:document.getElementById("author").value

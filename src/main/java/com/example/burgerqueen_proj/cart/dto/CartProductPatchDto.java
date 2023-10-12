@@ -9,5 +9,5 @@ public class CartProductPatchDto {
 
     private  int quantity;
 
-    private long cartProductId;
+    //private long cartProductId;
 }
