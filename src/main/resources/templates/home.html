@@ -3,36 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>BurgerQueen</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<script>
-    var cartList = {};
-</script>
+    <script>
+        var cartList = {};
+    </script>
 </head>
+
 <body>
 
-    <nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;">
-        <div class="container-fluid">
-            <span class="navbar-text">님! 환영합니다.</span>
-<!--            <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>-->
-            <div class="col text-right">
+<nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+            <span class="navbar-text">
+                <span th:text="${member.memberName}"></span>님! 환영합니다.
+            </span>
+        <!--            <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>-->
+        <div class="col text-right">
 
-                <button class="btn btn-outline-success" type="button" id="buyBtn">구매하기</button>
-                <button class="btn btn-outline-secondary" type="button">마이페이지</button>
+            <button class="btn btn-outline-success" type="button" id="buyBtn">구매하기</button>
+            <a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
 
-            </div>
-        </div>
-    </nav>
-<div class="container" style="width:60rem; padding: 1rem;">
-    <div class="row" style="margin-top:3rem">
-        <h5>진행중인 프로모션</h5>
-    </div>
-
-    <div th:each="promotion : ${promotions}" style="padding: 0.5rem;">
-        <div class="row text-primary">
-            <li th:text="|${promotion.promotionName} : ${promotion.promotionDescription}|"></li>
         </div>
     </div>
+</nav>
+
+
+<div class="container" style="width:60rem; margin-top:2rem; padding: 1rem;">
+
+    <div class="row" style="background-color: lightyellow; padding-top: 2rem; padding-left:2rem; padding-bottom: 2rem;">
+        <table>
+            <tr>
+                <td>
+                    <div><h5>진행중인 프로모션</h5></div><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div th:each="promotion : ${promotions}">
+                        <p th:text="|${promotion.promotionName} : ${promotion.promotionDescription}|"></p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
 
     <div th:each="ctg : ${categories}" style="padding: 0.5rem;">
         <h5 class="row text-capitalize" th:text="| ${ctg.categoryName} (${ctg.countPorducts}) |"></h5>
@@ -41,29 +55,33 @@
             <div th:each="item : ${products}" style="padding-bottom: 0.3rem;">
                 <div class="col" th:if="${item.category == ctg.categoryName}">
                     <div class="card h-100" style="width: 17rem; ">
-                        <img th:if="${item.productImage} != null" th:src="${item.productImage}" class="card-img-top" style="height:13rem; object-fit:cover;" alt="...">
+                        <img th:if="${item.productImage} != null" th:src="${item.productImage}" class="card-img-top"
+                             style="height:13rem; object-fit:cover;" alt="...">
                         <div class="card-body text-center" id="cartDiv">
                             <h5 class="card-title" th:text="| ${item.productName}|"></h5>
                             <p class="card-text" th:text="| ${item.productDescription}|"></p>
                             <p class="card-text text-left">
                                 <span th:text="|가격 : ${item.productPrice}원|"></span>
-                                <span th:if="${item.productPrice} > ${item.discountPrice}" th:text="|/ 할인가격 : ${item.discountPrice}원|"></span>
+                                <span th:if="${item.productPrice} > ${item.discountPrice}"
+                                      th:text="|/ 할인가격 : ${item.discountPrice}원|"></span>
                             </p>
-<!--                            <a href="#" class="btn btn-primary btn-sm" style="width: 6rem;">바로 주문</a>-->
-                            <button type="button" th:id="${item.productId}" th:name="${item.productName}" class="btn btn-outline-success btn-sm" style="width: 6rem;">장바구니 담기</button>
-<!--                            <script>-->
-<!--                                document.getElementById("add-cart-btn").onclick = function () {-->
-<!--                                    alert("Hello World");-->
-<!--                                };-->
-<!--                            </script>-->
-        <!--                <a th:href="@{/articles/{id}(id=${item.articleId})}"> 상세 </a>-->
-        <!--                <p class="card-text" th:text="|내용 : ${item.content}|"></p>-->
+                            <!--                            <a href="#" class="btn btn-primary btn-sm" style="width: 6rem;">바로 주문</a>-->
+                            <button type="button" th:id="${item.productId}" th:name="${item.productName}"
+                                    class="btn btn-outline-success btn-sm" style="width: 6rem;">장바구니 담기
+                            </button>
+                            <!--                            <script>-->
+                            <!--                                document.getElementById("add-cart-btn").onclick = function () {-->
+                            <!--                                    alert("Hello World");-->
+                            <!--                                };-->
+                            <!--                            </script>-->
+                            <!--                <a th:href="@{/articles/{id}(id=${item.articleId})}"> 상세 </a>-->
+                            <!--                <p class="card-text" th:text="|내용 : ${item.content}|"></p>-->
                         </div>
                     </div>
-    <!--                    <div class="card-footer">-->
-    <!--                        <small class="text-muted">Last updated 3 mins ago</small>-->
-    <!--                    </div>-->
-                 </div>
+                    <!--                    <div class="card-footer">-->
+                    <!--                        <small class="text-muted">Last updated 3 mins ago</small>-->
+                    <!--                    </div>-->
+                </div>
             </div>
         </div>
     </div>
@@ -72,7 +90,7 @@
 
 
     <div th:each="cart : ${cart}" style="padding: 0.5rem;">
-<!--        해당 사용자의 카트 정보를 자바스크립트 변수에 저장-->
+        <!--        해당 사용자의 카트 정보를 자바스크립트 변수에 저장-->
         <input type="hidden" id="cartId" th:value="${cartId}">
         <script th:inline="javascript">
             /*<![CDATA[*/
@@ -82,7 +100,7 @@
             let productId = [[${cart.productId}]]
             let productName = [[${cart.productName}]]
             cartList[productId] = [[${cart.quantity}]]
-            cartListAll.push({productId : productId, quantity : [[${cart.quantity}]]})
+            cartListAll.push({productId: productId, quantity: [[${cart.quantity}]]})
             console.log(cartList)
             /*]]>*/
         </script>

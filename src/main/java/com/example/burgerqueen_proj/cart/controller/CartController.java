@@ -34,7 +34,7 @@ public class CartController {
     public ResponseEntity postCart(@RequestBody CartPostDto cartPostDto){
         Cart cart = cartService.createCart(cartMapper.cartPostDtoToCart(cartPostDto));
 
-        cart.setMember(memberService.findUser(cartPostDto.getMemberId()));
+        cart.setMember(memberService.findMember(cartPostDto.getMemberId()));
 
 
         for (CartProduct cartProduct : cart.getCartProducts()){
