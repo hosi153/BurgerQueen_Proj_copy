@@ -1,13 +1,18 @@
-const delBtn = document.getElementById("delBtn");
+const delAll = document.querySelectorAll('#trDiv .del');
+
+[].forEach.call(delAll, function(col){
+    col.addEventListener("click" , click , false );
+});
+
 
 //카트 페이지에서 상품삭제 버튼 클릭시 단건 delete 발생
-if(delBtn){
-    delBtn.addEventListener('click',event =>{
-        let index = this.getAttribute("index")
-        //let productId = this.getAttribute()'' +
+function click(e){
+        console.log(this)
+        let cartId = document.getElementById('cartId').value;
+        let index = this.getAttribute("id")
+        let productId = this.getAttribute("prdId")
 
-        console.log(`cartId: ${cartId}`)
-        fetch(`/api/cart/${cartId}`,{
+        fetch(`/api/cart/${cartId}/${productId}`,{
             method :'DELETE',
             headers : {"Content-Type": "application/json",},
         })
@@ -15,10 +20,10 @@ if(delBtn){
                 if(response.ok){return response.json()}
                 throw new Error(`Status: ${response.status} ! 요청 처리에 실패하였습니다 !`);
             }).then(data => {
-            location.href=`/cart`;
+            document.querySelector("#tBody").deleteRow(index)
         })
             .catch(error => {
                 alert('삭제실패! 잠시 후 시도해주세요.');
             })
-    })
+
 }
