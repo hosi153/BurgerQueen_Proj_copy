@@ -1,5 +1,6 @@
 package com.example.burgerqueen_proj.cart.dto;
 
+import com.example.burgerqueen_proj.product.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,10 @@ public class CartProductResponseDto {
 
     private long cartProductId;
     private long productId;
-    private  Integer quantity;
+    private Integer quantity;
     private String productName;
+    private String productStatus;
+    private int productCount;
+    private Integer discountPrice;
     private Integer price;
 }

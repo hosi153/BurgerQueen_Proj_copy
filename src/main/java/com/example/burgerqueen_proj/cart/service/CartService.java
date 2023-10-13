@@ -67,15 +67,6 @@ public class CartService {
                     //System.out.println(findCart.getCartProducts().get(0).getProduct().getProductId());
                 });
         findCart.updateCartProducts(cart.getCartProducts());
-        System.out.println(findCart.getCartProducts().get(0).getProduct().getProductId());
-//
-//
-//
-//
-//        findCart.setCartProducts(changeCartProduct);
-//        findCart.updateCartProducts(cart.getCartProducts());
-
-        //cartProductRepository.save(cart.getCartProducts().get(0));
 
         return cartRepository.save(findCart);
 

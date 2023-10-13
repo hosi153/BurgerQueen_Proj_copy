@@ -55,14 +55,14 @@ public class Product extends BasicEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST)
     private List<PromotionDetails> promotionDetails = new ArrayList<>();
 
-    public double getDiscountPrice(){
+    public int getDiscountPrice(){
         this.discountPrice=productPrice;
         //상품에 연동된 promotiondetails 중, 단품할인+판매중인 데이터가 있는 경우 discoutprice 업데이트
 
         Optional<Promotion> optionalPromotion = Optional.ofNullable(category.getPromotion());
         optionalPromotion.ifPresent(promotion-> this.discountPrice = promotion.calculatePromotion(this.productPrice));
         //System.out.println(">>>>>>>>"+this.discountPrice+"========"+category.getPromotion().calculatePromotion(this.productPrice));
-        return this.discountPrice;
+        return (int) this.discountPrice;
     }
     public void setCategory(Category category){
         this.category = category;
@@ -101,10 +101,11 @@ public class Product extends BasicEntity {
 
 
 
+    @Getter
     public enum ProductStatus{
         PRODUCT_ING(1, "판매중"),
-        PRODUCT_STOP(2, "판매 중지"),
-        PRDOUCT_EMPTY(3, "재고 없음");
+        PRODUCT_STOP(2, "판매 중지");
+//        PRDOUCT_EMPTY(3, "재고 없음");
 
         private int statusNumber;
         private String statusDescription;

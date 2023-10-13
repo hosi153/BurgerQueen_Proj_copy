@@ -1,6 +1,7 @@
 //home화면 자바스크립트 처리 : 23.10.10 지영
-const buyBtn = document.getElementById("buyBtn");
-var cols = document.querySelectorAll('#cartDiv .btn');
+const buyBtn = document.getElementById("cartBtn");
+const cols = document.querySelectorAll('#cartDiv .btn');
+
 
 // var cartList = {};
 
@@ -25,7 +26,7 @@ function click(e){
         console.log(cartListAll)
         window.alert(`${productName} 상품이 장바구니에 추가되었습니다.`);
     }
-    console.log(cartList)
+    // console.log(cartList)
 }
 
 
@@ -34,13 +35,11 @@ if(buyBtn){
     buyBtn.addEventListener('click',event =>{
         let cartId = document.getElementById('cartId').value;
         console.log(`cartId: ${cartId}`)
-        location.href=`/cart`;
         fetch(`/api/cart/${cartId}`,{
             method :'PATCH',
             headers : {"Content-Type": "application/json",},
             body : JSON.stringify({
-                cartId : cartId,
-                cartProducts : cartListAll
+                cartProductPatchDtos : cartListAll
                 //content: document.getElementById("editContent").value,
                 // member:document.getElementById("author").value
 
@@ -50,7 +49,7 @@ if(buyBtn){
                 if(response.ok){return response.json()}
                 throw new Error(`Status: ${response.status} ! 요청 처리에 실패하였습니다 !`);
             }).then(data => {
-            sessionStorage.setItem('cart', cartList);
+            sessionStorage.setItem('cart', cartListAll);
             location.href=`/cart`;
         })
             .catch(error => {

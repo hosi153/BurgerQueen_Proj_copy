@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>BurgerQueen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
     <script>
-        var cartList = {};
+        let cartList = {};
+        let cartListAll = [];
+
+        let productId;
+        let productName;
     </script>
 </head>
 
@@ -20,7 +23,7 @@
         <!--            <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>-->
         <div class="col text-right">
 
-            <button class="btn btn-outline-success" type="button" id="buyBtn">구매하기</button>
+            <button class="btn btn-outline-success" type="button" id="cartBtn">구매하기</button>
             <a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
 
         </div>
@@ -86,25 +89,20 @@
         </div>
     </div>
 
-    <div>카트내용</div>
-
-
     <div th:each="cart : ${cart}" style="padding: 0.5rem;">
         <!--        해당 사용자의 카트 정보를 자바스크립트 변수에 저장-->
         <input type="hidden" id="cartId" th:value="${cartId}">
         <script th:inline="javascript">
             /*<![CDATA[*/
-            var cartList = {};
-            var cartListAll = [];
 
-            let productId = [[${cart.productId}]]
-            let productName = [[${cart.productName}]]
+            productId = [[${cart.productId}]]
+            // let productName = [[${cart.productName}]]
             cartList[productId] = [[${cart.quantity}]]
-            cartListAll.push({productId: productId, quantity: [[${cart.quantity}]]})
-            console.log(cartList)
+            cartListAll.push({productId: [[${cart.productId}]], quantity: [[${cart.quantity}]]})
+            console.log(cartListAll)
             /*]]>*/
         </script>
-        <li th:text="|${cart.productId} : ${cart.productName} : ${cart.quantity}|"></li>
+<!--        <li th:text="|${cart.productId} : ${cart.productName} : ${cart.quantity}|"></li>-->
     </div>
 
 </div>
