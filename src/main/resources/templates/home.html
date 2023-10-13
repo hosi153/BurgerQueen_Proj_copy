@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main-layout">
 <head>
     <meta charset="UTF-8">
     <title>BurgerQueen</title>
@@ -13,27 +16,13 @@
     </script>
 </head>
 
-<body>
+<div layout:fragment="headerBtn">
+<button class="btn btn-success" type="button" id="cartBtn">구매하기</button>
+<a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
+</div>
+<div layout:fragment="content">
 
-<nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;">
-    <div class="container-fluid">
-            <span class="navbar-text">
-                <span th:text="${member.memberName}"></span>님! 환영합니다.
-            </span>
-        <!--            <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>-->
-        <div class="col text-right">
-
-            <button class="btn btn-outline-success" type="button" id="cartBtn">구매하기</button>
-            <a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
-
-        </div>
-    </div>
-</nav>
-
-
-<div class="container" style="width:60rem; margin-top:2rem; padding: 1rem;">
-
-    <div class="row" style="background-color: lightyellow; padding-top: 2rem; padding-left:2rem; padding-bottom: 2rem;">
+    <div class="row" style="background-color: darkseagreen; margin-top:3rem; padding-top: 1rem; padding-left:2rem; padding-bottom: 1rem;">
         <table>
             <tr>
                 <td>
@@ -87,8 +76,8 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
     <div th:each="cart : ${cart}" style="padding: 0.5rem;">
         <!--        해당 사용자의 카트 정보를 자바스크립트 변수에 저장-->
         <input type="hidden" id="cartId" th:value="${cartId}">
@@ -104,14 +93,8 @@
         </script>
 <!--        <li th:text="|${cart.productId} : ${cart.productName} : ${cart.quantity}|"></li>-->
     </div>
-
+    <script th:inline="javascript" src="./../../js/home.js"></script>
 </div>
 
-<footer class="navbar navbar-expand-lg navbar-light bg-light">
-    <p>copyright 2023. 박지영, 최호균 </p>
-</footer>
 
-
-<script th:inline="javascript" src="/js/home.js"></script>
-</body>
 </html>

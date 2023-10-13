@@ -1,8 +1,14 @@
-﻿<html xmlns:th="http://www.thymeleaf.org">
-
-<body>
-<div align="center" th:fragment="footer">
-  <p>Copyright © 2006-2022 Hello Spring Security Coffee Shop. All rights reserved.</p>
-</div>
-</body>
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="footerFragment">
+  <footer class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="mt-5">
+      <div class="text-center">
+        <p>
+          <small class="text-muted">Copyright © 2023. 박지영, 최호균. All Rights Reserved.</small>
+        </p>
+      </div>
+    </div>
+  </footer>
+</th:block>
 </html>

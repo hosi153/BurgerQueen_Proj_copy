@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/main-layout">
+      layout:decorate="layout/main-layout">
 <head>
     <meta charset="UTF-8">
     <title>Cart List</title>
@@ -15,24 +15,12 @@
         /*]]>*/
     </script>
 </head>
-<body>
-    <nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;">
-        <div class="container-fluid">
-                <span class="navbar-text">
-                    <span th:text="${member.memberName}"></span>님! 환영합니다.
-                </span>
-            <!--            <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>-->
-            <div class="col text-right">
 
-                <a href="/home" class="btn btn-outline-success" type="button">메뉴보기</a>
-                <a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
+<div layout:fragment="headerBtn">
+    <a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
+</div>
+<div layout:fragment="content">
 
-            </div>
-        </div>
-    </nav>
-
-
-<div class="container" style="width:60rem; margin-top:5rem; padding: 1rem;">
     <div class="card">
         <div class="card-header">
         </div>
@@ -41,7 +29,6 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th class="col-md-1">#</th>
                     <th class="col-md-5">상품</th>
                     <th class="col-md-2">수량</th>
                     <th class="col-md-2" style="color:gray;">가격</th>
@@ -68,24 +55,24 @@
 
                             <a type="button" th:id="${itemStat.index}" th:max="${item.getProductCount}" th:price="${item.getPrice()}" th:discountPrice="${item.getDiscountPrice()}"
                                     class="plus" style="color:blue;" >+</a>
-                            <button type="button" id="delBtn" th:index="${itemStat.index}" th:max="${item.getProductCount}"
-                               class="del" style="color:blue;" >삭제</button>
+
 
                         </td>
                         <td style="color:gray;" th:text="${item.getPrice()}"></td>
-                        <td th:text="${item.getDiscountPrice()}"></td>
+                        <td><span th:text="${item.getDiscountPrice()}"> </span>
+                            <button type="button" id="delBtn" th:index="${itemStat.index}" th:max="${item.getProductCount}"
+                                    class="del" style="color:blue;" >삭제</button>
+                        </td>
 
                 </tr>
                 <tr>
-                    <th class="col-md-1"> </th>
+
                     <th class="col-md-5"> </th>
                     <th class="col-md-2">합계</th>
                     <th class="col-md-2" style="color:gray;">총액</th>
                     <th class="col-md-2">할인총액</th>
                 </tr>
                 <tr>
-                    <th class="col-md-1"> </th>
-
                     <th class="col-md-5"> </th>
                     <td th:id="tcount" th:text="${cart.getTotalCount()}"></td>
                     <td th:id="tprice" style="color:gray;" th:text="${cart.getTotalPrice()}"></td>
@@ -126,12 +113,13 @@
         </script>
     </th:block>
 
+    <script th:inline="javascript" src="/js/cart.js"></script>
+    <script th:inline="javascript" src="/js/del.js"></script>
+    <script th:inline="javascript" src="/js/order.js"></script>
+    <script th:inline="javascript" src="/js/plus.js"></script>
+    <script th:inline="javascript" src="/js/minus.js"></script>
 </div>
 
-<script th:inline="javascript" src="/js/cart.js"></script>
-<script th:inline="javascript" src="/js/del.js"></script>
-<script th:inline="javascript" src="/js/order.js"></script>
-<script th:inline="javascript" src="/js/plus.js"></script>
-<script th:inline="javascript" src="/js/minus.js"></script>
-</body>
+
+
 </html>
