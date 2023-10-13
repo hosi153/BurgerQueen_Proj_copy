@@ -97,6 +97,13 @@ public class CartService {
         Cart findCart = findVerifiedCart(cartId);
         cartRepository.delete(findCart);
     }
+    public void deleteCartProduct(long cartProductId){
+        CartProduct findCartProduct = findVerifiedCartProduct(cartProductId);
+        cartProductRepository.delete(findCartProduct);
+
+    }
+
+
 
     private Cart findVerifiedCart   (long cartId) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
@@ -105,6 +112,9 @@ public class CartService {
                         new BusinessLogicException(ExceptionCode.CART_NOT_FOUND));
         return findCart;
     }
+
+
+
 
     public CartProduct findVerifiedCartProduct   (long cartProductId) {
         Optional<CartProduct> optionalCartProduct = cartProductRepository.findById(cartProductId);

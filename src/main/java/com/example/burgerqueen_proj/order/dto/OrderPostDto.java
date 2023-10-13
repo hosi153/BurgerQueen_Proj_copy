@@ -1,17 +1,30 @@
 package com.example.burgerqueen_proj.order.dto;
 
 import com.example.burgerqueen_proj.member.entity.Member;
+import com.example.burgerqueen_proj.order.entity.Order;
+import com.example.burgerqueen_proj.order.entity.OrderProduct;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class OrderPostDto {
 
 
-    private long userId;
+    private long memberId;
 
-    public Member getUser(){
+    private Order.OrderStatus orderStatus = Order.OrderStatus.ORDER_REQUEST;
+
+    private int totalCount;
+    private int TotalDiscountPrice;
+    private int totalPrice;
+
+    private List<OrderProductDto> orderProductDtos;
+
+
+    public Member getMember(){
         Member member = new Member();
-        member.setMemberId(userId);
+        member.setMemberId(memberId);
         return member;
     }
 
