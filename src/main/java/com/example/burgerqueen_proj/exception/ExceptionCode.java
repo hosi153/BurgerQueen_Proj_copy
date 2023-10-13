@@ -17,6 +17,7 @@ public enum ExceptionCode {
     CART_NOT_FOUND(404, "Cart not found"),
     NOT_FOR_SALE(404, "Not For Sale"),
     STOCK_SHORTAGE(404, "Stock Shortage"),
+    DELIVERY_NOT_FOUND(404, "Delivery Not Found"),
     ORDER_NOT_FOUND(404, "Order not found");
 
 

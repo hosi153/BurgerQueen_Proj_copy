@@ -1,18 +1,21 @@
 package com.example.burgerqueen_proj.cart.entity;
 
 
+import com.example.burgerqueen_proj.entity.BasicEntity;
 import com.example.burgerqueen_proj.product.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 @Entity
 @Getter@Setter
 @NoArgsConstructor
-public class CartProduct {// extends BasicEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class CartProduct  extends BasicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

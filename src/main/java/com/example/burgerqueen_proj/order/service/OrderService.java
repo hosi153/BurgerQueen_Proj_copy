@@ -76,6 +76,11 @@ public class OrderService {
 
     }
 
+    public Order findOrderByMember(Member member){
+
+        return orderRepository.findByMember(member);
+    }
+
     public void deleteOrder(long orderId){
         Order findOrder = findVerifiedOrder(orderId);
         findOrder.setOrderStatus(Order.OrderStatus.ORDER_CANCEL);

@@ -3,11 +3,14 @@ package com.example.burgerqueen_proj.order.dto;
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.entity.OrderProduct;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Getter
+@Setter
 public class OrderPostDto {
 
 

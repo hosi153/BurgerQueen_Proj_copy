@@ -1,19 +1,22 @@
 package com.example.burgerqueen_proj.order.entity;
 
 import com.example.burgerqueen_proj.cart.entity.Cart;
+import com.example.burgerqueen_proj.entity.BasicEntity;
 import com.example.burgerqueen_proj.product.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.aspectj.weaver.ast.Or;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class OrderProduct {
+@EntityListeners(AuditingEntityListener.class)
+public class OrderProduct extends BasicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

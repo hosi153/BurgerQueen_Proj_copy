@@ -1,10 +1,8 @@
 package com.example.burgerqueen_proj.order.mapper;
 
+import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.member.entity.Member;
-import com.example.burgerqueen_proj.order.dto.OrderPatchDto;
-import com.example.burgerqueen_proj.order.dto.OrderPostDto;
-import com.example.burgerqueen_proj.order.dto.OrderProductResponseDto;
-import com.example.burgerqueen_proj.order.dto.OrderResponseDto;
+import com.example.burgerqueen_proj.order.dto.*;
 import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.entity.OrderProduct;
 import com.example.burgerqueen_proj.product.entity.Product;
@@ -16,22 +14,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public interface OrderMapper{
+public interface OrderMapper {
 
 //    Order orderPostDtoToOrder(OrderPostDto orderPostDto);
 
-    default Order orderPatchDtoToOrder(OrderPatchDto orderPatchDto){
+    default Order orderPatchDtoToOrder(OrderPatchDto orderPatchDto) {
         Order order = new Order();
         order.setOrderId(orderPatchDto.getOrderId());
         order.setOrderStatus(orderPatchDto.getOrderStatus());
-
 
 
         return order;
     }
 
 
-    default Order orderPostDtoToOrder(OrderPostDto orderPostDto){
+    default Order orderPostDtoToOrder(OrderPostDto orderPostDto) {
         Order order = new Order();
         Member member = new Member();
         member.setMemberId(orderPostDto.getMemberId());
@@ -55,28 +52,15 @@ public interface OrderMapper{
         order.setTotalDiscountPrice(orderPostDto.getTotalDiscountPrice());
 
 
-
         order.getOrderProducts().stream()
-                .forEach(cartProduct -> order.setTotalCount(order.getTotalCount()+ cartProduct.getQuantity()));
-
-
-
-
-
-
-
+                .forEach(cartProduct -> order.setTotalCount(order.getTotalCount() + cartProduct.getQuantity()));
 
 
         return order;
     }
 
 
-
-
-
-
-
-    default OrderResponseDto orderToOrderResponseDto(Order order){
+    default OrderResponseDto orderToOrderResponseDto(Order order) {
         List<OrderProduct> orderProducts = order.getOrderProducts();
         OrderResponseDto orderResponseDto = new OrderResponseDto();
         orderResponseDto.setOrderId(order.getOrderId());
@@ -89,10 +73,11 @@ public interface OrderMapper{
         return orderResponseDto;
 
     }
+
     List<OrderResponseDto> orderToOrderResponseDtos(List<Order> orders);
 
 
-    default List<OrderProductResponseDto> orderProductToOrderProductResponseDto(List<OrderProduct> orderProducts){
+    default List<OrderProductResponseDto> orderProductToOrderProductResponseDto(List<OrderProduct> orderProducts) {
         return orderProducts
                 .stream()
                 .map(orderProduct -> OrderProductResponseDto
@@ -106,6 +91,31 @@ public interface OrderMapper{
                 .collect(Collectors.toList());
     }
 
+
+    default OrderPostDto cartToOrderPostDto(Cart cart) {
+        OrderPostDto orderPostDto = new OrderPostDto();
+
+
+        List<OrderProductDto> orderProductDtos = cart.getCartProducts().stream()
+                .map(cartProductDto -> {
+                    OrderProductDto orderProduct = new OrderProductDto();
+                    Product product = new Product();
+                    product.setProductId(cartProductDto.getProduct().getProductId());
+                    orderProduct.setProductId(cartProductDto.getProduct().getProductId());
+                    orderProduct.setQuantity(cartProductDto.getQuantity());
+
+                    return  orderProduct;
+                }).collect(Collectors.toList());
+
+
+        orderPostDto.setOrderProductDtos(orderProductDtos);
+        orderPostDto.setMemberId(cart.getMember().getMemberId());
+        orderPostDto.setTotalPrice(cart.getTotalPrice());
+        orderPostDto.setTotalCount(cart.getTotalCount());
+        return orderPostDto;
+
+
+    }
 
 
 }

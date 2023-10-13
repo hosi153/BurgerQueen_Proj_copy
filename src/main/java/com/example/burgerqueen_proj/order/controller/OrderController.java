@@ -1,5 +1,9 @@
 package com.example.burgerqueen_proj.order.controller;
 
+import com.example.burgerqueen_proj.cart.dto.CartPatchDto;
+import com.example.burgerqueen_proj.cart.entity.Cart;
+import com.example.burgerqueen_proj.cart.mapper.CartMapper;
+import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.order.dto.OrderPatchDto;
 import com.example.burgerqueen_proj.order.dto.OrderPostDto;
 import com.example.burgerqueen_proj.order.entity.Order;
@@ -24,9 +28,14 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderMapper orderMapper;
     private final MemberService memberService;
+    private final CartService cartService;
+    private final CartMapper cartMapper;
     @PostMapping
-    public ResponseEntity postOrder(@RequestBody OrderPostDto orderPostDto){
-        Order order = orderService.creatOrder(orderMapper.orderPostDtoToOrder(orderPostDto));
+    public ResponseEntity postOrder(@RequestBody CartPatchDto cartPatchDto){
+
+        Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
+
+        Order order = orderService.creatOrder(orderMapper.orderPostDtoToOrder(orderMapper.cartToOrderPostDto(cart)));
 
 //        System.out.println(userService.findUser(1L));
 
