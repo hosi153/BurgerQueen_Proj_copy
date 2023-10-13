@@ -54,7 +54,6 @@ public class HomeViewController {
 
         Member member = memberService.findMember(1L);
         CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
-        System.out.println(cart.getCartId());
 
         model.addAttribute("cartId", cart.getCartId());
         model.addAttribute("promotions", promotions);
@@ -89,6 +88,18 @@ public class HomeViewController {
         return "myPage";
     }
 
+    @GetMapping("/empty-cart")
+    public String viewEmptyCart(Model model){
+
+        Member member = memberService.findMember(1L);
+        CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
+
+
+        model.addAttribute("cart",cart);
+        model.addAttribute("member",new MemberResponseDto(member));
+
+        return "empty-cart";
+    }
 
     @GetMapping("/order")
     public String viewOrder(Model model){

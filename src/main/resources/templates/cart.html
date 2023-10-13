@@ -20,12 +20,9 @@
     <a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
 </div>
 <div layout:fragment="content">
-
-    <div class="card">
-        <div class="card-header">
-        </div>
-
-        <div class="card">
+    <div class="row" style="margin-top:3rem;">
+        <div class="col-8">
+        <div class="card" th:if="${!#lists.isEmpty(cart.getCartProducts())}">
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -38,14 +35,17 @@
                 <tbody id="tBody">
 
                 <tr id="trDiv" th:each="item:${cart.getCartProducts()}" th:index="${itemStat.index}">
-                        <td> <span th:text="|${item.getProductName}  |"></span>
-                            <span style="color:gray; font-size:small;" th:text="|(주문가능 수량 ${item.getProductCount})  |"></span>
+                        <td> <span th:text="|${item.getProductName}  |"></span><br>
+<!--                            <span style="color:gray; font-size:small;" th:text="|(주문가능 수량 ${item.getProductCount})  |"></span>-->
 <!--                            <span th:text="|${item.getProductStatus}  |"></span>-->
-                            <th:block th:switch="${item.getProductStatus}">
-<!--                                <span th:case="PRODUCT_ING">판매중</span>-->
-                                <span style="color:red; font-size:small;" th:case="PRODUCT_STOP">판매중지</span>
-<!--                                <span style="color:green; font-size:small;" th:case="PRDOUCT_EMPTY">재고부족</span>-->
-                            </th:block>
+<!--                            <th:block th:switch="${item.getProductStatus}">-->
+<!--&lt;!&ndash;                                <span th:case="PRODUCT_ING">판매중</span>&ndash;&gt;-->
+<!--                                <span style="color:red; font-size:small;" th:case="PRODUCT_STOP">판매중지</span>-->
+<!--&lt;!&ndash;                                <span style="color:green; font-size:small;" th:case="PRDOUCT_EMPTY">재고부족</span>&ndash;&gt;-->
+<!--                            </th:block>-->
+                            <span style="color:red; font-size:small;" th:if="${item.getProductStatus == 'PRODUCT_STOP'}">판매중지</span>
+                            <span style="color:gray; font-size:small;" th:if="!${item.getProductStatus == 'PRODUCT_STOP'}" th:text="|(주문가능 수량 ${item.getProductCount})  |"></span>
+
 
                         </td>
                         <td>
@@ -65,30 +65,21 @@
                         </td>
 
                 </tr>
-                <tr>
-
-                    <th class="col-md-5"> </th>
-                    <th class="col-md-2">합계</th>
-                    <th class="col-md-2" style="color:gray;">총액</th>
-                    <th class="col-md-2">할인총액</th>
-                </tr>
-                <tr>
-                    <th class="col-md-5"> </th>
-                    <td th:id="tcount" th:text="${cart.getTotalCount()}"></td>
-                    <td th:id="tprice" style="color:gray;" th:text="${cart.getTotalPrice()}"></td>
-                    <th th:id="tdiscountprice" class="col-md-5"> </th>
-
-
-
-<!--                </tr>-->
-
                 </tbody>
-
             </table>
-
+            </div>
+            </div>
+            <div class="col" style="text-align: right">
+                <div class="card">
+                합계 : <span th:id="tcount" th:text="${cart.getTotalCount()}"></span><br>
+                <span>총액 : </span>
+                <span th:id="tprice" style="color:gray;" th:text="${cart.getTotalPrice()}"></span><br>
+                <span>할인총액 :</span>
+                <span th:id="tdiscountprice"></span><br>
+                </div>
         </div>
-    </div>
-    <div class="row" style="padding: 1rem;">
+        </div>
+    <div class="row" style="padding: 1rem; text-align: right">
         <button class="btn btn-outline-success" type="button" id="cartBtn2" style="margin-right:0.3rem;">저장하기</button>
         <button class="btn btn-primary" type="button" id="orderBtn" >주문하기</button>
     </div>
