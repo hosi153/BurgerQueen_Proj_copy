@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let tmpCart = [];
+        let totalQuantity =0;
+        let totalPrice = 0;
+        let totalDiscountPrice =0;
+        /*]]>*/
+    </script>
+</head>

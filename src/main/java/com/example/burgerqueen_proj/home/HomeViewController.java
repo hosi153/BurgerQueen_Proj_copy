@@ -12,6 +12,9 @@ import com.example.burgerqueen_proj.category.service.CategoryService;
 import com.example.burgerqueen_proj.member.dto.MemberResponseDto;
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.service.MemberService;
+import com.example.burgerqueen_proj.order.dto.OrderResponseDto;
+import com.example.burgerqueen_proj.order.mapper.OrderMapper;
+import com.example.burgerqueen_proj.order.service.OrderService;
 import com.example.burgerqueen_proj.product.dto.ProductResponseDto;
 import com.example.burgerqueen_proj.product.entity.Product;
 import com.example.burgerqueen_proj.product.service.ProductService;
@@ -34,10 +37,13 @@ public class HomeViewController {
     private final CategoryService categoryService;
     private final PromotionService promotionService;
     private final MemberService memberService;
+    private final OrderService orderService;
 
     private final CartMapper cartMapper;
     private final CartService cartService;
     private final CartRepository cartRepository;
+
+    private final OrderMapper orderMapper;
 
     //홈화면 출력 : header, fotter 및 주문가능한 상품정보 출력
     @GetMapping("/home")
@@ -80,6 +86,21 @@ public class HomeViewController {
         model.addAttribute("member",member);
 
         return "myPage";
+    }
+
+
+    @GetMapping("/order")
+    public String viewOrder(Model model){
+
+        Member member = memberService.findMember(1L);
+        CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
+        OrderResponseDto order = orderMapper.orderToOrderResponseDto(orderService.findOrderByMember(member));
+
+
+        model.addAttribute("order",order);
+        model.addAttribute("member",new MemberResponseDto(member));
+
+        return "order";
     }
 
 

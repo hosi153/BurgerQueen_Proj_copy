@@ -1,7 +1,9 @@
 package com.example.burgerqueen_proj.member.entity;
 
 import com.example.burgerqueen_proj.cart.entity.Cart;
+import com.example.burgerqueen_proj.entity.BasicEntity;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +18,8 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 @AllArgsConstructor @Builder
 @Table
-public class Member {
+@EntityListeners(AuditingEntityListener.class)
+public class Member extends BasicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
