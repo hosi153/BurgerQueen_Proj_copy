@@ -4,6 +4,7 @@ import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.product.entity.Product;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.aspectj.weaver.ast.Or;
 
@@ -11,11 +12,12 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
 public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long orderDetailsId;
+    private long orderProductId;
 
     @Column(nullable = false)
     private int quantity;
@@ -48,10 +50,16 @@ public class OrderProduct {
         }
     }
 
+    @Builder
+    public OrderProduct(long orderProductId, int quantity, Product product, Order order) {
+        this.orderProductId = orderProductId;
+        this.quantity = quantity;
+        this.product = product;
+        this.order = order;
+    }
 
 
-
-//    @ManyToOne
+    //    @ManyToOne
 //    @JoinColumn(name = "PRODUCT_ID")
 //    private Product product;
 //

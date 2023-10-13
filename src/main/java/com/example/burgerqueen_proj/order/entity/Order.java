@@ -27,7 +27,6 @@ public class Order extends BasicEntity {
 
 
     private int totalCount;
-
     private int totalDiscountPrice;
     private int totalPrice;
 

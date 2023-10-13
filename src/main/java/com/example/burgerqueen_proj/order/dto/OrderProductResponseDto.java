@@ -1,14 +1,13 @@
-package com.example.burgerqueen_proj.cart.dto;
+package com.example.burgerqueen_proj.order.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Builder
 @Getter
-public class CartProductResponseDto {
+public class OrderProductResponseDto {
 
-    private long cartProductId;
+    private long orderProductId;
     private long productId;
     private  Integer quantity;
     private String productName;

@@ -66,9 +66,9 @@ public class CartController {
 
     }
 
-    @DeleteMapping("/{cart-id}")
-    public ResponseEntity deleteCart(@PathVariable("cart-id")long cartId){
-        cartService.cancelCart(cartId);
+    @DeleteMapping("/{cart-id}/{cartPrduct-id}")
+    public ResponseEntity deleteCart(@PathVariable("cart-id")long cartId,@PathVariable("cartPrduct-id") long cartPrductId ){
+        cartService.deleteCartProduct(cartPrductId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

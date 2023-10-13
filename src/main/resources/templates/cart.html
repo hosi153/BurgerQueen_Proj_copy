@@ -15,7 +15,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-<!--                    <th class="col-md-1">#</th>-->
+                    <th class="col-md-1">#</th>
                     <th class="col-md-5">상품</th>
                     <th class="col-md-2">수량</th>
                     <th class="col-md-2">가격</th>
@@ -23,16 +23,20 @@
                 </thead>
                 <tbody>
                 <tr th:each="item:${cart.getCartProducts()}">
+                        <td th:text="${item.getCartProductId()}"></td>
                         <td th:text="${item.getProductName()}"></td>
                         <td th:text="${item.getQuantity()}"></td>
                         <td th:text="${item.getPrice()}"></td>
                 </tr>
                 <tr>
+                    <th class="col-md-1"> </th>
                     <th class="col-md-5"> </th>
                     <th class="col-md-2">합계</th>
                     <th class="col-md-2">총액</th>
                 </tr>
                 <tr>
+                    <th class="col-md-1"> </th>
+
                     <th class="col-md-5"> </th>
                     <td th:text="${cart.getTotalCount()}"></td>
                     <td th:text="${cart.getTotalPrice()}"></td>

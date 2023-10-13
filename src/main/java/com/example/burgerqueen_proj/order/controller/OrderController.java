@@ -1,5 +1,6 @@
 package com.example.burgerqueen_proj.order.controller;
 
+import com.example.burgerqueen_proj.order.dto.OrderPatchDto;
 import com.example.burgerqueen_proj.order.dto.OrderPostDto;
 import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.mapper.OrderMapper;
@@ -32,7 +33,7 @@ public class OrderController {
         System.out.println("email : " + order.getMember().getEmail());
 
 
-        return new ResponseEntity<>(order, HttpStatus.CREATED);
+        return new ResponseEntity<>(orderMapper.orderToOrderResponseDto(order), HttpStatus.CREATED);
     }
 
 
@@ -55,6 +56,11 @@ public class OrderController {
     public ResponseEntity deleteOrder(@PathVariable("order-id")long orderId){
         orderService.deleteOrder(orderId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/{order-id}")
+    public ResponseEntity patchOrder(@PathVariable("order-id")long orderId, @RequestBody OrderPatchDto orderPatchDto){
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
