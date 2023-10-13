@@ -119,7 +119,7 @@ public interface CartMapper {
     default List<CartProductResponseDto> cartProductToCartProductResponseDto(List<CartProduct> cartProducts) {
         return cartProducts
                 .stream()
-                .map(cartDetail -> CartProductResponseDto
+                .map(cartProduct -> CartProductResponseDto
                         .builder()
                         .productId(cartDetail.getProduct().getProductId())
                         .productName(cartDetail.getProduct().getProductName())
@@ -128,6 +128,7 @@ public interface CartMapper {
                         .discountPrice(cartDetail.getProduct().getDiscountPrice())
                         .price(cartDetail.getProduct().getProductPrice())
                         .quantity(cartDetail.getQuantity())
+
                         .build())
                 .collect(Collectors.toList());
     }

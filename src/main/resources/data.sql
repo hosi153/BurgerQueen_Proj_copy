@@ -14,7 +14,7 @@ insert into "PRODUCT" (product_name, product_count, product_price, category_id, 
 insert into "PRODUCT" (product_name, product_count, product_price, category_id) values ('감튀',10,1000,4);
 insert into "PRODUCT" (product_name, product_count, product_price, category_id) values ('새우튀김',10,1000,5);
 insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id, product_image) values ('새우버거 세트','새우버거단품 + 음료 + 감자튀김',10,5000,1,'/image/shrimpSet.jpeg' );
-insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id, product_image) values ('와퍼 세트','와퍼 단품 + 음료 + 감자튀김',10,7000,1, '/image/wapperSet.jpeg');
+insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id, product_image,product_status) values ('와퍼 세트','와퍼 단품 + 음료 + 감자튀김',10,7000,1, '/image/wapperSet.jpeg','PRODUCT_STOP');
 
 
 
@@ -23,10 +23,12 @@ insert into "PROMOTION" (promotion_name, promotion_description, amount, discount
 update "CATEGORY" SET promotion_id=1 WHERE category_name='SET';
 update "CATEGORY" SET promotion_id=2 WHERE category_name='HAMBURGER';
 
-insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, address3, phone) values ('test@test.com','테스트사용자','GRADE_JOIN',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, address3, phone) values ('test@test.com','테스트사용자','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+
 
 insert into "CART" (CART_ID,MEMBER_ID, TOTAL_COUNT, total_price) values (1,1,12, 18900);
 
 insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1);
 insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (10,1,2);
 insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,3);
+

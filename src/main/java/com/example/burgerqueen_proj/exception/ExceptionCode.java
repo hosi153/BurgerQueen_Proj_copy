@@ -15,6 +15,8 @@ public enum ExceptionCode {
     USER_NOT_FOUND(404, "Member not found"),
     MEMBER_EXISTS(409, "Member already exists"),
     CART_NOT_FOUND(404, "Cart not found"),
+    NOT_FOR_SALE(404, "Not For Sale"),
+    STOCK_SHORTAGE(404, "Stock Shortage"),
     ORDER_NOT_FOUND(404, "Order not found");
 
 

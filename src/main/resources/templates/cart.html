@@ -41,7 +41,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-<!--                    <th class="col-md-1">#</th>-->
+                    <th class="col-md-1">#</th>
                     <th class="col-md-5">상품</th>
                     <th class="col-md-2">수량</th>
                     <th class="col-md-2" style="color:gray;">가격</th>
@@ -49,6 +49,7 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 <tr id="trDiv" th:each="item:${cart.getCartProducts()}" th:index="${itemStat.index}">
                         <td> <span th:text="|${item.getProductName}  |"></span>
                             <span style="color:gray; font-size:small;" th:text="|(주문가능 수량 ${item.getProductCount})  |"></span>
@@ -73,14 +74,18 @@
                         </td>
                         <td style="color:gray;" th:text="${item.getPrice()}"></td>
                         <td th:text="${item.getDiscountPrice()}"></td>
+
                 </tr>
                 <tr>
+                    <th class="col-md-1"> </th>
                     <th class="col-md-5"> </th>
                     <th class="col-md-2">합계</th>
                     <th class="col-md-2" style="color:gray;">총액</th>
                     <th class="col-md-2">할인총액</th>
                 </tr>
                 <tr>
+                    <th class="col-md-1"> </th>
+
                     <th class="col-md-5"> </th>
                     <td th:id="tcount" th:text="${cart.getTotalCount()}"></td>
                     <td th:id="tprice" style="color:gray;" th:text="${cart.getTotalPrice()}"></td>
