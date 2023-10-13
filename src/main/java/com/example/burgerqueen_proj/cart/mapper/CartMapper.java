@@ -121,13 +121,13 @@ public interface CartMapper {
                 .stream()
                 .map(cartProduct -> CartProductResponseDto
                         .builder()
-                        .productId(cartDetail.getProduct().getProductId())
-                        .productName(cartDetail.getProduct().getProductName())
-                        .productStatus(String.valueOf(cartDetail.getProduct().getProductStatus()))
-                        .productCount(cartDetail.getProduct().getProductCount())
-                        .discountPrice(cartDetail.getProduct().getDiscountPrice())
-                        .price(cartDetail.getProduct().getProductPrice())
-                        .quantity(cartDetail.getQuantity())
+                        .productId(cartProduct.getProduct().getProductId())
+                        .productName(cartProduct.getProduct().getProductName())
+                        .productStatus(String.valueOf(cartProduct.getProduct().getProductStatus()))
+                        .productCount(cartProduct.getProduct().getProductCount())
+                        .discountPrice(cartProduct.getProduct().getDiscountPrice())
+                        .price(cartProduct.getProduct().getProductPrice())
+                        .quantity(cartProduct.getQuantity())
 
                         .build())
                 .collect(Collectors.toList());
