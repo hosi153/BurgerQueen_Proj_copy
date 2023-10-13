@@ -7,12 +7,15 @@
     <meta charset="UTF-8">
     <title>BurgerQueen</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let cartId = [[${cartId}]];
         let cartList = {};
         let cartListAll = [];
 
         let productId;
         let productName;
+            /*]]>*/
     </script>
 </head>
 
@@ -80,7 +83,7 @@
     </div>
     <div th:each="cart : ${cart}" style="padding: 0.5rem;">
         <!--        해당 사용자의 카트 정보를 자바스크립트 변수에 저장-->
-        <input type="hidden" id="cartId" th:value="${cartId}">
+<!--        <input type="hidden" id="cartId" th:value="${cartId}">-->
         <script th:inline="javascript">
             /*<![CDATA[*/
 

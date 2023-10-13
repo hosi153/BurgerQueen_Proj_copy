@@ -54,6 +54,7 @@ public class HomeViewController {
 
         Member member = memberService.findMember(1L);
         CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
+        System.out.println(cart.getCartId());
 
         model.addAttribute("cartId", cart.getCartId());
         model.addAttribute("promotions", promotions);
