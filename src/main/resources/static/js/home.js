@@ -33,7 +33,7 @@ function click(e){
 //구매하기 버튼 클릭 시, cart post 및 페이지 이동
 if(buyBtn){
     buyBtn.addEventListener('click',event =>{
-        let cartId = document.getElementById('cartId').value;
+        // let cartId = document.getElementById('cartId').value;
         console.log(`cartId: ${cartId}`)
         fetch(`/api/cart/${cartId}`,{
             method :'PATCH',
