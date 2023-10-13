@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main-layout">
 <head>
     <meta charset="UTF-8">
     <title>My Page</title>
@@ -9,22 +11,8 @@
         var cartList = {};
     </script>
 </head>
-<body>
 
-<nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;">
-    <div class="container-fluid">
-        <span class="navbar-text">
-           <span th:text="${member.memberName}"></span>
-            님! 환영합니다.
-        </span>
-        <!--            <div class="col-6"><span id = "printId">님! 환영합니다.</span> </div>-->
-        <div class="col text-right">
-            <a href="/home" class="btn btn-outline-secondary" type="button">홈으로 이동</a>
-        </div>
-    </div>
-</nav>
-
-<div class="container-fluid" style="width:60rem; padding: 1rem;" th:with="member = ${member}">
+<div layout:fragment="content">
     <div class="row" style="margin-top:3rem">
         <div class="col-md-12">
             <div class="jumbotron card card-block">
@@ -65,15 +53,10 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </div>
 
-
-<footer class="navbar navbar-expand-lg navbar-light bg-light">
-    <p>copyright 2023. 박지영, 최호균 </p>
-</footer>
-
-
 <script th:inline="javascript" src="/js/home.js"></script>
-</body>
+</div>
+
 </html>

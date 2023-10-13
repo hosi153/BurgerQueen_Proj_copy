@@ -49,7 +49,7 @@ if(buyBtn){
                 if(response.ok){return response.json()}
                 throw new Error(`Status: ${response.status} ! 요청 처리에 실패하였습니다 !`);
             }).then(data => {
-            sessionStorage.setItem('cart', cartListAll);
+            // sessionStorage.setItem('cart', cartListAll);
             location.href=`/cart`;
         })
             .catch(error => {

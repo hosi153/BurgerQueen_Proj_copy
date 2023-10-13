@@ -1,19 +1,23 @@
-﻿<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-    <body>
-        <div align="right" th:fragment="header">
-            <a href="/members/register" class="text-decoration-none">회원가입</a> |
-            <span sec:authorize="isAuthenticated()"> <!--  -->
-                <span sec:authorize="hasRole('USER')">  <!--  -->
-                    <a href="/members/my-page" class="text-decoration-none">마이페이지</a> |
-                </span>
-                <a href="/logout" class="text-decoration-none">로그아웃</a>
-                <span th:text="${#authentication.name}">홍길동</span>님  <!--  -->
-            </span>
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-            <span sec:authorize="!isAuthenticated()"> <!--   -->
-                <a href="/auths/login-form" class="text-decoration-none">로그인</a>
-            </span>
+    <body>
+    <th:block th:fragment="headerFragment">
+    <nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a href="/home">
+            <img src="./../image/logo.jpeg" style="height:3rem; object-fit:cover;" alt="홈으로 이동">
+             BurgerQueen </a>
+            <div class="col text-right">
+                <span class="navbar-text" style="margin-right: 2rem;">
+                    <span th:text="${member.memberName}" ></span>님! 환영합니다.
+                </span>
+                <button class="btn btn-success" type="button" id="cartBtn">구매하기</button>
+                <a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
+            </div>
         </div>
+    </nav>
+    </th:block>
     </body>
+
 </html>

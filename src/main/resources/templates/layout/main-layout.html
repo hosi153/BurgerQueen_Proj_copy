@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body>
+
+<!--    <th:block th:replace="fragments/header :: headerFragment"></th:block>-->
+
+    <th:block th:fragment="headerFragment">
+        <nav class="navbar fixed-top navbar-light bg-light" style="background-color: #e3f2fd;">
+            <div class="container-fluid">
+                <div class="col-md-4">
+                <a href="/home">
+                    <img src="./../image/logo.jpeg" style="height:3rem; object-fit:cover;" alt="홈으로 이동">
+                    BurgerQueen </a>
+                </div>
+                <div class="col text-right">
+                    <span class="navbar-text" style="margin-right: 2rem;">
+                        <span th:text="${member.memberName}" ></span>님! 환영합니다.
+                    </span>
+                </div>
+                <div class="col-auto">
+                    <th:block layout:fragment="headerBtn"></th:block>
+                </div>
+
+            </div>
+        </nav>
+    </th:block>
+
+    <th:block class="container" style="width:60rem; margin-top:2rem; padding: 1rem;" layout:fragment="content">
+
+    </th:block>
+</body>
+
+<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+</html>
