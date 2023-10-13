@@ -6,9 +6,9 @@ insert into "CATEGORY" (category_name) values ('SIDE' );
 insert into "CATEGORY" (category_name) values ('OPTION' );
 
 
-insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id, product_image) values ('새우','오동통 새우버거',10,1000,2,'/image/shrimp.jpg');
-insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id) values ('와퍼','1겹 와퍼',10,1500,2);
-insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id) values ('더블와퍼','2겹 와퍼',10,2000,2);
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('새우','오동통 새우버거','PRODUCT_STOP',3,1000,2,'/image/shrimp.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id) values ('더블와퍼','2겹 와퍼','PRODUCT_ING',10,2000,2);
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id) values ('와퍼','1겹 와퍼','PRODUCT_ING',10,1500,2);
 insert into "PRODUCT" (product_name, product_count, product_price, category_id, product_image) values ('불고기',10,2000,2,'/image/bulgogi.jpg');
 insert into "PRODUCT" (product_name, product_count, product_price, category_id, product_image) values ('콜라',10,1000,3, '/image/cola.jpeg');
 insert into "PRODUCT" (product_name, product_count, product_price, category_id) values ('감튀',10,1000,4);
@@ -25,6 +25,8 @@ update "CATEGORY" SET promotion_id=2 WHERE category_name='HAMBURGER';
 
 insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, address3, phone) values ('test@test.com','테스트사용자','GRADE_JOIN',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
 
-insert into "CART" (CART_ID,MEMBER_ID, TOTAL_COUNT, total_price) values (1,1,1, 100);
+insert into "CART" (CART_ID,MEMBER_ID, TOTAL_COUNT, total_price) values (1,1,12, 18900);
 
 insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1);
+insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (10,1,2);
+insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,3);

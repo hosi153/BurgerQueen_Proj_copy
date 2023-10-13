@@ -47,14 +47,13 @@ public class HomeViewController {
         List<PromotionResponseDto> promotions = PromotionResponseDto.promotionResponseDtos(promotionService.getActivePromotions());
 
         Member member = memberService.findMember(1L);
-        MemberResponseDto memberDto = new MemberResponseDto(member);
         CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
 
         model.addAttribute("cartId", cart.getCartId());
         model.addAttribute("promotions", promotions);
         model.addAttribute("categories", categories);
         model.addAttribute("products",products);
-        model.addAttribute("member",memberDto);
+        model.addAttribute("member",new MemberResponseDto(member));
         model.addAttribute("cart", cart.getCartProducts());
         return "home";
     }
@@ -67,7 +66,9 @@ public class HomeViewController {
         Member member = memberService.findMember(1L);
         CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
 
+
         model.addAttribute("cart",cart);
+        model.addAttribute("member",new MemberResponseDto(member));
 
         return "cart";
     }
