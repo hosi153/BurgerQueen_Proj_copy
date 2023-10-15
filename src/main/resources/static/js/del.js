@@ -12,6 +12,7 @@ function click(e){
         let index = this.getAttribute("id")
         let productId = this.getAttribute("prdId")
 
+
         fetch(`/api/cart/${cartId}/${productId}`,{
             method :'DELETE',
             headers : {"Content-Type": "application/json",},
@@ -20,7 +21,9 @@ function click(e){
                 if(response.ok){return response.json()}
                 throw new Error(`Status: ${response.status} ! 요청 처리에 실패하였습니다 !`);
             }).then(data => {
-            document.querySelector("#tBody").deleteRow(index)
+                totalQuantity -= tmpCart[index]["quantity"];
+                if(totalQuantity>0) document.querySelector("#tBody").deleteRow(index)
+                else location.href=`/empty-cart`;
         })
             .catch(error => {
                 alert('삭제실패! 잠시 후 시도해주세요.');
