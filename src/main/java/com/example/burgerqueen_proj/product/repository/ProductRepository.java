@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByOrderByCategoryAsc();
+    List<Product> findAllByProductStatus(Product.ProductStatus status);
     List<Product> findAllByCategory(Category category);
     List<Product> findAllByCategoryAndProductStatus(Category category, Product.ProductStatus productStatus);
 //    Optional<Product> findByStatusByOrderByCategoryDesc(String status);

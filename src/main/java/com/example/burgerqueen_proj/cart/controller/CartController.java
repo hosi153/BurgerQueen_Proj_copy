@@ -66,10 +66,10 @@ public class CartController {
 
     }
 
-    @DeleteMapping("/{cart-id}/{cartPrduct-id}")
-    public ResponseEntity deleteCart(@PathVariable("cart-id")long cartId,@PathVariable("cartPrduct-id") long cartPrductId ){
-        cartService.deleteCartProduct(cartPrductId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{cart-id}/{product-id}")
+    public ResponseEntity deleteCart(@PathVariable("cart-id")long cartId,@PathVariable("product-id") long prductId ){
+        cartService.deleteCartProduct(cartId, prductId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

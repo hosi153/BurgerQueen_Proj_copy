@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main-layout">
+<head>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script>
+        var cartList = {};
+    </script>
+</head>
+
+<div layout:fragment="content">
+    <div class="row" style="margin-top:3rem">
+        <div class="col-md-12">
+
+            <div class="jumbotron card card-block">
+
+                <h4 th:text="${member.memberName}"></h4>
+                <p>
+                    <input type="hidden" id="memberEmail" th:value="${member.email}">
+                    <span  th:text="|이메일 : ${member.email}|"></span><br>
+                    등급 : <strong  th:text="| ${member.grade.gradeDiscription} |"> </strong><br>
+                    <span th:text="| 등급혜택 : ${member.grade.benefit.getBenefitName()}|"></span>
+                </p>
+                <address><strong>배송 주소</strong><br />
+                    <input type="text" id="editAddr1" th:value="${member.address1}" style="margin-top: 0.3rem; width:30rem;"><br>
+                    <input type="text" id="editAddr2" th:value="${member.address2}" style="margin-top: 0.3rem; width:30rem;"><br>
+                    <input type="text" id="editAddr3" th:value="${member.address3}" style="margin-top: 0.3rem; width:30rem;"><br>
+
+
+                    <abbr title="Phone" >Phone:</abbr>
+                    <input type="text" id="editPhone" th:value="${member.phone}" style="margin-top: 0.3rem; width:26rem;"><br>
+<!--                    <span title="Phone" >비밀번호:</span>-->
+<!--                    <input type="text" id="editPassword" style="width:25rem;">-->
+
+                </address>
+                <a id="saveBtn" class="btn btn-secondary" type="button" style="color:white;" >저장하기</a>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script th:inline="javascript" src="/js/save.js"></script>
+</div>
+
+</html>

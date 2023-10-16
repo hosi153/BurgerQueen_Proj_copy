@@ -88,6 +88,17 @@ public class HomeViewController {
         return "myPage";
     }
 
+    @GetMapping("/editUser")
+    public String editMyPage(Model model){
+        MemberResponseDto member = new MemberResponseDto(memberService.findMember(1L));
+
+        model.addAttribute("member",member);
+
+        return "editUser";
+    }
+
+
+
     @GetMapping("/empty-cart")
     public String viewEmptyCart(Model model){
 

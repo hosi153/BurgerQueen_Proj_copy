@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/main-layout">
+      layout:decorate="~{layout/main-layout}">
 <head>
     <meta charset="UTF-8">
     <title>BurgerQueen</title>
@@ -25,7 +25,7 @@
 </div>
 <div layout:fragment="content">
 
-    <div class="row" style="background-color: darkseagreen; margin-top:3rem; padding-top: 1rem; padding-left:2rem; padding-bottom: 1rem;">
+    <div class="row border border-2 rounded" style="background-color:rgb(213,243,224); margin-top:3rem; padding-top: 1rem; padding-left:2rem; padding-bottom: 1rem;">
         <table>
             <tr>
                 <td>
@@ -49,19 +49,22 @@
         <div class="row">
             <div th:each="item : ${products}" style="padding-bottom: 0.3rem;">
                 <div class="col" th:if="${item.category == ctg.categoryName}">
-                    <div class="card h-100" style="width: 17rem; ">
+                    <div class="card h-100" style="width: 17.5rem; ">
                         <img th:if="${item.productImage} != null" th:src="${item.productImage}" class="card-img-top"
                              style="height:13rem; object-fit:cover;" alt="...">
                         <div class="card-body text-center" id="cartDiv">
                             <h5 class="card-title" th:text="| ${item.productName}|"></h5>
                             <p class="card-text" th:text="| ${item.productDescription}|"></p>
                             <p class="card-text text-left">
-                                <span th:text="|가격 : ${item.productPrice}원|"></span>
+                                <span th:text="|가격 : ${#numbers.formatInteger(item.productPrice,3,'COMMA')}원|"></span>
                                 <span th:if="${item.productPrice} > ${item.discountPrice}"
-                                      th:text="|/ 할인가격 : ${item.discountPrice}원|"></span>
+                                      th:text="|/ 할인가격 : ${#numbers.formatInteger(item.discountPrice,3,'COMMA')}원|"></span><br>
                             </p>
                             <!--                            <a href="#" class="btn btn-primary btn-sm" style="width: 6rem;">바로 주문</a>-->
-                            <button type="button" th:id="${item.productId}" th:name="${item.productName}"
+
+<!--                            <span style="color:gray; font-size:small;" th:if="!${item.status == 'PRODUCT_STOP'}" th:text="|(주문가능 수량 ${item.getProductCount})  |"></span>-->
+                            <span style="color:red;" th:if="${item.status == 'PRODUCT_STOP'}">판매중지</span>
+                            <button th:if="!${item.status == 'PRODUCT_STOP'}" type="button" th:id="${item.productId}" th:name="${item.productName}"
                                     class="btn btn-outline-success btn-sm" style="width: 6rem;">장바구니 담기
                             </button>
                             <!--                            <script>-->
@@ -96,6 +99,8 @@
         </script>
 <!--        <li th:text="|${cart.productId} : ${cart.productName} : ${cart.quantity}|"></li>-->
     </div>
+
+
     <script th:inline="javascript" src="./../../js/home.js"></script>
 </div>
 

@@ -39,7 +39,11 @@ public class Category extends BasicEntity {
 
 
     public int getCountProduct(){
-        this.countProduct = this.products.toArray().length;
+        this.countProduct=0;
+        System.out.println(this.products);
+        if(this.products!=null) {
+            this.countProduct = this.products.toArray().length;
+        }
         return countProduct;
     }
     public void setProduct(Product product){

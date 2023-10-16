@@ -3,6 +3,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+    function numberWithCommas(n) {
+        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+</script>
 
 <!--    <th:block th:replace="fragments/header :: headerFragment"></th:block>-->
 
@@ -27,7 +33,7 @@
         </nav>
     </th:block>
 
-    <th:block class="container" style="width:60rem; margin-top:2rem; padding: 1rem;" layout:fragment="content">
+    <th:block class="container" style="width:63rem; margin-top:2rem; padding: 1rem;" layout:fragment="content">
 
     </th:block>
 </body>

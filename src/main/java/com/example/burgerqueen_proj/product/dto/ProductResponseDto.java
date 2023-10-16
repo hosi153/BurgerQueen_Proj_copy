@@ -19,7 +19,7 @@ public class ProductResponseDto {
     private int discountPrice;
     private String productImage;
     private String category;
-    private Product.ProductStatus status;
+    private String status;
 
 
     public ProductResponseDto(Product product){
@@ -29,7 +29,7 @@ public class ProductResponseDto {
         this.productPrice = product.getProductPrice();
         this.productImage = product.getProductImage();
         this.category = product.getCategory().getCategoryName();
-        this.status = product.getProductStatus();
+        this.status = String.valueOf(product.getProductStatus());
         this.discountPrice=(int) product.getDiscountPrice();
     }
     public static List<ProductResponseDto> productResponseDtos(List<Product> products){

@@ -9,6 +9,7 @@ import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.service.MemberService;
+import com.example.burgerqueen_proj.product.entity.Product;
 import com.example.burgerqueen_proj.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -89,8 +90,12 @@ public class CartService {
         Cart findCart = findVerifiedCart(cartId);
         cartRepository.delete(findCart);
     }
-    public void deleteCartProduct(long cartProductId){
-        CartProduct findCartProduct = findVerifiedCartProduct(cartProductId);
+    public void deleteCartProduct(long cartId, long productId){
+        Cart findCart = findVerifiedCart(cartId);
+        Product findProduct = productService.findProduct(productId);
+        CartProduct findCartProduct = cartProductRepository.findByCartAndProduct(findCart,findProduct);
+        System.out.println(findCartProduct.getProduct().getProductName());
+//        CartProduct findCartProduct = findVerifiedCartProduct(productId);
         cartProductRepository.delete(findCartProduct);
 
     }

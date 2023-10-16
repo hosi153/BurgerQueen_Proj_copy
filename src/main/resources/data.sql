@@ -26,7 +26,7 @@ update "CATEGORY" SET promotion_id=2 WHERE category_name='HAMBURGER';
 insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, address3, phone) values ('test@test.com','테스트사용자','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
 
 
-insert into "CART" (CART_ID,MEMBER_ID, TOTAL_COUNT, total_price) values (1,1,12, 18900);
+insert into "CART" (MEMBER_ID, TOTAL_COUNT, total_price) values (1,12, 18900);
 
 insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1);
 insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (10,1,2);
