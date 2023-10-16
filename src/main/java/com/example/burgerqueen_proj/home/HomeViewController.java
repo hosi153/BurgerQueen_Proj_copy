@@ -32,6 +32,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -101,6 +102,25 @@ public class HomeViewController {
 
 
         return "myPage";
+    }
+    @GetMapping("/myPage/delivery/{delivery-id}")
+    public String viewMyPage(Model model, @PathVariable("delivery-id")long deliveryId){
+
+
+        Member findMember = memberService.findMember(1L);
+        MemberResponseDto member = new MemberResponseDto(findMember);
+
+
+        DeliveryResponseDto delivery = deliveryMapper.deliveryToDeliveryResponseDto(deliveryService.findDelivery(deliveryId));
+        OrderResponseDto order = orderMapper.orderToOrderResponseDto(orderService.findOrder(delivery.getOrderId()));
+
+        model.addAttribute("member",member);
+        model.addAttribute("delivery",delivery);
+        model.addAttribute("order",order);
+
+
+
+        return "orderDetail";
     }
 
     @GetMapping("/empty-cart")
