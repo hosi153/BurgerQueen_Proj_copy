@@ -26,6 +26,7 @@ public class Delivery extends BasicEntity {
     @JoinColumn(name = "orderId")
     private Order order;
 
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
 

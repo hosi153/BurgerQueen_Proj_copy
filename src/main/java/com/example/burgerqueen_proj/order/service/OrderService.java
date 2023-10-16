@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -69,14 +70,14 @@ public class OrderService {
         if (order.getMember().getGrade().getBenefit().equals(Member.GradeBenefit.DISCOUNT)){
             double v = 0.01*  order.getTotalPrice() * Double.valueOf(order.getMember().getGrade().getBenefitDetail());
             order.setTotalDiscountPrice((int)v);
-            System.out.println(order.getTotalDiscountPrice());
+            System.out.println("옴뇸뇸뇸뇸뇸뇸 ");
         }
 
 
 
     }
 
-    public Order findOrderByMember(Member member){
+    public List<Order> findOrderByMember(Member member){
 
         return orderRepository.findByMember(member);
     }

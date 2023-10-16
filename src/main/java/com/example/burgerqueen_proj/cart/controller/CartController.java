@@ -66,12 +66,26 @@ public class CartController {
 
     }
 
-    @DeleteMapping("/{cart-id}/{cartPrduct-id}")
-    public ResponseEntity deleteCart(@PathVariable("cart-id")long cartId,@PathVariable("cartPrduct-id") long cartPrductId ){
-        cartService.deleteCartProduct(cartPrductId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{cart-id}") //장바구니 비우기
+    public ResponseEntity clearCart(@PathVariable("cart-id")long cartId){
+        cartService.clearCartProduct(cartId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
+    @DeleteMapping("/{cart-id}/{product-id}") //단건 삭제
+    public ResponseEntity deleteCartProduct(@PathVariable("cart-id")long cartId,@PathVariable("product-id")long productId){
+
+        cartService.deleteCartProduct(cartId,productId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+//
+//    @DeleteMapping("/{cart-id}") //장바구니 비우기
+//    public ResponseEntity dCart(@PathVariable("cart-id")long cartId){
+//        cartService.cancelCart(cartId);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
 
 
