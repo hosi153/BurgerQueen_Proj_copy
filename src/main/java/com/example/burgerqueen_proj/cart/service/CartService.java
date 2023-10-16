@@ -87,23 +87,33 @@ public class CartService {
         cartRepository.delete(findCart);
     }
 
-    public void clearCartProduct(long cartId) {
-
-        Cart cart = findVerifiedCart(cartId);
-        cartProductRepository.deleteAll(cart.getCartProducts());
-    }
-
-    public void deleteCartProduct(long cartId, long productId) {
-        Cart cart = findVerifiedCart(cartId);
-        System.out.println(cart.getCartProducts());
-        for (int i = 0; i < cart.getCartProducts().size(); i++) {
-            System.out.println(i);
-            if (cart.getCartProducts().get(i).getProduct().getProductId() == productId) {
-
-                cartProductRepository.delete(cart.getCartProducts().get(i));
-
-            }
-        }
+    public void deleteCartProduct(long cartId, long productId){
+        Cart findCart = findVerifiedCart(cartId);
+        Product findProduct = productService.findProduct(productId);
+        CartProduct findCartProduct = cartProductRepository.findByCartAndProduct(findCart,findProduct);
+        System.out.println(findCartProduct.getProduct().getProductName());
+//        CartProduct findCartProduct = findVerifiedCartProduct(productId);
+        cartProductRepository.delete(findCartProduct);
+//=======
+//
+//    public void clearCartProduct(long cartId) {
+//
+//        Cart cart = findVerifiedCart(cartId);
+//        cartProductRepository.deleteAll(cart.getCartProducts());
+//    }
+//
+//    public void deleteCartProduct(long cartId, long productId) {
+//        Cart cart = findVerifiedCart(cartId);
+//        System.out.println(cart.getCartProducts());
+//        for (int i = 0; i < cart.getCartProducts().size(); i++) {
+//            System.out.println(i);
+//            if (cart.getCartProducts().get(i).getProduct().getProductId() == productId) {
+//
+//                cartProductRepository.delete(cart.getCartProducts().get(i));
+//
+//            }
+//        }
+//>>>>>>> upstream/main
 
     }
 

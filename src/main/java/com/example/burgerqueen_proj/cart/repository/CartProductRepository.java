@@ -14,9 +14,9 @@ import java.util.List;
 public interface CartProductRepository extends JpaRepository<CartProduct,Long> {
 
     CartProduct findByProduct(Product product);
+
+    CartProduct findByCartAndProduct(Cart cart, Product product);
     CartProduct findByCart(Cart cart);
-
-
     void deleteAllByCart(Cart cart);
 
 

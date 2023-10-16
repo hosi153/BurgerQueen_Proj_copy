@@ -1,5 +1,6 @@
 package com.example.burgerqueen_proj.member.controller;
 
+import com.example.burgerqueen_proj.member.dto.MemberPatchDto;
 import com.example.burgerqueen_proj.member.dto.MemberPostDto;
 import com.example.burgerqueen_proj.member.dto.MemberResponseDto;
 import com.example.burgerqueen_proj.member.entity.Member;
@@ -24,14 +25,24 @@ public class MemberController {
 
     //READ : 로그인
     @GetMapping("/{member-email}")
-    public ResponseEntity loginMember(@PathVariable("member-id") String email){
+    public ResponseEntity loginMember(@PathVariable("member-email") String email){
         Member member = memberService.findMemberByEmail(email);
         return new ResponseEntity(new MemberResponseDto(member), HttpStatus.OK);
     }
 
     //UPDATE : 고객정보 변경
+    @PatchMapping("/{member-email}")
+    public ResponseEntity updateMember(@PathVariable("member-email")String email, @RequestBody MemberPatchDto memberPatchDto){
+        Member member = memberService.updateMember(memberPatchDto.toEntity(email));
+        return new ResponseEntity(new MemberResponseDto(member), HttpStatus.OK);
+    }
 
 
     //DELETE : 고객삭제
+    @DeleteMapping("/{member-email}")
+    public ResponseEntity deleteMember(@PathVariable("member-email")String email){
+        memberService.deleteMember(email);
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
 
 }

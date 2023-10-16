@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -39,7 +40,7 @@ public class Member extends BasicEntity {
 
     private int stamp=0;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", cascade = {CascadeType.ALL, CascadeType.REMOVE})
     private Cart cart;
 
 
@@ -67,6 +68,15 @@ public class Member extends BasicEntity {
             this.grade = MemberGrade.getGradeOrder(gradeOrder+1);
             this.stamp = 0;
         }
+    }
+
+    public void update(Member member) {
+        Optional.ofNullable(member.getPassword()).ifPresent(this::setPassword);
+        Optional.ofNullable(member.getUserName()).ifPresent(this::setUserName);
+        Optional.ofNullable(member.getAddress1()).ifPresent(this::setAddress1);
+        Optional.ofNullable(member.getAddress2()).ifPresent(this::setAddress2);
+        Optional.ofNullable(member.getAddress3()).ifPresent(this::setAddress3);
+        Optional.ofNullable(member.getPhone()).ifPresent(this::setPhone);
     }
 
 

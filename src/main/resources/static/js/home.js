@@ -18,13 +18,15 @@ function click(e){
     let productName = this.getAttribute("name")
 
     if(productId in cartList){
-        alert("이미 장바구니에 있습니다.");
+        certain('warning', "이미 장바구니에 있습니다.")
+        // alert("이미 장바구니에 있습니다.");
     }
     else {
         cartListAll.push({productId : productId , quantity : 1})
         cartList[productId] = 1;
         console.log(cartListAll)
-        window.alert(`${productName} 상품이 장바구니에 추가되었습니다.`);
+        certain('success',`${productName} 상품이 장바구니에 추가되었습니다.`);
+        // window.alert(`${productName} 상품이 장바구니에 추가되었습니다.`);
     }
     // console.log(cartList)
 }
@@ -57,9 +59,25 @@ if(buyBtn){
                 location.href = `/cart`;
             })
                 .catch(error => {
-                    alert('잠시 후 시도해주세요.');
+                    certain('warning', '잠시 후 시도해주세요.')
                 })
         }
     })
 
+}
+
+function certain(icon, noti){
+    Swal.fire({
+        text: noti,
+        icon: icon,
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '확인',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.value) {
+            //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
+        }
+    })
 }

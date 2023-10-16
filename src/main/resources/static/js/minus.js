@@ -17,13 +17,20 @@ function click(e){
         totalQuantity --;
         totalPrice -= price;
         totalDiscountPrice -= discountPrice;
+
+        let selName = `#num${index}`
+        document.querySelector(selName).innerText=tmpCart[index]["quantity"];
+        // location.href=`/cart`
+        document.querySelector("#tcount").innerText=numberWithCommas(totalQuantity);
+        document.querySelector("#tprice").innerText=numberWithCommas(totalPrice);
+        document.querySelector("#tdiscountprice").innerText=numberWithCommas(totalDiscountPrice);
+        document.querySelector("#tdiscount").innerText=numberWithCommas(totalPrice-totalDiscountPrice);
     }else{
-        alert("최소 1개 주문")}
+        // alert("최소 1개 주문")
+        Swal.fire('',`최소 1개 이상 주문해주세요.`,'warning')
+    }
 
     console.log(tmpCart)
-    let selName = `#num${index}`
-    document.querySelector(selName).innerText=tmpCart[index]["quantity"];
-    document.querySelector("#tcount").innerText=totalQuantity;
-    document.querySelector("#tprice").innerText=totalPrice;
-    document.querySelector("#tdiscountprice").innerText=totalDiscountPrice;
+
+
 }

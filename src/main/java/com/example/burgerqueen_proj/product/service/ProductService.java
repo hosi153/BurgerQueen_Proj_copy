@@ -45,6 +45,12 @@ public class ProductService {
         return products;
     }
 
+    public List<Product> findProductByStatus() {
+        Product.ProductStatus status = Product.ProductStatus.PRODUCT_ING;
+        List<Product> products = productRepository.findAllByProductStatus(status);
+        return products;
+    }
+
 
     public Product createProduct(Product product) {
         Category findCategory = categoryService.findVerifiedCategoryByName(product.getCategory().getCategoryName());
