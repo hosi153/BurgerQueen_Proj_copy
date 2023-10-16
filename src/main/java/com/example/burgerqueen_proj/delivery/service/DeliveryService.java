@@ -31,6 +31,10 @@ public class DeliveryService {
         return deliveryRepository.save(delivery);
     }
 
+    public void  updateDelivery(Delivery delivery){
+        deliveryRepository.save(delivery);
+
+    }
     public Delivery findDelivery(long deliveryId){
         return findVerifyDelivery(deliveryId);
     }
@@ -47,6 +51,18 @@ public class DeliveryService {
                 new BusinessLogicException(ExceptionCode.DELIVERY_NOT_FOUND));
 
         return delivery;
+    }
+
+
+    public void changeDeliveryStatus(){
+        List<Delivery> deliveries = findDeliveries();
+        for (Delivery delivery: deliveries) {
+            if (delivery.getDeliveryStatus().getStatusNumber()==1){
+                delivery.setDeliveryStatus(Delivery.DeliveryStatus.DELIVERY_READY);
+            } else if (delivery.getDeliveryStatus().getStatusNumber()==2) {
+                delivery.setDeliveryStatus(Delivery.DeliveryStatus.DELIVERY_SUCCESS);
+            }
+        }
     }
 
 
