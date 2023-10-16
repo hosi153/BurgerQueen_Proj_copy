@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/order")
-@Validated
+
 @RequiredArgsConstructor
 public class OrderController {
 
@@ -33,6 +33,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity postOrder(@RequestBody CartPatchDto cartPatchDto){
 
+        System.out.println("aaaaaaaaaa");
         Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
 
         Order order = orderService.creatOrder(orderMapper.orderPostDtoToOrder(orderMapper.cartToOrderPostDto(cart)));
@@ -40,6 +41,7 @@ public class OrderController {
 //        System.out.println(userService.findUser(1L));
 
         System.out.println("email : " + order.getMember().getEmail());
+
 
 
         return new ResponseEntity<>(orderMapper.orderToOrderResponseDto(order), HttpStatus.CREATED);
@@ -75,3 +77,6 @@ public class OrderController {
 
 
 }
+
+
+

@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -26,7 +27,10 @@ public class Delivery extends BasicEntity {
     @JoinColumn(name = "orderId")
     private Order order;
 
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
+
+    private LocalDateTime CreateAt = LocalDateTime.now();
 
 
     public enum DeliveryStatus{

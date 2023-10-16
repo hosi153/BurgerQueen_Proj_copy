@@ -1,17 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layouts/main-layout">
+      layout:decorate="layout/main-layout">
 <head>
     <meta charset="UTF-8">
     <title>Order Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        let tmpCart = [];
-        let totalQuantity =0;
-        let totalPrice = 0;
-        let totalDiscountPrice =0;
-        /*]]>*/
-    </script>
+<!--    <script th:inline="javascript">-->
+<!--        /*<![CDATA[*/-->
+<!--        let tmpCart = [];-->
+<!--        let totalQuantity =0;-->
+<!--        let totalPrice = 0;-->
+<!--        let totalDiscountPrice =0;-->
+<!--        /*]]>*/-->
+<!--    </script>-->
 </head>
+
+<div layout:fragment="headerBtn">
+    <a href="/myPage" class="btn btn-outline-secondary" type="button">마이페이지</a>
+</div>
+<div layout:fragment="content">
+    <div class="row" style="margin-top:3rem;">
+        <div class="col-8">
+            <div class="card">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="col-md-5">상품</th>
+                        <th class="col-md-2">수량</th>
+                        <th class="col-md-2" style="color:gray;">가격</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tBody">
+
+                    <tr id="trDiv" th:each="item:${order.getOrderProductResponseDtos()}" th:index="${itemStat.index}">
+
+                        <td> <span th:text="|${item.getProductName()}  |"></span><br></td>
+                        <td> <span th:text="|${item.getQuantity()}  |"></span><br></td>
+                        <td> <span th:text="|${item.getPrice()}  |"></span><br></td>
+
+                   </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col" style="text-align: right">
+            <div class="card">
+                합계 : <span th:id="tcount" th:text="${order.getTotalCount()}"></span><br>
+                <span>총액 : </span>
+                <span th:id="tprice" style="color:gray;" th:text="${order.getTotalPrice()}"></span><br>
+                <span> 결제 금액 :</span>
+                <span th:id="tdiscountprice" th:text="${order.getTotalPrice()-order.getTotalDiscountPrice()}"></span><br>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding: 1rem; text-align: right">
+        <button class="btn btn-primary" type="button" id="orderBtn" >주문하기</button>
+    </div>
+
+    <input type="hidden" id="orderId" th:value="${order.getOrderId()}">
+
+
+    <script th:inline="javascript" src="/js/cart.js"></script>
+    <script th:inline="javascript" src="/js/del.js"></script>
+    <script th:inline="javascript" src="/js/order.js"></script>
+    <script th:inline="javascript" src="/js/plus.js"></script>
+    <script th:inline="javascript" src="/js/minus.js"></script>
+</div>
+
+
+
+</html>

@@ -23,12 +23,36 @@ insert into "PROMOTION" (promotion_name, promotion_description, amount, discount
 update "CATEGORY" SET promotion_id=1 WHERE category_name='SET';
 update "CATEGORY" SET promotion_id=2 WHERE category_name='HAMBURGER';
 
-insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, address3, phone) values ('test@test.com','테스트사용자','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, address3, phone) values ('test1@test.com','테스트사용자','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+insert into "MEMBER" (EMAIL, user_name, grade, stamp, address1, address2, address3, phone) values ('test2@test.com','테스트사용자','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
 
 
 insert into "CART" (MEMBER_ID, TOTAL_COUNT, total_price) values (1,12, 18900);
+insert into "CART" (MEMBER_ID, TOTAL_COUNT, total_price) values (2,1, 2000);
 
 insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,1);
-insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (10,1,2);
-insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,3);
+insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,1,2);
+insert into "CART_PRODUCT" (QUANTITY,CART_ID,PRODUCT_ID ) values (1,2,3);
+
+
+
+-- insert into "ORDER" (ORDER_ID,ORDER_STATUS,TOTAL_COUNT,TOTAL_DISCOUNT_PRICE,TOTAL_PRICE,MEMBER_ID) values (1,'ORDER_REQUEST',1,200,2000,1);
+-- insert into "ORDER" (ORDER_ID,ORDER_STATUS,TOTAL_COUNT,TOTAL_DISCOUNT_PRICE,TOTAL_PRICE,MEMBER_ID) values (2,'ORDER_REQUEST',1,200,2000,1);
+-- insert into "ORDER" (ORDER_ID,ORDER_STATUS,TOTAL_COUNT,TOTAL_DISCOUNT_PRICE,TOTAL_PRICE,MEMBER_ID) values (3,'ORDER_REQUEST',1,200,2000,1);
+-- insert into "ORDER" (ORDER_ID,ORDER_STATUS,TOTAL_COUNT,TOTAL_DISCOUNT_PRICE,TOTAL_PRICE,MEMBER_ID) values (4,'ORDER_REQUEST',1,200,2000,2);
+-- insert into "ORDER" (ORDER_ID,ORDER_STATUS,TOTAL_COUNT,TOTAL_DISCOUNT_PRICE,TOTAL_PRICE,MEMBER_ID) values (5,'ORDER_REQUEST',1,200,2000,2);
+--
+
+-- insert into "ORDER_PRODUCT" (ORDER_PRODUCT_ID,QUANTITY,ORDER_ID,PRODUCT_ID ) values (1,1,1,1);
+-- insert into "ORDER_PRODUCT" (ORDER_PRODUCT_ID,QUANTITY,ORDER_ID,PRODUCT_ID ) values (2,1,2,2);
+-- insert into "ORDER_PRODUCT" (ORDER_PRODUCT_ID,QUANTITY,ORDER_ID,PRODUCT_ID ) values (3,1,3,2);
+-- insert into "ORDER_PRODUCT" (ORDER_PRODUCT_ID,QUANTITY,ORDER_ID,PRODUCT_ID ) values (4,1,4,2);
+-- insert into "ORDER_PRODUCT" (ORDER_PRODUCT_ID,QUANTITY,ORDER_ID,PRODUCT_ID ) values (5,1,5,2);
+--
+-- insert into "DELIVERY" (DELIVERY_ID,DELIVERY_STATUS,ORDER_ID) values (1,'DELIVERY_READY',1);
+-- insert into "DELIVERY" (DELIVERY_ID,DELIVERY_STATUS,ORDER_ID) values (2,'DELIVERY_START',2);
+-- insert into "DELIVERY" (DELIVERY_ID,DELIVERY_STATUS,ORDER_ID) values (3,'DELIVERY_SUCCESS',3);
+-- insert into "DELIVERY" (DELIVERY_ID,DELIVERY_STATUS,ORDER_ID) values (4,'DELIVERY_SUCCESS',4);
+-- insert into "DELIVERY" (DELIVERY_ID,DELIVERY_STATUS,ORDER_ID) values (5,'DELIVERY_SUCCESS',5);
+
 

@@ -4,6 +4,7 @@ import com.example.burgerqueen_proj.delivery.entity.Delivery;
 import com.example.burgerqueen_proj.delivery.repository.DeliveryRepository;
 import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
+import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -30,6 +31,10 @@ public class DeliveryService {
         return deliveryRepository.save(delivery);
     }
 
+    public void  updateDelivery(Delivery delivery){
+        deliveryRepository.save(delivery);
+
+    }
     public Delivery findDelivery(long deliveryId){
         return findVerifyDelivery(deliveryId);
     }
@@ -47,6 +52,20 @@ public class DeliveryService {
 
         return delivery;
     }
+
+
+    public void changeDeliveryStatus(){
+        List<Delivery> deliveries = findDeliveries();
+        for (Delivery delivery: deliveries) {
+            if (delivery.getDeliveryStatus().getStatusNumber()==1){
+                delivery.setDeliveryStatus(Delivery.DeliveryStatus.DELIVERY_READY);
+            } else if (delivery.getDeliveryStatus().getStatusNumber()==2) {
+                delivery.setDeliveryStatus(Delivery.DeliveryStatus.DELIVERY_SUCCESS);
+            }
+        }
+    }
+
+
 
 
 

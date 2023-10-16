@@ -9,10 +9,15 @@ import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.category.dto.CategoryResponseDto;
 import com.example.burgerqueen_proj.category.entity.Category;
 import com.example.burgerqueen_proj.category.service.CategoryService;
+import com.example.burgerqueen_proj.delivery.dto.DeliveryResponseDto;
+import com.example.burgerqueen_proj.delivery.mapper.DeliveryMapper;
+import com.example.burgerqueen_proj.delivery.repository.DeliveryRepository;
+import com.example.burgerqueen_proj.delivery.service.DeliveryService;
 import com.example.burgerqueen_proj.member.dto.MemberResponseDto;
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.service.MemberService;
 import com.example.burgerqueen_proj.order.dto.OrderResponseDto;
+import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.mapper.OrderMapper;
 import com.example.burgerqueen_proj.order.service.OrderService;
 import com.example.burgerqueen_proj.product.dto.ProductResponseDto;
@@ -27,6 +32,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -38,12 +44,15 @@ public class HomeViewController {
     private final PromotionService promotionService;
     private final MemberService memberService;
     private final OrderService orderService;
+    private final DeliveryService deliveryService;
 
     private final CartMapper cartMapper;
     private final CartService cartService;
     private final CartRepository cartRepository;
+    private final DeliveryRepository deliveryRepository;
 
     private final OrderMapper orderMapper;
+    private final DeliveryMapper deliveryMapper;
 
     //홈화면 출력 : header, fotter 및 주문가능한 상품정보 출력
     @GetMapping("/home")
@@ -81,11 +90,37 @@ public class HomeViewController {
 
     @GetMapping("/myPage")
     public String viewMyPage(Model model){
-        MemberResponseDto member = new MemberResponseDto(memberService.findMember(1L));
+        Member findMember = memberService.findMember(1L);
+        MemberResponseDto member = new MemberResponseDto(findMember);
+
+        List<DeliveryResponseDto> delivery = deliveryMapper.deliveryToDeliveryResponseDtos(deliveryService.findDeliveries());
+
 
         model.addAttribute("member",member);
+        model.addAttribute("delivery",delivery);
+
+
 
         return "myPage";
+    }
+    @GetMapping("/myPage/delivery/{delivery-id}")
+    public String viewMyPage(Model model, @PathVariable("delivery-id")long deliveryId){
+
+
+        Member findMember = memberService.findMember(1L);
+        MemberResponseDto member = new MemberResponseDto(findMember);
+
+
+        DeliveryResponseDto delivery = deliveryMapper.deliveryToDeliveryResponseDto(deliveryService.findDelivery(deliveryId));
+        OrderResponseDto order = orderMapper.orderToOrderResponseDto(orderService.findOrder(delivery.getOrderId()));
+
+        model.addAttribute("member",member);
+        model.addAttribute("delivery",delivery);
+        model.addAttribute("order",order);
+
+
+
+        return "orderDetail";
     }
 
     @GetMapping("/editUser")
@@ -116,9 +151,8 @@ public class HomeViewController {
     public String viewOrder(Model model){
 
         Member member = memberService.findMember(1L);
-        CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
-        OrderResponseDto order = orderMapper.orderToOrderResponseDto(orderService.findOrderByMember(member));
 
+        OrderResponseDto order = orderMapper.orderToOrderResponseDto(orderService.findOrder(1));
 
         model.addAttribute("order",order);
         model.addAttribute("member",new MemberResponseDto(member));

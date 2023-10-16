@@ -13,6 +13,16 @@
         let totalQuantity =0;
         let totalPrice = 0;
         let totalDiscountPrice =0;
+
+
+        let cartId = [[${cartId}]];
+        let cartList = {};
+        let cartListAll = [];
+
+        let productId;
+        let productName;
+
+
         /*]]>*/
     </script>
 </head>
@@ -116,6 +126,7 @@
             document.querySelector("#tprice").innerText=numberWithCommas(totalPrice);
             document.querySelector("#tdiscountprice").innerText=numberWithCommas(totalDiscountPrice);
             document.querySelector("#tdiscount").innerText=numberWithCommas(totalPrice-totalDiscountPrice);
+
         </script>
     </th:block>
 
