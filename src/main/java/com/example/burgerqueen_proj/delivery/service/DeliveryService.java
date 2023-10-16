@@ -4,6 +4,7 @@ import com.example.burgerqueen_proj.delivery.entity.Delivery;
 import com.example.burgerqueen_proj.delivery.repository.DeliveryRepository;
 import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
+import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -47,6 +48,8 @@ public class DeliveryService {
 
         return delivery;
     }
+
+
 
 
 

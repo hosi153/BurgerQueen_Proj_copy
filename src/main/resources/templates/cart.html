@@ -12,6 +12,16 @@
         let totalQuantity =0;
         let totalPrice = 0;
         let totalDiscountPrice =0;
+
+
+        let cartId = [[${cartId}]];
+        let cartList = {};
+        let cartListAll = [];
+
+        let productId;
+        let productName;
+
+
         /*]]>*/
     </script>
 </head>
@@ -101,6 +111,17 @@
             document.querySelector("#tcount").innerText=totalQuantity;
             document.querySelector("#tprice").innerText=totalPrice;
             document.querySelector("#tdiscountprice").innerText=totalDiscountPrice;
+
+
+
+            /*<![CDATA[*/
+
+            productId = [[${cart.productId}]]
+            // let productName = [[${cart.productName}]]
+            cartList[productId] = [[${cart.quantity}]]
+            cartListAll.push({productId: [[${cart.productId}]], quantity: [[${cart.quantity}]]})
+            console.log(cartListAll)
+            /*]]>*/
         </script>
     </th:block>
 
