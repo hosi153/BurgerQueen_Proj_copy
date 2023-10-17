@@ -2,6 +2,7 @@ package com.example.burgerqueen_proj.delivery.entity;
 
 
 import com.example.burgerqueen_proj.entity.BasicEntity;
+import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.order.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,14 @@ public class Delivery extends BasicEntity {
     private DeliveryStatus deliveryStatus;
 
     private LocalDateTime CreateAt = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    public void setMember(){
+        this.member = order.getMember();
+    }
 
 
     public enum DeliveryStatus{

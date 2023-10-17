@@ -190,4 +190,11 @@ public class Member extends BasicEntity implements UserDetails {
     public Member(String email) {
         this.email = email;
     }
+
+
+
+    private String accessToken;
+    private String refreshToken;
+    private String socialServer;
+
 }
