@@ -30,8 +30,8 @@ public class CartController {
 
     private final CartService cartService;
     private final CartMapper cartMapper;
-    private final MemberService memberService;
-    private final ProductService productService;
+//    private final MemberService memberService;
+//    private final ProductService productService;
 
     @PostMapping
     public ResponseEntity postCart(@RequestBody CartPostDto cartPostDto){
