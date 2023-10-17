@@ -24,7 +24,7 @@ update "CATEGORY" SET promotion_id=1 WHERE category_name='SET';
 update "CATEGORY" SET promotion_id=2 WHERE category_name='HAMBURGER';
 
 insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('test1@test.com','테스트사용자','$2a$10$azfYLb9QxNhdIUaokehxlufvl3nomaLVIXpPVCVsEpf.WVrTFzc4i','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
-insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('test2@test.com','테스트사용자','$2a$10$owLoHstGPxzPk8WLtbSP3ucKrWewyWHSRphSLsjnhyePOOPVW8C.u','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('test2@test.com','사용자2','$2a$10$owLoHstGPxzPk8WLtbSP3ucKrWewyWHSRphSLsjnhyePOOPVW8C.u','GRADE_MASTER',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
 
 
 insert into "CART" (MEMBER_ID, TOTAL_COUNT, total_price) values (1,12, 18900);

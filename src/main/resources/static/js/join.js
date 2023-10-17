@@ -7,9 +7,10 @@ if(makeNewButton){
             method :'POST',
             headers : {"Content-Type": "application/json",},
             body : JSON.stringify({
-                email:document.getElementById("newId").value,
-                password: document.getElementById("newPwd").value,
-                memberName: document.getElementById("newName").value,
+                email:document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                memberName: document.getElementById("memberName").value,
+                phone: document.getElementById("phone").value,
             })
         })
             .then((response)=> {

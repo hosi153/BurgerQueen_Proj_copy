@@ -1,5 +1,6 @@
 package com.example.burgerqueen_proj.member.controller;
 
+import com.example.burgerqueen_proj.member.dto.MemberLoginDto;
 import com.example.burgerqueen_proj.member.dto.MemberPatchDto;
 import com.example.burgerqueen_proj.member.dto.MemberPostDto;
 import com.example.burgerqueen_proj.member.dto.MemberResponseDto;

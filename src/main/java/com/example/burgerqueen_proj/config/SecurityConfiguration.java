@@ -21,7 +21,7 @@ public class SecurityConfiguration {
     public WebSecurityCustomizer configure(){
         return (web)-> web.ignoring()
                 .requestMatchers(toH2Console())
-                .antMatchers("/static/**");
+                .antMatchers("/static/**","/static/js/**");
     }
 
     @Bean
@@ -39,11 +39,13 @@ public class SecurityConfiguration {
 
                 .and()
                 .formLogin()
-//                .loginPage("/login")
+                .loginPage("/login")
+                .loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/home")
 
                 .and()
                 .logout()
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true);
 

@@ -29,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +56,7 @@ public class HomeViewController {
     private final OrderMapper orderMapper;
     private final DeliveryMapper deliveryMapper;
 
+
     //홈화면 출력 : header, fotter 및 주문가능한 상품정보 출력
     @GetMapping("/home")
     public String viewHome(Model model){
@@ -61,7 +64,7 @@ public class HomeViewController {
         List<ProductResponseDto> products = ProductResponseDto.productResponseDtos(productService.findAllProduct());
         List<PromotionResponseDto> promotions = PromotionResponseDto.promotionResponseDtos(promotionService.getActivePromotions());
 
-        Member member = memberService.findMember(1L);
+        Member member = memberService.findMemberByEmail(getUserInfo());
         CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
 
         model.addAttribute("cartId", cart.getCartId());
@@ -78,7 +81,7 @@ public class HomeViewController {
     @GetMapping("/cart")
     public String viewCart(Model model){
 
-        Member member = memberService.findMember(1L);
+        Member member = memberService.findMemberByEmail(getUserInfo());
         CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
 
 
@@ -90,7 +93,7 @@ public class HomeViewController {
 
     @GetMapping("/myPage")
     public String viewMyPage(Model model){
-        Member findMember = memberService.findMember(1L);
+        Member findMember = memberService.findMemberByEmail(getUserInfo());
         MemberResponseDto member = new MemberResponseDto(findMember);
 
         List<DeliveryResponseDto> delivery = deliveryMapper.deliveryToDeliveryResponseDtos(deliveryService.findDeliveries());
@@ -107,7 +110,7 @@ public class HomeViewController {
     public String viewMyPage(Model model, @PathVariable("delivery-id")long deliveryId){
 
 
-        Member findMember = memberService.findMember(1L);
+        Member findMember = memberService.findMemberByEmail(getUserInfo());
         MemberResponseDto member = new MemberResponseDto(findMember);
 
 
@@ -125,7 +128,7 @@ public class HomeViewController {
 
     @GetMapping("/editUser")
     public String editMyPage(Model model){
-        MemberResponseDto member = new MemberResponseDto(memberService.findMember(1L));
+        MemberResponseDto member = new MemberResponseDto(memberService.findMemberByEmail(getUserInfo()));
 
         model.addAttribute("member",member);
 
@@ -148,7 +151,7 @@ public class HomeViewController {
     @GetMapping("/empty-cart")
     public String viewEmptyCart(Model model){
 
-        Member member = memberService.findMember(1L);
+        Member member = memberService.findMemberByEmail(getUserInfo());
         CartResponseDto cart = cartMapper.cartToCartResponseDto(cartService.findCartByMember(member));
 
 
@@ -161,7 +164,7 @@ public class HomeViewController {
     @GetMapping("/order")
     public String viewOrder(Model model){
 
-        Member member = memberService.findMember(1L);
+        Member member = memberService.findMemberByEmail(getUserInfo());
 
         OrderResponseDto order = orderMapper.orderToOrderResponseDto(orderService.findOrder(1));
 
@@ -169,6 +172,15 @@ public class HomeViewController {
         model.addAttribute("member",new MemberResponseDto(member));
 
         return "order";
+    }
+
+    private String getUserInfo(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Member member = (Member) principal;
+        String email = ((Member) principal).getUsername();
+
+        return email;
+
     }
 
 
