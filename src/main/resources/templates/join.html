@@ -1,36 +1,145 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <title>Welcome New Member</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+    <meta charset="UTF-8">
+    <title>My Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
-<body>
-<div class="container">
-    <form class="form-signin" method="post" action="/api/member/new">
-        <h2 class="form-signin-heading" >🍔신규 가입🥤🍟</h2>
-        <p>
-            <label for="email" class="sr-only">Email</label>
-            <input type="text" id="email" name="email" class="form-control" placeholder="Eamil" required autofocus>
-        </p>
-        <p>
-            <label for="memberName" class="sr-only">Email</label>
-            <input type="text" id="memberName" name="memberName" class="form-control" placeholder="사용자 이름" required autofocus>
-        </p>
-        <p>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-        </p>
-        <p>
-            <label for="phone" class="sr-only">Password</label>
-            <input type="text" id="phone" name="phone" class="form-control" placeholder="010-1234-5678" required>
-        </p>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">가입하기</button>
 
-    </form>
+<div class="container" style="width:63rem; margin-top:2rem; padding: 1rem;">
+    <div class="row" style="margin-top:3rem">
+        <div class="col-md-12">
+
+            <div class="jumbotron card card-block">
+                <h2 style="text-align: center;"> 🍔신규 가입🥤🍟 </h2>
+                <p>
+
+                    <span>이 메 일(ID) : </span><input type="text" id="email" name="email" placeholder="abc@burgerqueen.com" style="margin-top: 0.3rem; width:80%;" required autofocus ><br>
+                    <span>이 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 름 : </span><input type="text" id="memberName" name="memberName" placeholder="사용자 이름" style="margin-top: 0.3rem; width:80%;" required autofocus><br>
+                    <span>비 밀 번 호 : </span><input type="password" id="password" name="password" placeholder="Password" style="margin-top: 0.3rem; width:80%;" required><br>
+                    <span>전 화 번 호 : </span><input type="text" id="phone" name="phone" placeholder="010-1234-5678" style="margin-top: 0.3rem; width:80%;" required><br>
+
+                </p>
+                <address>배송 주소(추후 입력가능) <br />
+                    <input type="text" id="addr1" placeholder="서울시 강서구" style="margin-top: 0.3rem; width:80%;"><br>
+                    <input type="text" id="addr2" placeholder="마곡중앙8로 71" style="margin-top: 0.3rem; width:80%;"><br>
+                    <input type="text" id="addr3" placeholder="우편번호 1234" style="margin-top: 0.3rem; width:80%;"><br>
+                </address>
+                <a id="newMemberBTN" class="btn btn-secondary" type="button" style="color:white;">가입하기</a>
+                <script>
+                    const makeNewButton = document.getElementById("newMemberBTN");
+
+                    makeNewButton.addEventListener('click',event =>{
+                        fetch('/api/member/new',{
+                            method :'POST',
+                            headers : {"Content-Type": "application/json",},
+                            body : JSON.stringify({
+                                email:document.getElementById("email").value,
+                                password: document.getElementById("password").value,
+                                memberName: document.getElementById("memberName").value,
+                                phone: document.getElementById("phone").value,
+                                address1: document.getElementById("addr1").value,
+                                address2: document.getElementById("addr2").value,
+                                address3: document.getElementById("addr3").value
+                            })
+                        })
+                            .then((response)=> {
+                                if(response.ok){
+                                    // alert('등록 완료되었습니다.');
+                                    Swal.fire('','가입완료! 로그인해주세요.','success')
+                                        .then(function(){
+                                            location.href = `/login`;
+                                        })
+                                }
+                                else{
+                                    // alert('다른 정보를 입력해 주세요.')
+                                    Swal.fire('','작성정보를 다시 확인해주세요,','warning')
+                                }
+                            });
+                    })
+
+                </script>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
 </div>
-<!--<script type="text/javascript" src="../static/js/join.js"></script>-->
-</body>
+
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/html"-->
+<!--      xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>elcome New Member</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--    <div class="container" style="width:63rem; margin-top:2rem; padding: 1rem;">-->
+<!--        <div class="row" style="margin-top:3rem">-->
+<!--            <div class="col-md-12">-->
+<!--                <div class="jumbotron card card-block" >-->
+<!--                    <h2> 🍔신규 가입🥤🍟 </h2>-->
+<!--                    <p>-->
+<!--                        <label for="email" class="sr-only">Email</label>-->
+<!--                        <input type="text" id="email" name="email" placeholder="Eamil" required autofocus><br>-->
+<!--                        <input type="text" id="memberName" name="memberName" class="form-control" placeholder="사용자 이름" required autofocus><br>-->
+<!--                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required><br>-->
+<!--                        <input type="text" id="phone" name="phone" class="form-control" placeholder="010-1234-5678" required><br>-->
+
+
+<!--                    </p>-->
+
+<!--                    <a id="newMemberBTN" class="btn btn-secondary" type="button" style="color:white;" >가입하기</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--<script type="text/javascript" src="../static/js/join.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<html lang="en"-->
+<!--      xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>Welcome New Member</title>-->
+<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+<!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <form class="form-signin" method="post" action="/api/member/new">-->
+<!--        <h2 class="form-signin-heading" >🍔신규 가입🥤🍟</h2>-->
+<!--        <p>-->
+<!--            <label for="email" class="sr-only">Email</label>-->
+<!--            <input type="text" id="email" name="email" class="form-control" placeholder="Eamil" required autofocus>-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            <label for="memberName" class="sr-only">Email</label>-->
+<!--            <input type="text" id="memberName" name="memberName" class="form-control" placeholder="사용자 이름" required autofocus>-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            <label for="password" class="sr-only">Password</label>-->
+<!--            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            <label for="phone" class="sr-only">Password</label>-->
+<!--            <input type="text" id="phone" name="phone" class="form-control" placeholder="010-1234-5678" required>-->
+<!--        </p>-->
+<!--        <button class="btn btn-lg btn-primary btn-block" type="submit">가입하기</button>-->
+
+<!--    </form>-->
+<!--</div>-->
+<!--&lt;!&ndash;<script type="text/javascript" src="../static/js/join.js"></script>&ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->

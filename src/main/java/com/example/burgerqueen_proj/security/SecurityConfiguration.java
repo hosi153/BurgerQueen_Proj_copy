@@ -61,8 +61,9 @@ public class SecurityConfiguration {
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
 
-                .and()
-                .oauth2Login(withDefaults());
+//                .and()
+//                .oauth2Login(withDefaults())
+        ;
 
 
 
