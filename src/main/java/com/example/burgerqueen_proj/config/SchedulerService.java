@@ -1,4 +1,4 @@
-package com.example.burgerqueen_proj.scheduled;
+package com.example.burgerqueen_proj.config;
 
 import com.example.burgerqueen_proj.delivery.entity.Delivery;
 import com.example.burgerqueen_proj.delivery.service.DeliveryService;

@@ -4,12 +4,11 @@ import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.entity.BasicEntity;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,7 +19,7 @@ import java.util.stream.Stream;
 @AllArgsConstructor @Builder
 @Table
 @EntityListeners(AuditingEntityListener.class)
-public class Member extends BasicEntity {
+public class Member extends BasicEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,6 +76,41 @@ public class Member extends BasicEntity {
         Optional.ofNullable(member.getAddress2()).ifPresent(this::setAddress2);
         Optional.ofNullable(member.getAddress3()).ifPresent(this::setAddress3);
         Optional.ofNullable(member.getPhone()).ifPresent(this::setPhone);
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 
