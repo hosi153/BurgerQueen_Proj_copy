@@ -21,6 +21,9 @@ import java.util.stream.Stream;
 @EntityListeners(AuditingEntityListener.class)
 public class Member extends BasicEntity implements UserDetails {
 
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
@@ -170,6 +173,21 @@ public class Member extends BasicEntity implements UserDetails {
 
 
 
+    public String getRoleKey() {
+        return this.getGrade().getGradeDiscription();
+    }
 
+    public Member update(String name) {
+        this.userName = name;
 
+        return this;
+    }
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private SocialType socialType;
+
+    public Member(String email) {
+        this.email = email;
+    }
 }

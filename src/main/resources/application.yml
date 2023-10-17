@@ -1,4 +1,15 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 13197060352-a8l8eoc50bqb9o79gtkbeqk7h1f2gugn.apps.googleusercontent.com
+            client-secret:  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
+            scope:
+              - email
+              - profile
+
   h2:
     console:
       enabled: true
@@ -32,7 +43,11 @@ logging:
           jpa: DEBUG
 mail:
   address:
-    admin: admin@gmail.com
+
+jwt:
+  # 민감한 정보는 시스템 환경 변수에서 로드한다.
+
+
 
 
 
