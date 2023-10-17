@@ -2,6 +2,7 @@ package com.example.burgerqueen_proj.order.service;
 
 
 import com.example.burgerqueen_proj.cart.entity.Cart;
+import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
 import com.example.burgerqueen_proj.member.entity.Member;
@@ -28,6 +29,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final MemberService memberService;
     private final ProductService productService;
+    private final CartService cartService;
 
     @Transactional
     public Order creatOrder(Order order){
@@ -36,6 +38,9 @@ public class OrderService {
         order.setOrderStatus(Order.OrderStatus.ORDER_REQUEST);
         order.setMember(memberService.findMember(order.getMember().getMemberId())); //굳이 주문에서 유저를 찾아갈 필요가 있는가?
         order.getMember().addStamp();
+
+
+
         return orderRepository.save(order);
     }
 
@@ -43,6 +48,9 @@ public class OrderService {
     public Order findOrder(long orderId){
         return findVerifiedOrder(orderId);
     }
+//    public Order findOrderByCart(long cartId){
+//        return findVerifiedOrder(orderId);
+//    }
 
     public Page<Order> findOrders(int page,int size){
         return orderRepository.findAll(PageRequest.of(page,size, Sort.by("orderId").descending()));
@@ -60,7 +68,7 @@ public class OrderService {
         //주문 총액 계산
         order.getOrderProducts().stream()
                 .forEach(cartProduct -> order.setTotalPrice(order.getTotalPrice()+ (
-                        cartProduct.getQuantity() * cartProduct.getProduct().getProductPrice())));
+                        cartProduct.getQuantity() * cartProduct.getProduct().getDiscountPrice())));
 
 
         // 회원이 존재하는지 확인
@@ -70,7 +78,6 @@ public class OrderService {
         if (order.getMember().getGrade().getBenefit().equals(Member.GradeBenefit.DISCOUNT)){
             double v = 0.01*  order.getTotalPrice() * Double.valueOf(order.getMember().getGrade().getBenefitDetail());
             order.setTotalDiscountPrice((int)v);
-            System.out.println("옴뇸뇸뇸뇸뇸뇸 ");
         }
 
 

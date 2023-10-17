@@ -4,6 +4,9 @@ import com.example.burgerqueen_proj.cart.dto.CartPatchDto;
 import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.cart.mapper.CartMapper;
 import com.example.burgerqueen_proj.cart.service.CartService;
+import com.example.burgerqueen_proj.delivery.entity.Delivery;
+import com.example.burgerqueen_proj.delivery.mapper.DeliveryMapper;
+import com.example.burgerqueen_proj.delivery.service.DeliveryService;
 import com.example.burgerqueen_proj.order.dto.OrderPatchDto;
 import com.example.burgerqueen_proj.order.dto.OrderPostDto;
 import com.example.burgerqueen_proj.order.entity.Order;
@@ -30,15 +33,19 @@ public class OrderController {
     private final MemberService memberService;
     private final CartService cartService;
     private final CartMapper cartMapper;
+    private final DeliveryMapper deliveryMapper;
+    private final DeliveryService deliveryService;
+
     @PostMapping
     public ResponseEntity postOrder(@RequestBody CartPatchDto cartPatchDto){
 
-        System.out.println("aaaaaaaaaa");
         Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
 
         Order order = orderService.creatOrder(orderMapper.orderPostDtoToOrder(orderMapper.cartToOrderPostDto(cart)));
-
-//        System.out.println(userService.findUser(1L));
+        System.out.println("삭제");
+        cartService.clearCartProduct(cart.getCartId());
+        System.out.println("하냐");
+        deliveryService.createDelivery(deliveryMapper.orderToDeliveryPostDto(order));
 
         System.out.println("email : " + order.getMember().getEmail());
 
