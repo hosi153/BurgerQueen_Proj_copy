@@ -21,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class DeliveryService {
 
     private final DeliveryRepository deliveryRepository;
@@ -32,24 +33,17 @@ public class DeliveryService {
 
     @Transactional
     public Delivery createDelivery(Delivery delivery){
-//        Delivery findDelivery = findVerifyDelivery(delivery.getDeliveryId());
         delivery.setDeliveryStatus(Delivery.DeliveryStatus.DELIVERY_READY);
 
         delivery.setOrder(orderService.findOrder(delivery.getOrder().getOrderId()));
 
-
-        Order order= orderService.findOrder(delivery.getOrder().getOrderId());
-        Cart cart = cartService.findCartByMember(order.getMember());
-        Cart findCart = cartService.findVerifiedCart(cart.getCartId());
+        System.out.println("삭제 시도");
+        Cart findCart = cartService.findVerifiedCart(delivery.getOrder().getMember().getCart().getCartId());
+        System.out.println(delivery.getOrder().getMember().getCart().getCartId() +"이거랑 "+findCart.getCartId());
         cartProductRepository.deleteAllByCart(findCart);
+        System.out.println("종료");
 
 
-
-
-        System.out.println(cart.getCartId());
-        cartService.clearCartProduct(cart.getCartId());
-
-        System.out.println("뒤져라");
 
 
         return deliveryRepository.save(delivery);

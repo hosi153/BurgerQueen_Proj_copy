@@ -48,9 +48,7 @@ public class OrderService {
     public Order findOrder(long orderId){
         return findVerifiedOrder(orderId);
     }
-//    public Order findOrderByCart(long cartId){
-//        return findVerifiedOrder(orderId);
-//    }
+
 
     public Page<Order> findOrders(int page,int size){
         return orderRepository.findAll(PageRequest.of(page,size, Sort.by("orderId").descending()));

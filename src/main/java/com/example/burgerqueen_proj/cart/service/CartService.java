@@ -82,6 +82,7 @@ public class CartService {
     @Transactional
     public void clearCartProduct(long cartId){
         Cart findCart = findVerifiedCart(cartId);
+        System.out.println("cartid = "+cartId + "find cart : "+ findCart.getCartId());
 
 
         cartProductRepository.deleteAllByCart(findCart);

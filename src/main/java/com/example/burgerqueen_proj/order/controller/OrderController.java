@@ -20,12 +20,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/order")
 
 @RequiredArgsConstructor
+@Transactional
 public class OrderController {
 
     private final OrderService orderService;
@@ -38,18 +40,18 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity postOrder(@RequestBody CartPatchDto cartPatchDto){
+        System.out.println("오더 생성 시작!");
 
         Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
 
         Order order = orderService.creatOrder(orderMapper.orderPostDtoToOrder(orderMapper.cartToOrderPostDto(cart)));
-        System.out.println("삭제");
-        cartService.clearCartProduct(cart.getCartId());
-        System.out.println("하냐");
+//        cartService.clearCartProduct(cart.getCartId());
         deliveryService.createDelivery(deliveryMapper.orderToDeliveryPostDto(order));
 
         System.out.println("email : " + order.getMember().getEmail());
 
 
+        System.out.println("오더 생성 끝!");
 
         return new ResponseEntity<>(orderMapper.orderToOrderResponseDto(order), HttpStatus.CREATED);
     }
