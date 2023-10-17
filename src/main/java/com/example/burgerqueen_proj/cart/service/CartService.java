@@ -12,6 +12,7 @@ import com.example.burgerqueen_proj.member.service.MemberService;
 import com.example.burgerqueen_proj.product.entity.Product;
 import com.example.burgerqueen_proj.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,7 +24,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class CartService {
 
 
@@ -33,6 +33,13 @@ public class CartService {
 
     private final CartProductRepository cartProductRepository;
 
+
+    public CartService(@Lazy MemberService memberService, CartRepository cartRepository, ProductService productService, CartProductRepository cartProductRepository) {
+        this.memberService = memberService;
+        this.cartRepository = cartRepository;
+        this.productService = productService;
+        this.cartProductRepository = cartProductRepository;
+    }
 
     public Cart createCart(Cart cart) {
         //회원이 존재하는지 확인하고, cart를 생성함

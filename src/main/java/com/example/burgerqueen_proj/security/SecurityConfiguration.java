@@ -20,7 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
-@RequiredArgsConstructor
 
 @EnableWebSecurity
 
@@ -28,6 +27,9 @@ public class SecurityConfiguration {
 
     private final PrincipalOauth2UserService principalOauth2UserService;
 
+    public SecurityConfiguration(PrincipalOauth2UserService principalOauth2UserService) {
+        this.principalOauth2UserService = principalOauth2UserService;
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

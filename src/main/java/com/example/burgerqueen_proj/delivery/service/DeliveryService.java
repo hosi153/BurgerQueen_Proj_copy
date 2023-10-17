@@ -13,6 +13,7 @@ import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.naming.ldap.SortKey;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@Component
 @Transactional
 public class DeliveryService {
 
@@ -31,6 +32,12 @@ public class DeliveryService {
     private  final CartService cartService;
     private  final CartProductRepository cartProductRepository;
 
+    public DeliveryService(DeliveryRepository deliveryRepository, OrderService orderService, CartService cartService, CartProductRepository cartProductRepository) {
+        this.deliveryRepository = deliveryRepository;
+        this.orderService = orderService;
+        this.cartService = cartService;
+        this.cartProductRepository = cartProductRepository;
+    }
 
     @Transactional
     public Delivery createDelivery(Delivery delivery){

@@ -193,8 +193,9 @@ public class Member extends BasicEntity implements UserDetails {
 
 
 
-    private String accessToken;
-    private String refreshToken;
-    private String socialServer;
+    private String provider;
+    private String providerId;
+
+
 
 }
