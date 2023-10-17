@@ -29,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,6 +55,9 @@ public class HomeViewController {
 
     private final OrderMapper orderMapper;
     private final DeliveryMapper deliveryMapper;
+
+
+
 
     //홈화면 출력 : header, fotter 및 주문가능한 상품정보 출력
     @GetMapping("/home")
