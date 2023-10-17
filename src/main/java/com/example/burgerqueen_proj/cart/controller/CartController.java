@@ -82,11 +82,11 @@ public class CartController {
 //        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //    }
 ////
-////    @DeleteMapping("/{cart-id}") //장바구니 비우기
-//    public ResponseEntity dCart(@PathVariable("cart-id")long cartId){
-//        cartService.cancelCart(cartId);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @DeleteMapping("/{cart-id}") //장바구니 비우기
+    public ResponseEntity dCart(@PathVariable("cart-id")long cartId){
+        cartService.clearCartProduct(cartId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 

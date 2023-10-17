@@ -85,7 +85,7 @@ public interface OrderMapper {
                         .orderProductId(orderProduct.getOrderProductId())
                         .productId(orderProduct.getProduct().getProductId())
                         .productName(orderProduct.getProduct().getProductName())
-                        .price(orderProduct.getProduct().getProductPrice())
+                        .price(orderProduct.getProduct().getDiscountPrice())
                         .quantity(orderProduct.getQuantity())
                         .build())
                 .collect(Collectors.toList());

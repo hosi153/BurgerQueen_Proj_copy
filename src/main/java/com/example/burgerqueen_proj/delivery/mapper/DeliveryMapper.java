@@ -3,6 +3,7 @@ package com.example.burgerqueen_proj.delivery.mapper;
 import com.example.burgerqueen_proj.delivery.dto.DeliveryPostDto;
 import com.example.burgerqueen_proj.delivery.dto.DeliveryResponseDto;
 import com.example.burgerqueen_proj.delivery.entity.Delivery;
+import com.example.burgerqueen_proj.order.dto.OrderResponseDto;
 import com.example.burgerqueen_proj.order.entity.Order;
 import org.mapstruct.Mapper;
 
@@ -20,6 +21,14 @@ public interface DeliveryMapper {
 
         return delivery;
     }
+    default Delivery orderToDeliveryPostDto(Order order){
+
+        Delivery delivery = new Delivery();
+        delivery.setOrder(order);
+        return delivery;
+
+    }
+
 
 
     default DeliveryResponseDto deliveryToDeliveryResponseDto(Delivery delivery){

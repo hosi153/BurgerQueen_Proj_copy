@@ -25,7 +25,8 @@ if(buyBtn){
             location.href=`/cart`;
         })
             .catch(error => {
-                alert('잠시 후 시도해주세요.');
+                // alert('잠시 후 시도해주세요.');
+                Swal.fire('',`주문 불가능한 상품이 있습니다. 장바구니를 확인해주세요.`,'warning')
             })
     })
 }

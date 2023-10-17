@@ -53,9 +53,6 @@ public class CartService {
         Cart findCart = findVerifiedCart(cart.getCartId());
 
 
-//        Optional.ofNullable(cart.getCartProducts())
-//                .ifPresent(cartProducts -> findCart.setCartProducts(cartProducts));
-
 
         cartProductRepository.deleteAllByCart(findCart);
 
@@ -63,8 +60,7 @@ public class CartService {
                 .forEach(cartProduct -> {
                     cartProduct.addProduct(productService.findVerifyProduct(cartProduct.getProduct().getProductId()));
                     System.out.println(cartProduct.getProduct().getProductId());
-                    //findCart.addCartProduct(cartProduct);
-                    //System.out.println(findCart.getCartProducts().get(0).getProduct().getProductId());
+
                 });
         findCart.updateCartProducts(cart.getCartProducts());
 
@@ -82,9 +78,14 @@ public class CartService {
         return cartRepository.findAll(PageRequest.of(page, size, Sort.by("cartId").descending()));
     }
 
-    public void cancelCart(long cartId) { ////////// 수정수정수정 수정
+
+    @Transactional
+    public void clearCartProduct(long cartId){
         Cart findCart = findVerifiedCart(cartId);
-        cartRepository.delete(findCart);
+        System.out.println("cartid = "+cartId + "find cart : "+ findCart.getCartId());
+
+
+        cartProductRepository.deleteAllByCart(findCart);
     }
 
     public void deleteCartProduct(long cartId, long productId){
@@ -92,42 +93,15 @@ public class CartService {
         Product findProduct = productService.findProduct(productId);
         CartProduct findCartProduct = cartProductRepository.findByCartAndProduct(findCart,findProduct);
         System.out.println(findCartProduct.getProduct().getProductName());
-//        CartProduct findCartProduct = findVerifiedCartProduct(productId);
         cartProductRepository.delete(findCartProduct);
-//=======
-//
-//    public void clearCartProduct(long cartId) {
-//
-//        Cart cart = findVerifiedCart(cartId);
-//        cartProductRepository.deleteAll(cart.getCartProducts());
-//    }
-//
-//    public void deleteCartProduct(long cartId, long productId) {
-//        Cart cart = findVerifiedCart(cartId);
-//        System.out.println(cart.getCartProducts());
-//        for (int i = 0; i < cart.getCartProducts().size(); i++) {
-//            System.out.println(i);
-//            if (cart.getCartProducts().get(i).getProduct().getProductId() == productId) {
-//
-//                cartProductRepository.delete(cart.getCartProducts().get(i));
-//
-//            }
-//        }
-//>>>>>>> upstream/main
 
-    }
-
-
-    public void cancelCartProduct(long cartProductId) { ////////// 수정수정수정 수정
-        CartProduct findCartProduct = findVerifiedCartProduct(cartProductId);
-        cartProductRepository.delete(findCartProduct);
     }
 
 
 
 
 
-    private Cart findVerifiedCart(long cartId) {
+    public Cart findVerifiedCart(long cartId) {
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
         Cart findCart =
                 optionalCart.orElseThrow(() ->
@@ -136,13 +110,6 @@ public class CartService {
     }
 
 
-    public CartProduct findVerifiedCartProduct(long cartProductId) {
-        Optional<CartProduct> optionalCartProduct = cartProductRepository.findById(cartProductId);
-        CartProduct findCart =
-                optionalCartProduct.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.CART_NOT_FOUND));
-        return findCart;
-    }
 
 
     private void verifyCart(Cart cart) {
@@ -152,11 +119,6 @@ public class CartService {
         //상품이 존재하는지 확인
         cart.getCartProducts().stream()
                 .forEach(cartProduct -> productService.findVerifyProduct(cartProduct.getProduct().getProductId()));
-
-
-//        // 커피가 존재하는지 확인
-//        cart.getCartProducts().stream()
-//                .forEach(cartProduct ->  productService.findVerifyProduct(cartProduct.getProduct().getProductId()));
 
     }
 

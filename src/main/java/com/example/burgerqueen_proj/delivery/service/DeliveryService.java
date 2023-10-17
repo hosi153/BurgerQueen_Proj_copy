@@ -1,32 +1,50 @@
 package com.example.burgerqueen_proj.delivery.service;
 
+import com.example.burgerqueen_proj.cart.entity.Cart;
+import com.example.burgerqueen_proj.cart.repository.CartProductRepository;
+import com.example.burgerqueen_proj.cart.repository.CartRepository;
+import com.example.burgerqueen_proj.cart.service.CartService;
 import com.example.burgerqueen_proj.delivery.entity.Delivery;
 import com.example.burgerqueen_proj.delivery.repository.DeliveryRepository;
 import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
 import com.example.burgerqueen_proj.member.entity.Member;
+import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class DeliveryService {
 
     private final DeliveryRepository deliveryRepository;
 
     private final OrderService orderService;
+    private  final CartService cartService;
+    private  final CartProductRepository cartProductRepository;
 
 
+    @Transactional
     public Delivery createDelivery(Delivery delivery){
-//        Delivery findDelivery = findVerifyDelivery(delivery.getDeliveryId());
         delivery.setDeliveryStatus(Delivery.DeliveryStatus.DELIVERY_READY);
 
         delivery.setOrder(orderService.findOrder(delivery.getOrder().getOrderId()));
+
+        System.out.println("삭제 시도");
+        Cart findCart = cartService.findVerifiedCart(delivery.getOrder().getMember().getCart().getCartId());
+        System.out.println(delivery.getOrder().getMember().getCart().getCartId() +"이거랑 "+findCart.getCartId());
+        cartProductRepository.deleteAllByCart(findCart);
+        System.out.println("종료");
+
+
+
 
         return deliveryRepository.save(delivery);
     }

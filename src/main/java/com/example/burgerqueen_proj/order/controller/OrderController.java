@@ -4,6 +4,9 @@ import com.example.burgerqueen_proj.cart.dto.CartPatchDto;
 import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.cart.mapper.CartMapper;
 import com.example.burgerqueen_proj.cart.service.CartService;
+import com.example.burgerqueen_proj.delivery.entity.Delivery;
+import com.example.burgerqueen_proj.delivery.mapper.DeliveryMapper;
+import com.example.burgerqueen_proj.delivery.service.DeliveryService;
 import com.example.burgerqueen_proj.order.dto.OrderPatchDto;
 import com.example.burgerqueen_proj.order.dto.OrderPostDto;
 import com.example.burgerqueen_proj.order.entity.Order;
@@ -17,12 +20,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/order")
 
 @RequiredArgsConstructor
+@Transactional
 public class OrderController {
 
     private final OrderService orderService;
@@ -30,19 +35,23 @@ public class OrderController {
     private final MemberService memberService;
     private final CartService cartService;
     private final CartMapper cartMapper;
+    private final DeliveryMapper deliveryMapper;
+    private final DeliveryService deliveryService;
+
     @PostMapping
     public ResponseEntity postOrder(@RequestBody CartPatchDto cartPatchDto){
+        System.out.println("오더 생성 시작!");
 
-        System.out.println("aaaaaaaaaa");
         Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
 
         Order order = orderService.creatOrder(orderMapper.orderPostDtoToOrder(orderMapper.cartToOrderPostDto(cart)));
-
-//        System.out.println(userService.findUser(1L));
+//        cartService.clearCartProduct(cart.getCartId());
+        deliveryService.createDelivery(deliveryMapper.orderToDeliveryPostDto(order));
 
         System.out.println("email : " + order.getMember().getEmail());
 
 
+        System.out.println("오더 생성 끝!");
 
         return new ResponseEntity<>(orderMapper.orderToOrderResponseDto(order), HttpStatus.CREATED);
     }
