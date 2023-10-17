@@ -132,6 +132,17 @@ public class HomeViewController {
         return "editUser";
     }
 
+    @GetMapping("/login")
+    public String loginPage(){
+
+        return "login";
+    }
+    @GetMapping("/join")
+    public String joinPage(){
+
+        return "join";
+    }
+
 
 
     @GetMapping("/empty-cart")
