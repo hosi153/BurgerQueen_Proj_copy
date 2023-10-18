@@ -37,7 +37,10 @@ dependencies {
 
     implementation 'org.mapstruct:mapstruct:1.5.1.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
+
+    //swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
+//    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 
     //jwt 사용을 위한 jjwt 라이브러리 추
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
