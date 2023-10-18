@@ -17,6 +17,9 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     // 우리 유저정보는 User객체가 들고있다.
     private Member member;
+
+
+
     private Map<String, Object> attributes;
 
     // 일반 로그인 생성자

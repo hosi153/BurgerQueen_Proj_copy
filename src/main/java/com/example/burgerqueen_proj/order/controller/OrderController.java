@@ -32,7 +32,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional
-//@Api(value = "OrderController" , tags = "주문 관리 API")
+@Api(value = "OrderController" , tags = "주문 관리 API")
 
 public class OrderController {
 
@@ -45,12 +45,13 @@ public class OrderController {
     private final DeliveryService deliveryService;
 
     @PostMapping
-//    @ApiOperation(value = "주문 생성",notes = "장바구니 수정 + 주문 생성 + 배달 요청 ")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name = "cartId",value = "장바구니 ID"),
-//
-//            @ApiImplicitParam(name = "cartProductPatchDtos", value = "장바구니 상품 정보")}
-//    )
+    @ApiOperation(value = "주문 생성",notes = "장바구니 수정 + 주문 생성 + 배달 요청 ")
+    @ApiImplicitParam(name = "cartId",value = "장바구니 ID")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "productId", value = "장바구니에 포함된 상품 ID"),
+            @ApiImplicitParam(name = "quantity", value = "장바구니에 포함된 상품 수량")
+    })
+
 
     public ResponseEntity postOrder(@RequestBody CartPatchDto cartPatchDto){
         System.out.println("오더 생성 시작!");
@@ -72,7 +73,7 @@ public class OrderController {
 
     @GetMapping("/{order-id}")
     @ApiOperation(value = "주문 정보 단건 조회")
-    @ApiImplicitParam
+//    @ApiImplicitParam
     public ResponseEntity getOrder(@PathVariable("order-id")long orderId){
         Order order = orderService.findOrder(orderId);
         return new ResponseEntity<>(orderMapper.orderToOrderResponseDto(order),HttpStatus.OK);
