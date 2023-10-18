@@ -4,6 +4,7 @@ import com.example.burgerqueen_proj.delivery.dto.DeliveryPostDto;
 import com.example.burgerqueen_proj.delivery.entity.Delivery;
 import com.example.burgerqueen_proj.delivery.mapper.DeliveryMapper;
 import com.example.burgerqueen_proj.delivery.service.DeliveryService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

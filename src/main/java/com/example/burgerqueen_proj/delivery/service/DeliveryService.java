@@ -12,6 +12,7 @@ import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.order.entity.Order;
 import com.example.burgerqueen_proj.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import java.util.Optional;
 
 @Service
 @Component
-@Transactional
+//@Transactional
 public class DeliveryService {
 
     private final DeliveryRepository deliveryRepository;
@@ -32,7 +33,7 @@ public class DeliveryService {
     private  final CartService cartService;
     private  final CartProductRepository cartProductRepository;
 
-    public DeliveryService(DeliveryRepository deliveryRepository, OrderService orderService, CartService cartService, CartProductRepository cartProductRepository) {
+    public DeliveryService(@Lazy DeliveryRepository deliveryRepository,@Lazy OrderService orderService, CartService cartService, CartProductRepository cartProductRepository) {
         this.deliveryRepository = deliveryRepository;
         this.orderService = orderService;
         this.cartService = cartService;

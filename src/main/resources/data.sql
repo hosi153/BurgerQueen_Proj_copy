@@ -6,15 +6,44 @@ insert into "CATEGORY" (category_name) values ('SIDE' );
 insert into "CATEGORY" (category_name) values ('OPTION' );
 
 
-insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('새우','오동통 새우버거','PRODUCT_STOP',3,1000,2,'/image/shrimp.jpg');
-insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id) values ('더블와퍼','2겹 와퍼','PRODUCT_ING',10,2000,2);
-insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id) values ('와퍼','1겹 와퍼','PRODUCT_ING',10,1500,2);
-insert into "PRODUCT" (product_name, product_count, product_price, category_id, product_image) values ('불고기',10,2000,2,'/image/bulgogi.jpg');
-insert into "PRODUCT" (product_name, product_count, product_price, category_id, product_image) values ('콜라',10,1000,3, '/image/cola.jpeg');
-insert into "PRODUCT" (product_name, product_count, product_price, category_id) values ('감튀',10,1000,4);
-insert into "PRODUCT" (product_name, product_count, product_price, category_id) values ('새우튀김',10,1000,5);
-insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id, product_image) values ('새우버거 세트','새우버거단품 + 음료 + 감자튀김',10,5000,1,'/image/shrimpSet.jpeg' );
-insert into "PRODUCT" (product_name, product_description, product_count, product_price, category_id, product_image,product_status) values ('와퍼 세트','와퍼 단품 + 음료 + 감자튀김',10,7000,1, '/image/wapperSet.jpeg','PRODUCT_STOP');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('불고기버거','단짠단짠 불고기 버거','PRODUCT_STOP',3,2000,2,'/image/bulgogi.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('치즈버거','띠드버거 사주세요','PRODUCT_ING',3,2000,2,'/image/cb1.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('더블치즈버거','치즈가 2장 들어간 햄버거','PRODUCT_ING',3,3000,2,'/image/cb2.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('트리플치즈버거','치즈가 3장 들어간 햄버거','PRODUCT_ING',3,4000,2,'/image/cb3.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('내장파괴버거','이 햄버거를 먹으면 고지혈증에 걸릴수도 있을지 몰라','PRODUCT_ING',3,7000,2,'/image/max.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('더블패티버거','패티가 2장 들어간 햄버거','PRODUCT_ING',3,4000,2,'/image/double.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('쿼터패티버거','패티가 4장 들어간 햄버거','PRODUCT_ING',3,5000,2,'/image/4buger.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('새우버거','오동통 새우버거','PRODUCT_ING',3,2000,2,'/image/shrimp.jpg');
+
+
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('콜라','기본픽','PRODUCT_ING',3,1000,3,'/image/cola.jpeg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('콜라(L)','기본픽 라지사이즈','PRODUCT_ING',3,1500,3,'/image/colaL.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('제로콜라','양심음료','PRODUCT_ING',3,1000,3,'/image/zero.jpeg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('제로콜라(L)','양심음료 라지사이즈','PRODUCT_ING',3,1500,3,'/image/zeroL.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('아메리카노','한국인의 피','PRODUCT_ING',3,1000,3,'/image/ame.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('쥬스','신선한 생과일 쥬스','PRODUCT_ING',3,1000,3,'/image/juice.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('쉐이크','달콤한 밀크쉐이크','PRODUCT_ING',3,1500,3,'/image/milkshake.jpg');
+
+
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('감자튀김','짭짤한 감자튀김','PRODUCT_STOP',3,1500,4,'/image/potato.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('양념감자','롯X리아의 그 감자튀김','PRODUCT_ING',3,2000,4,'/image/mixpotato.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('감자튀김 with 칠리소스','칠리소스와 함께 먹는 감자튀김','PRODUCT_ING',3,2000,4,'/image/potato_Chili.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('감자튀김 with 오지치즈','치즈가 뿌려진 감자튀김','PRODUCT_ING',3,2000,4,'/image/potato_Cheese.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('치즈볼 X 4','치즈가 주욱 늘어나는 치즈볼','PRODUCT_ING',3,2000,4,'/image/cheeseBall.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('새우튀김 X 4','새우튀김','PRODUCT_ING',3,2000,4,'/image/FriedShrimp.jpg');
+
+
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id) values ('빨대','환경을 생각해 종이로 만든 빨대','PRODUCT_ING',10000,0,5);
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id) values ('넵킨','환경을 생각해 종이로 만든 넵킨','PRODUCT_STOP',10000,0,5);
+
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('불고기버거 세트','단짠단짠 불고기 버거','PRODUCT_STOP',3,3500,1,'/image/shrimp.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('치즈버거 세트','띠드버거 사주세요','PRODUCT_ING',3,3500,1,'/image/cb1set.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('더블치즈버거 세트','치즈가 2장 들어간 햄버거','PRODUCT_ING',3,4500,1,'/image/cb2set.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('트리플치즈버거 세트','치즈가 3장 들어간 햄버거','PRODUCT_STOP',3,5500,1,'/image/cb3set.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('더블패티버거 세트','패티가 2장 들어간 햄버거','PRODUCT_STOP',3,5500,1,'/image/doubleset.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('쿼터패티버거 세트','패티가 4장 들어간 햄버거','PRODUCT_ING',3,6500,1,'/image/4bugerset.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('새우버거 세트','오동통 새우버거','PRODUCT_STOP',3,3500,1,'/image/shrimp.jpg');
+
 
 
 

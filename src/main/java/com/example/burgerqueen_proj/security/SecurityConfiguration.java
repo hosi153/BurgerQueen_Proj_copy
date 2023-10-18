@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -27,7 +28,7 @@ public class SecurityConfiguration {
 
     private final PrincipalOauth2UserService principalOauth2UserService;
 
-    public SecurityConfiguration(PrincipalOauth2UserService principalOauth2UserService) {
+    public SecurityConfiguration(@Lazy PrincipalOauth2UserService principalOauth2UserService) {
         this.principalOauth2UserService = principalOauth2UserService;
     }
 

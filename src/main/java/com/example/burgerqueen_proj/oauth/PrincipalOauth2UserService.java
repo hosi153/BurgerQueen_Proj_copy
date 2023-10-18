@@ -2,6 +2,7 @@ package com.example.burgerqueen_proj.oauth;
 
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.repository.MemberRepository;
+import com.example.burgerqueen_proj.member.service.MemberService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -20,10 +21,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-    public PrincipalOauth2UserService(@Lazy BCryptPasswordEncoder bCryptPasswordEncoder,@Lazy MemberRepository memberRepository) {
+    public PrincipalOauth2UserService(@Lazy BCryptPasswordEncoder bCryptPasswordEncoder,@Lazy MemberRepository memberRepository,@Lazy MemberService memberService) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.memberRepository = memberRepository;
+        this.memberService = memberService;
     }
 
     @Override
@@ -43,7 +46,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String email = oAuth2User.getAttribute("email");
         String role = "ROLE_USER";
 
-        Member memberEntity = memberRepository.findByUserName(userName);
+//        Member memberEntity = memberRepository.findByEmail(email);
+        Member memberEntity = memberService.findMemberByEmail(email);
 
         if (memberEntity == null){
             memberEntity = Member.builder()
