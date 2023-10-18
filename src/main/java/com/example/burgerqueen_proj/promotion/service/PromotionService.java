@@ -22,9 +22,7 @@ public class PromotionService {
     private final PromotionRepository promotionRepository;
     private final PromotionDetailsRepository promotionDetailsRepository;
 
-    //PROMOTION_SET
-    //details에서 프로모션에 해당되는 상품들을 조회하여 주문서에 할인가격 적용
-
+    //프로모션에 해당되는 상품들을 조회하여 상품entity에 할인된 정보를 저장해 둠
 
     //PROMOTION_EACH, PROMOTION_GRADE 계산
     //둘다 단품 혹은 장바구니전체 에 대해 정액/정률 할인으로 동일한 메서드로 처리 가능

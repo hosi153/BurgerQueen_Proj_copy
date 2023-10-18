@@ -52,8 +52,15 @@ insert into "PROMOTION" (promotion_name, promotion_description, amount, discount
 update "CATEGORY" SET promotion_id=1 WHERE category_name='SET';
 update "CATEGORY" SET promotion_id=2 WHERE category_name='HAMBURGER';
 
-insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('test1@test.com','테스트사용자','$2a$10$azfYLb9QxNhdIUaokehxlufvl3nomaLVIXpPVCVsEpf.WVrTFzc4i','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
-insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('test2@test.com','사용자2','$2a$10$owLoHstGPxzPk8WLtbSP3ucKrWewyWHSRphSLsjnhyePOOPVW8C.u','GRADE_MASTER',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+
+insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('admin@test.com','관리자','$2a$10$azfYLb9QxNhdIUaokehxlufvl3nomaLVIXpPVCVsEpf.WVrTFzc4i','GRADE_MASTER',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('test@test.com','테스트사용자','$2a$10$azfYLb9QxNhdIUaokehxlufvl3nomaLVIXpPVCVsEpf.WVrTFzc4i','GRADE_VIP',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('hg@uplus.co.kr','최호균','$2a$10$owLoHstGPxzPk8WLtbSP3ucKrWewyWHSRphSLsjnhyePOOPVW8C.u','GRADE_JOIN',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','010-8080-1234');
+insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('jy@uplus.co.kr','박지영','$2a$10$owLoHstGPxzPk8WLtbSP3ucKrWewyWHSRphSLsjnhyePOOPVW8C.u','GRADE_MEMBER',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','010-8080-5678');
+insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('up@uplus.co.kr','김유플','$2a$10$owLoHstGPxzPk8WLtbSP3ucKrWewyWHSRphSLsjnhyePOOPVW8C.u','GRADE_MASTER',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('test2@uplus.co.kr','테스트2','$2a$10$owLoHstGPxzPk8WLtbSP3ucKrWewyWHSRphSLsjnhyePOOPVW8C.u','GRADE_FRIEND',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+insert into "MEMBER" (EMAIL, user_name, password, grade, stamp, address1, address2, address3, phone) values ('test3@uplus.co.kr','테스트3','$2a$10$owLoHstGPxzPk8WLtbSP3ucKrWewyWHSRphSLsjnhyePOOPVW8C.u','GRADE_MASTER',0,'서울시 강서구 마곡중앙8로','마곡사이언스파크 LG유플러스', '07795','02-6987-8282');
+
 
 
 insert into "CART" (MEMBER_ID, TOTAL_COUNT, total_price) values (1,12, 18900);

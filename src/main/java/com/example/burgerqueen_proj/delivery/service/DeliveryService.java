@@ -46,10 +46,10 @@ public class DeliveryService {
 
         delivery.setOrder(orderService.findOrder(delivery.getOrder().getOrderId()));
 
-        System.out.println("삭제 시도");
-        Cart findCart = cartService.findVerifiedCart(delivery.getOrder().getMember().getCart().getCartId());
-        System.out.println(delivery.getOrder().getMember().getCart().getCartId() +"이거랑 "+findCart.getCartId());
-        cartProductRepository.deleteAllByCart(findCart);
+//        System.out.println("삭제 시도");
+//        Cart findCart = cartService.findVerifiedCart(delivery.getOrder().getMember().getCart().getCartId());
+//        System.out.println(delivery.getOrder().getMember().getCart().getCartId() +"이거랑 "+findCart.getCartId());
+//        cartProductRepository.deleteAllByCart(findCart);
         System.out.println("종료");
 
 

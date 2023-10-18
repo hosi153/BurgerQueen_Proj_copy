@@ -30,13 +30,7 @@ public class Order extends BasicEntity {
     private int totalDiscountPrice;
     private int totalPrice;
 
-
-
-
-
-
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderProduct> orderProducts = new ArrayList<>();
 
     public void setMember(Member member) {

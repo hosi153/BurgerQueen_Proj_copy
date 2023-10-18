@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/member")
-@Api(tags="사용자", description="버거퀸 서비스 사용자 관련 API(생성, 조회, 업데이트 등")
+@Api(tags="사용자정보 관련 API", description="버거퀸 서비스 사용자 관련 API(생성, 조회, 업데이트 등)")
 public class MemberController {
     private final MemberService memberService;
 
@@ -66,23 +66,50 @@ public class MemberController {
             paramType = "path",
             required = true)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "사용자 조회 성공", content = @Content(schema = @Schema(implementation = MemberResponseDto.class))),
-            @ApiResponse(responseCode = "404", description = "존재하지 않는 사용자", content = @Content(schema = @Schema(implementation = BusinessLogicException.class))) })
+            @ApiResponse(responseCode = "200", description = "사용자 조회 성공"),
+            @ApiResponse(responseCode = "404", description = "존재하지 않는 사용자") })
     @GetMapping("/{email}")
     public ResponseEntity loginMember(@PathVariable("email") String email){
         Member member = memberService.findMemberByEmail(email);
         return new ResponseEntity(new MemberResponseDto(member), HttpStatus.OK);
     }
 
-    //UPDATE : 고객정보 변경
-    @PatchMapping("/{member-email}")
-    public ResponseEntity updateMember(@PathVariable("member-email")String email, @RequestBody MemberPatchDto memberPatchDto){
+    /**
+     * 1.3 사용자 정보 변경 API
+     * [PATCH] /api/member/{email}
+     */
+    @ApiOperation(value="사용자 정보 변경", notes="정보 변경 시 사용하는 API")
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "email",
+                    value = "사용자 이메일 정보",
+                    paramType = "path",
+                    required = true),
+            @ApiImplicitParam(
+                    name = "password",
+                    value = "사용자 비밀번호"),
+            @ApiImplicitParam(
+                    name = "address1",
+                    value = "배달 주소"),
+            @ApiImplicitParam(
+                    name = "phone",
+                    value = "사용자 전화번호")
+    })
+    @PatchMapping("/{email}")
+    public ResponseEntity updateMember(@PathVariable("email")String email, @RequestBody MemberPatchDto memberPatchDto){
         Member member = memberService.updateMember(memberPatchDto.toEntity(email));
         return new ResponseEntity(new MemberResponseDto(member), HttpStatus.OK);
     }
 
 
-    //DELETE : 고객삭제
+    @ApiOperation(value="사용자 삭제(탈퇴)", notes="사용자 ID(이메일)로 사용자 정보 삭제")
+    @ApiImplicitParam(
+            name = "email",
+            value = "사용자 이메일 정보",
+            paramType = "path",
+            required = true)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "404", description = "사용자 삭제되어 없는 사용자") })
     @DeleteMapping("/{member-email}")
     public ResponseEntity deleteMember(@PathVariable("member-email")String email){
         memberService.deleteMember(email);

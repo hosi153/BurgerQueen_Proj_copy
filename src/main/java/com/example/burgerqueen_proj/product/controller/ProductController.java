@@ -6,6 +6,7 @@ import com.example.burgerqueen_proj.product.dto.ProductResponseDto;
 import com.example.burgerqueen_proj.product.entity.Product;
 import com.example.burgerqueen_proj.product.mapper.ProductMapper;
 import com.example.burgerqueen_proj.product.service.ProductService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(tags="상품 관련 API", description="버거퀸 상품 조회,삭제,변경 기능 제공")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/product")
