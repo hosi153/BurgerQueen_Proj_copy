@@ -12,7 +12,7 @@ insert into "PRODUCT" (product_name, product_description, product_status, produc
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('트리플치즈버거','치즈가 3장 들어간 햄버거','PRODUCT_ING',3,4000,2,'/image/cb3.jpg');
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('내장파괴버거','이 햄버거를 먹으면 고지혈증에 걸릴수도 있을지 몰라','PRODUCT_ING',3,7000,2,'/image/max.jpg');
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('더블패티버거','패티가 2장 들어간 햄버거','PRODUCT_ING',3,4000,2,'/image/double.jpg');
-insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('쿼터패티버거','패티가 4장 들어간 햄버거','PRODUCT_ING',3,5000,2,'/image/4buger.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('쿼터패티버거','패티가 4장 들어간 햄버거','PRODUCT_ING',3,5000,2,'/image/4buger.jpeg');
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('새우버거','오동통 새우버거','PRODUCT_ING',3,2000,2,'/image/shrimp.jpg');
 
 
