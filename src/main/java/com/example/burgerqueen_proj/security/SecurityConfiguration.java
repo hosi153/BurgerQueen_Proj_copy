@@ -74,9 +74,10 @@ public class SecurityConfiguration {
 
                 .and()
                 .oauth2Login()
-                .loginPage("/login").defaultSuccessUrl("/home")
+                .loginPage("/login")//.defaultSuccessUrl("/home")
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService)
+
         ;
 
 
