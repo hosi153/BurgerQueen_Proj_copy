@@ -49,11 +49,13 @@
 
             <h4>배달 상황</h4>
             <div class="list-group" th:each="item:${delivery}" th:if="${item.getDeliveryStatus().getStatusNumber()!=3}">
-                <a th:href="@{/myPage/delivery/{id}(id=${item.getDeliveryId()})}" class="list-group-item list-group-item-action" th:text="${item.getDeliveryStatus().getStatusDescription()}"></a>
+                <a style="margin-top: 0.5rem;" th:href="@{/myPage/delivery/{id}(id=${item.getDeliveryId()})}" class="list-group-item list-group-item-action" th:text="${item.getDeliveryStatus().getStatusDescription()}"></a>
+
             </div>
+            <p><br></p>
             <h4>배달 완료</h4>
             <div class="list-group" th:each="item:${delivery}" th:if="${item.getDeliveryStatus().getStatusNumber()==3}">
-                <a th:href="@{/myPage/delivery/{id}(id=${item.getDeliveryId()})}" class="list-group-item list-group-item-action" th:text="${item.getDeliveryStatus().getStatusDescription()}"></a>
+                <a style="margin-top: 0.5rem;" th:href="@{/myPage/delivery/{id}(id=${item.getDeliveryId()})}" class="list-group-item list-group-item-action" th:text="${item.getDeliveryStatus().getStatusDescription()}"></a>
             </div>
 
 

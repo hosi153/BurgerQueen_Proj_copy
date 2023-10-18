@@ -2,6 +2,7 @@ package com.example.burgerqueen_proj.member.dto;
 
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.entity.Role;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +11,11 @@ import javax.persistence.OneToOne;
 
 @Getter
 @Setter
+@Schema(description = "고객정보 응답 DTO")
 public class MemberResponseDto {
-
+    @Schema(description = "사용자 sequence")
     private long memberId;
+    @Schema(description = "사용자 이메일(ID)")
     private String email;
     private String memberName;
     private String address1;

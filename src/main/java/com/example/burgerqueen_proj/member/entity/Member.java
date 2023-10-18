@@ -68,6 +68,8 @@ public class Member extends BasicEntity implements UserDetails {
         if(this.stamp >= grade.getUpgradeCondition() && !this.grade.equals(MemberGrade.GRADE_MASTER)){
             int gradeOrder = this.grade.ordinal();
             this.grade = MemberGrade.getGradeOrder(gradeOrder+1);
+//            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>.");
+//            System.out.println(gradeOrder+" "+this.grade.getGradeDiscription());
             this.stamp = 0;
         }
     }
@@ -129,11 +131,11 @@ public class Member extends BasicEntity implements UserDetails {
 
     @Getter
     public enum MemberGrade{
-        GRADE_JOIN(1,"신규", GradeBenefit.NOTHING,"등급혜택 없음",1),
-        GRADE_MEMBER(2,"멤버",GradeBenefit.FREE,"무료 감자튀김 증정",2),
-        GRADE_FRIEND(3,"친구",GradeBenefit.DISCOUNT,"10",6),
-        GRADE_VIP(4,"VIP",GradeBenefit.DISCOUNT,"10",10),
-        GRADE_MASTER(5,"최고",GradeBenefit.DISCOUNT,"50",100);
+        GRADE_JOIN(0,"신규", GradeBenefit.NOTHING,"등급혜택 없음",1),
+        GRADE_MEMBER(1,"멤버",GradeBenefit.FREE,"무료 감자튀김 증정",2),
+        GRADE_FRIEND(2,"친구",GradeBenefit.DISCOUNT,"10",3),
+        GRADE_VIP(3,"VIP",GradeBenefit.DISCOUNT,"10",4),
+        GRADE_MASTER(4,"최고",GradeBenefit.DISCOUNT,"50",100);
 
         private int gradeOrder;
         private String gradeDiscription;

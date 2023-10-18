@@ -16,20 +16,26 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
-
 @EnableWebSecurity
 
 public class SecurityConfiguration {
 
     private final PrincipalOauth2UserService principalOauth2UserService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public SecurityConfiguration(@Lazy PrincipalOauth2UserService principalOauth2UserService) {
+
+//    public SecurityConfiguration(@Lazy PrincipalOauth2UserService principalOauth2UserService) {
+
+    public SecurityConfiguration(@Lazy PrincipalOauth2UserService principalOauth2UserService, JwtTokenProvider jwtTokenProvider) {
+
         this.principalOauth2UserService = principalOauth2UserService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Bean
@@ -53,7 +59,7 @@ public class SecurityConfiguration {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
-                .formLogin()
+                .httpBasic()
 
                 .and()
                 .authorizeRequests() //인증과 인가를 설정하겠다는 선언(메서드)
@@ -72,7 +78,14 @@ public class SecurityConfiguration {
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
 
+                // jwt 필터 추가
                 .and()
+                .addFilterBefore(
+                        new JwtAuthenticationFilter(jwtTokenProvider),
+                        UsernamePasswordAuthenticationFilter.class
+                )
+
+
                 .oauth2Login()
                 .loginPage("/login")//.defaultSuccessUrl("/home")
                 .userInfoEndpoint()

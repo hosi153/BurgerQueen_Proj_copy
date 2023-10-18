@@ -1,15 +1,19 @@
 package com.example.burgerqueen_proj.member.dto;
 
 import com.example.burgerqueen_proj.member.entity.Member;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
 @Getter
 public class MemberPatchDto {
+    @ApiModelProperty(example = "4567")
     private String password;
+    @ApiModelProperty(example = "김유플")
     private String memberName;
     private String address1;
     private String address2;
     private String address3;
+    @ApiModelProperty(example = "010-1234-5678")
     private String phone;
 
     public Member toEntity(String email){
