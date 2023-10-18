@@ -4,7 +4,12 @@ import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.repository.MemberRepository;
 import com.example.burgerqueen_proj.member.service.MemberService;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -13,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -47,9 +53,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String role = "ROLE_USER";
 
 //        Member memberEntity = memberRepository.findByEmail(email);
-        Member memberEntity = memberService.findMemberByEmail(email);
+        Member memberEntity = memberService.findMemberByEmailForOAuth(email);
 
-        if (memberEntity == null){
+        if (memberEntity==null){
             memberEntity = Member.builder()
                     .userName(userName)
                     .password(password)
@@ -62,8 +68,23 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         }
 
 
+
+
+
+
+
         return new PrincipalDetails(memberEntity,oAuth2User.getAttributes());
 
 
     }
+
+
+    private void setRoleIfNotSame(Member member, OAuth2AuthenticationToken authentication, Map<String, Object> map) {
+        if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(member.getSocialType().getRoleType()))) {
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken
+                    (map, "N/A", AuthorityUtils.createAuthorityList(member.getSocialType().getRoleType())));
+        }
+    }
+
+
 }

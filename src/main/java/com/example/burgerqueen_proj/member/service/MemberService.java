@@ -76,6 +76,18 @@ public class MemberService{
         Member findMember = optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
         return findMember;
     }
+    public Member findMemberByEmailForOAuth(String email) {
+        try {        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+            Member member = findMember(optionalMember.get().getMemberId());
+            return member;
+
+
+
+        }catch (Exception e){
+            return null;
+        }
+
+    }
 
     public void deleteMember(String email) {
         Member findMember = findMemberByEmail(email);
