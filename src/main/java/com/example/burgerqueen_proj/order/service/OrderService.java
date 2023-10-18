@@ -7,6 +7,7 @@ import com.example.burgerqueen_proj.exception.BusinessLogicException;
 import com.example.burgerqueen_proj.exception.ExceptionCode;
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.order.entity.Order;
+import com.example.burgerqueen_proj.order.mapper.OrderMapper;
 import com.example.burgerqueen_proj.order.repository.OrderRepository;
 import com.example.burgerqueen_proj.member.service.MemberService;
 import com.example.burgerqueen_proj.product.entity.Product;
@@ -31,23 +32,37 @@ public class OrderService {
     private final MemberService memberService;
     private final ProductService productService;
     private final CartService cartService;
+    private final OrderMapper orderMapper;
 
-    public OrderService(OrderRepository orderRepository, MemberService memberService, ProductService productService, CartService cartService) {
+    public OrderService(OrderRepository orderRepository, MemberService memberService, ProductService productService, CartService cartService, OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
         this.memberService = memberService;
         this.productService = productService;
         this.cartService = cartService;
+        this.orderMapper = orderMapper;
     }
 
     @Transactional
-    public Order creatOrder(Order order){
+//    public Order creatOrder(Cart cart, Order order){
+    public Order creatOrder(Cart cart){
+
+        Cart updateCart = cartService.updateCart(cart);
+
+        Order order = orderMapper.orderPostDtoToOrder(orderMapper.cartToOrderPostDto(updateCart));
+
         verifyOrder(order);
         stockCheck(order);
         order.setOrderStatus(Order.OrderStatus.ORDER_REQUEST);
         order.setMember(memberService.findMember(order.getMember().getMemberId())); //굳이 주문에서 유저를 찾아갈 필요가 있는가?
         order.getMember().addStamp();
 
-
+        System.out.println("카트 삭제 시도 cartnum : "+updateCart.getCartId());
+        Cart clearCart = new Cart();
+        clearCart.setCartId(updateCart.getCartId());
+        cartService.updateCart(clearCart);
+////        Cart findCart = cartService.findVerifiedCart(cart);
+////        System.out.println(delivery.getOrder().getMember().getCart().getCartId() +"이거랑 "+findCart.getCartId());
+//        cartService.clearCartProductForOrder(updateCart);
 
         return orderRepository.save(order);
     }

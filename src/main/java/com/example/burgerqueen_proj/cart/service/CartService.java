@@ -59,8 +59,6 @@ public class CartService {
     public Cart updateCart(Cart cart) {
         Cart findCart = findVerifiedCart(cart.getCartId());
 
-
-
         cartProductRepository.deleteAllByCart(findCart);
 
         cart.getCartProducts()
@@ -89,9 +87,15 @@ public class CartService {
     @Transactional
     public void clearCartProduct(long cartId){
         Cart findCart = findVerifiedCart(cartId);
-        System.out.println("cartid = "+cartId + "find cart : "+ findCart.getCartId());
+//        System.out.println("cartid = "+cartId + "find cart : "+ findCart.getCartId());
 
 
+        cartProductRepository.deleteAllByCart(findCart);
+    }
+
+    @Transactional
+    public void clearCartProductForOrder(Cart cart){
+        Cart findCart = findVerifiedCart(cart.getCartId());
         cartProductRepository.deleteAllByCart(findCart);
     }
 

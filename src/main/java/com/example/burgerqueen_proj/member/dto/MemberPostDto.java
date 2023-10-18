@@ -16,8 +16,11 @@ public class MemberPostDto {
     private String password;
     @ApiModelProperty(example = "김유플", required = true)
     private String memberName;
+    @ApiModelProperty(example = "서울시 강서구")
     private String address1;
+    @ApiModelProperty(example = "마곡중앙8로")
     private String address2;
+    @ApiModelProperty(example = "우편번호 7777")
     private String address3;
     @ApiModelProperty(example = "010-8080-1234")
     private String phone;

@@ -25,8 +25,8 @@ if(orderBtn){
             })
             .then(data => {
                 // certain('success',`주문을 성공했습니다.`);
-
                 location.href=`/myPage`;
+
         })
             .catch(error => {
                 // alert('잠시 후 시도해주세요.');

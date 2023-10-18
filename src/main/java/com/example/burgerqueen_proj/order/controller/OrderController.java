@@ -52,15 +52,16 @@ public class OrderController {
             @ApiImplicitParam(name = "quantity", value = "장바구니에 포함된 상품 수량")
     })
 
+    @Transactional
 
     public ResponseEntity postOrder(@RequestBody CartPatchDto cartPatchDto){
         System.out.println("오더 생성 시작!");
+//        Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto));
+        Order order = orderService.creatOrder(cartMapper.cartPatchDtoToCart(cartPatchDto));
+//        Order order = orderService.creatOrder(cart, orderMapper.orderPostDtoToOrder(orderMapper.cartToOrderPostDto(cart)));
+//        cartService.clearCartProduct(cart.getCartId());
+        deliveryService.createDelivery(deliveryMapper.orderToDeliveryPostDto(order));
 
-        Cart cart = cartService.updateCart(cartMapper.cartPatchDtoToCart(cartPatchDto)); //장바구니 수정 후 수정된 장바구니 정보를 기준으로 주문 생성
-
-        Order order = orderService.creatOrder(orderMapper.orderPostDtoToOrder(orderMapper.cartToOrderPostDto(cart))); // 수정된 장바구니 정보를 Mapper를 통해 Order로 변환 후 주문 생성
-//        cartService.clearCartProduct(cart.getCartId()); // 기존 장바구니의 항목 초기화 ( 미구현 / 수정 필요 )
-        deliveryService.createDelivery(deliveryMapper.orderToDeliveryPostDto(order)); //주문정보를 기준으로 배달 요청
 
         System.out.println("email : " + order.getMember().getEmail());
 
