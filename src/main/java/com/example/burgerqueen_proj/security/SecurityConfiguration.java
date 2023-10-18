@@ -2,6 +2,7 @@ package com.example.burgerqueen_proj.security;
 
 
 import com.example.burgerqueen_proj.member.service.MemberService;
+import com.example.burgerqueen_proj.oauth.PrincipalOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,15 +20,24 @@ import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
-@RequiredArgsConstructor
+
+@EnableWebSecurity
 
 public class SecurityConfiguration {
 
+    private final PrincipalOauth2UserService principalOauth2UserService;
+
+    public SecurityConfiguration(PrincipalOauth2UserService principalOauth2UserService) {
+        this.principalOauth2UserService = principalOauth2UserService;
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -61,8 +71,11 @@ public class SecurityConfiguration {
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
 
-//                .and()
-//                .oauth2Login(withDefaults())
+                .and()
+                .oauth2Login()
+                .loginPage("/login")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService)
         ;
 
 

@@ -16,6 +16,7 @@ import org.aspectj.weaver.ast.Or;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,13 +24,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@Component
 public class OrderService {
 
     private final OrderRepository orderRepository;
     private final MemberService memberService;
     private final ProductService productService;
     private final CartService cartService;
+
+    public OrderService(OrderRepository orderRepository, MemberService memberService, ProductService productService, CartService cartService) {
+        this.orderRepository = orderRepository;
+        this.memberService = memberService;
+        this.productService = productService;
+        this.cartService = cartService;
+    }
 
     @Transactional
     public Order creatOrder(Order order){

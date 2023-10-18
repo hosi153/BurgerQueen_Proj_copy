@@ -11,4 +11,9 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 
     Delivery findByOrder(Order order);
 
+    Delivery findAllByMember(Member member);
+
+    Delivery findByMember(Member member);
+
+
 }

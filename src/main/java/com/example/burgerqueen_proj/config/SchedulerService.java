@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+
 
 public class SchedulerService {
 
     private final DeliveryService deliveryService;
 
+    public SchedulerService(DeliveryService deliveryService) {
+        this.deliveryService = deliveryService;
+    }
 
     @Scheduled(cron = "* 10 * * * *")
     public void changeDeliveryStatus(){

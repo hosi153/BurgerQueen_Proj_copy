@@ -10,6 +10,7 @@ spring:
               - email
               - profile
 
+
   h2:
     console:
       enabled: true
@@ -43,11 +44,6 @@ logging:
           jpa: DEBUG
 mail:
   address:
-
-jwt:
-  # 민감한 정보는 시스템 환경 변수에서 로드한다.
-
-
 
 
 

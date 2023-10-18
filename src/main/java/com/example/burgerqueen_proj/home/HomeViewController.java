@@ -37,6 +37,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -98,10 +99,25 @@ public class HomeViewController {
         MemberResponseDto member = new MemberResponseDto(findMember);
 
         List<DeliveryResponseDto> delivery = deliveryMapper.deliveryToDeliveryResponseDtos(deliveryService.findDeliveries());
+        List<DeliveryResponseDto> deliveryModel = new ArrayList<>();
+        for (DeliveryResponseDto de: delivery) {
+            System.out.println("de 아이디 === " +de.getDeliveryId());
+            System.out.println("de 멤버 아이디 === " +orderService.findOrder(de.getOrderId()).getMember().getMemberId());
+            System.out.println("멤버 번호 = " + member.getMemberId());
+            if (orderService.findOrder(de.getOrderId()).getMember().getMemberId()==member.getMemberId()){
+                deliveryModel.add(de);
+                System.out.println("딜리버리 사이즈 === " +deliveryModel.size());
+
+            }
+
+
+        }
+
+
 
 
         model.addAttribute("member",member);
-        model.addAttribute("delivery",delivery);
+        model.addAttribute("delivery",deliveryModel);
 
 
 
@@ -166,6 +182,7 @@ public class HomeViewController {
     public String viewOrder(Model model){
 
         Member member = memberService.findMemberByEmail(getUserInfo());
+
 
         OrderResponseDto order = orderMapper.orderToOrderResponseDto(orderService.findOrder(1));
 
