@@ -52,25 +52,7 @@ public class Cart extends BasicEntity {
 //
     private int totalCount=0;
 
-    public void sumTotalCount(){
-        for (CartProduct cartProduct : cartProducts){
-            totalCount+=cartProduct.getQuantity();
-        }
-    }
-//
-//    private int totalDiscountPrice;
-//    public void sumTotalDiscountPrice(){
-//        for (CartProduct cartProduct : cartProducts){
-//            totalCount+= (int) cartProduct.getProduct().getDiscountPrice();
-//        }
-//    }
+
     private int totalPrice;
-    public void sumTotalPrice(){
-        for (CartProduct cartProduct : cartProducts){
-            totalCount+= (int) cartProduct.getProduct().getProductPrice();
-        }
-    }
-//
-//    private int stampCount;
 
 }
