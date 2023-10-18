@@ -36,13 +36,13 @@ insert into "PRODUCT" (product_name, product_description, product_status, produc
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id) values ('빨대','환경을 생각해 종이로 만든 빨대','PRODUCT_ING',10000,0,5);
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id) values ('넵킨','환경을 생각해 종이로 만든 넵킨','PRODUCT_STOP',10000,0,5);
 
-insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('불고기버거 세트','단짠단짠 불고기 버거','PRODUCT_STOP',3,3500,1,'/image/shrimp.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('불고기버거 세트','단짠단짠 불고기 버거','PRODUCT_STOP',3,3500,1,'/image/bulgogiset.jpg');
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('치즈버거 세트','띠드버거 사주세요','PRODUCT_ING',3,3500,1,'/image/cb1set.jpg');
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('더블치즈버거 세트','치즈가 2장 들어간 햄버거','PRODUCT_ING',3,4500,1,'/image/cb2set.jpg');
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('트리플치즈버거 세트','치즈가 3장 들어간 햄버거','PRODUCT_STOP',3,5500,1,'/image/cb3set.jpg');
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('더블패티버거 세트','패티가 2장 들어간 햄버거','PRODUCT_STOP',3,5500,1,'/image/doubleset.jpg');
 insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('쿼터패티버거 세트','패티가 4장 들어간 햄버거','PRODUCT_ING',3,6500,1,'/image/4bugerset.jpg');
-insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('새우버거 세트','오동통 새우버거','PRODUCT_STOP',3,3500,1,'/image/shrimp.jpg');
+insert into "PRODUCT" (product_name, product_description, product_status, product_count, product_price, category_id, product_image) values ('새우버거 세트','오동통 새우버거','PRODUCT_STOP',3,3500,1,'/image/shrimpset.jpg');
 
 
 
