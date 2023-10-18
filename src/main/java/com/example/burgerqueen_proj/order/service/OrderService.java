@@ -133,7 +133,7 @@ public class OrderService {
 
         for (int i = 0; i < order.getOrderProducts().size(); i++) {
             // 재고 확인
-            if (order.getOrderProducts().get(i).getProduct().getProductCount() <= 0){
+            if (order.getOrderProducts().get(i).getProduct().getProductCount() < 0){
                 throw  new BusinessLogicException(ExceptionCode.STOCK_SHORTAGE);
             }
             // 판매 상태 확인
