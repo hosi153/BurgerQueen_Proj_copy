@@ -23,9 +23,9 @@
                 <p>
                     <span th:text="|이메일 : ${member.email}|"></span><br>
                     <span> 등급 : <strong th:text="| ${member.grade.gradeDiscription} |"></strong></span>
-                    <span th:if="${member.grade.gradeDiscription.equals('VIP') }" >🥈</span>
-                    <span th:if="${member.grade.gradeDiscription.equals('친구') }" >🥉</span>
-                    <span th:if="${member.grade.gradeDiscription.equals('최고') }" >🥇</span>
+                    <span th:if="${member.grade.gradeDiscription.equals('VIP') }">🥈</span>
+                    <span th:if="${member.grade.gradeDiscription.equals('친구') }">🥉</span>
+                    <span th:if="${member.grade.gradeDiscription.equals('최고') }">🥇</span>
                     <br>
                     <span th:text="| 등급혜택 : ${member.grade.benefit.getBenefitName()}|"></span>
                 </p>
@@ -41,24 +41,55 @@
                     가입된 정보와 주문내역을 확인할 수 있는 페이지 입니다.
                 </p>
                 <a href="/editUser" class="btn btn-secondary" type="button">내 정보 수정하기</a>
-<!--                <p>-->
-<!--                    <a class="btn btn-primary btn-large" href="#">내 정보 수정하기</a>-->
-<!--                </p>-->
+                <!--                <p>-->
+                <!--                    <a class="btn btn-primary btn-large" href="#">내 정보 수정하기</a>-->
+                <!--                </p>-->
             </div>
 
 
             <h4>배달 상황</h4>
             <div class="list-group" th:each="item:${delivery}" th:if="${item.getDeliveryStatus().getStatusNumber()!=3}">
-                <a style="margin-top: 0.5rem;" th:href="@{/myPage/delivery/{id}(id=${item.getDeliveryId()})}" class="list-group-item list-group-item-action" th:text="${item.getDeliveryStatus().getStatusDescription()}"></a>
+                <a style="margin-top: 0.5rem;" th:href="@{/myPage/delivery/{id}(id=${item.getDeliveryId()})}">
+                    <div class="list-group-item list-group-item-action">
+                        <b4>주문 번호 :</b4>
+                        <span th:text="${item.getDeliveryId()}"></span><br>
+                        <b4>주문 상태 :</b4>
+                        <span th:text="${item.getDeliveryStatus().getStatusDescription()}"></span><br>
+                        <b4>주문 상품 :</b4>
+                        <span>
+                            <p th:each="orders:${order}" th:if="${orders.getOrderId()==item.getOrderId()}">
+                                <span th:text="${orders.getOrderProducts().get(0).getProduct().getProductName()}"> < </span>
+                                <span  th:if="${orders.getOrderProducts().size()>1}"> 외  <span  th:text="${orders.getOrderProducts().size()-1}">< </span>
+                                    건
 
+                            </p>
+                        </span>
+
+                    </div>
+                </a>
             </div>
             <p><br></p>
             <h4>배달 완료</h4>
             <div class="list-group" th:each="item:${delivery}" th:if="${item.getDeliveryStatus().getStatusNumber()==3}">
-                <a style="margin-top: 0.5rem;" th:href="@{/myPage/delivery/{id}(id=${item.getDeliveryId()})}" class="list-group-item list-group-item-action" th:text="${item.getDeliveryStatus().getStatusDescription()}"></a>
+                <a style="margin-top: 0.5rem;" th:href="@{/myPage/delivery/{id}(id=${item.getDeliveryId()})}">
+                    <div class="list-group-item list-group-item-action">
+                        <b4>주문 번호 :</b4>
+                        <span th:text="${item.getDeliveryId()}"></span><br>
+                        <b4>주문 상태 :</b4>
+                        <span th:text="${item.getDeliveryStatus().getStatusDescription()}"></span><br>
+                        <b4>주문 상품 :</b4>
+                        <span>
+                            <p th:each="orders:${order}" th:if="${orders.getOrderId()==item.getOrderId()}">
+                                <span th:text="${orders.getOrderProducts().get(0).getProduct().getProductName()}"> < </span>
+                                <span  th:if="${orders.getOrderProducts().size()>1}"> 외  <span  th:text="${orders.getOrderProducts().size()-1}">< </span>
+                                    건
+
+                            </p>
+                        </span>
+
+                    </div>
+                </a>
             </div>
-
-
 
 
         </div>

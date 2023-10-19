@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
-
 public class SchedulerService {
 
     private final DeliveryService deliveryService;
@@ -19,7 +17,7 @@ public class SchedulerService {
         this.deliveryService = deliveryService;
     }
 
-    @Scheduled(cron = "* 10 * * * *")
+    @Scheduled(cron = "10 * * * * *")
     public void changeDeliveryStatus(){
         System.out.println("스케줄러");
         List<Delivery> deliveries = deliveryService.findDeliveries();
