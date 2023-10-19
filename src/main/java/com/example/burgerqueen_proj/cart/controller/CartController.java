@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/cart")
 @RequiredArgsConstructor
+@Api(tags="장바구니 관리 API")
 //@Api(value = "CartController" , tags = "장바구니 관리 API")
 
 

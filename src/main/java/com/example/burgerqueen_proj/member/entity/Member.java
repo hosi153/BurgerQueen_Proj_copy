@@ -5,6 +5,7 @@ import com.example.burgerqueen_proj.entity.BasicEntity;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -49,6 +50,8 @@ public class Member extends BasicEntity implements UserDetails {
     @OneToOne(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private  Role role;
 
+
+
     public void setRole(Role role){
         this.role = role;
         if (role.getMember()!= this){
@@ -87,11 +90,12 @@ public class Member extends BasicEntity implements UserDetails {
         return this.userName;
     }
 
+    @Transient
+    private Collection<SimpleGrantedAuthority> authorities;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
-
     @Override
     public String getUsername() {
         return this.email;
@@ -132,9 +136,9 @@ public class Member extends BasicEntity implements UserDetails {
     @Getter
     public enum MemberGrade{
         GRADE_JOIN(0,"신규", GradeBenefit.NOTHING,"등급혜택 없음",1),
-        GRADE_MEMBER(1,"멤버",GradeBenefit.FREE,"무료 감자튀김 증정",2),
+        GRADE_MEMBER(1,"멤버",GradeBenefit.DISCOUNT,"5",2),
         GRADE_FRIEND(2,"친구",GradeBenefit.DISCOUNT,"10",3),
-        GRADE_VIP(3,"VIP",GradeBenefit.DISCOUNT,"10",4),
+        GRADE_VIP(3,"VIP",GradeBenefit.DISCOUNT,"15",4),
         GRADE_MASTER(4,"최고",GradeBenefit.DISCOUNT,"50",100);
 
         private int gradeOrder;
