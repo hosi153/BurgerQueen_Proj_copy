@@ -25,6 +25,7 @@ public interface DeliveryMapper {
 
         Delivery delivery = new Delivery();
         delivery.setOrder(order);
+        delivery.setMember(order.getMember());
         return delivery;
 
     }

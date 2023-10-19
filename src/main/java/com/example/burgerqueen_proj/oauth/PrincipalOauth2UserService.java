@@ -1,5 +1,6 @@
 package com.example.burgerqueen_proj.oauth;
 
+import com.example.burgerqueen_proj.cart.entity.Cart;
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.repository.MemberRepository;
 import com.example.burgerqueen_proj.member.service.MemberService;
@@ -47,7 +48,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
         String provider = userRequest.getClientRegistration().getRegistrationId();
         String providerId = oAuth2User.getAttribute("sub");
-        String userName = "provider_"+providerId;
+        String userName = oAuth2User.getAttribute("name");
         String password = bCryptPasswordEncoder.encode("password");
         String email = oAuth2User.getAttribute("email");
         String role = "ROLE_USER";
@@ -62,7 +63,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .email(email)
                     .provider(provider)
                     .providerId(providerId)
+                    .address1("주소를 입력해주세요")
+                    .address2("주소를 입력해주세요")
+                    .address3("주소를 입력해주세요")
+                    .phone("0")
                     .build();
+            memberEntity.setCart(new Cart());
             memberRepository.save(memberEntity);
 
         }
