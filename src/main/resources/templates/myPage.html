@@ -23,9 +23,10 @@
                 <p>
                     <span th:text="|이메일 : ${member.email}|"></span><br>
                     <span> 등급 : <strong th:text="| ${member.grade.gradeDiscription} |"></strong></span>
-                    <span th:if="${member.grade.gradeDiscription.equals('VIP') }">🥈</span>
-                    <span th:if="${member.grade.gradeDiscription.equals('친구') }">🥉</span>
-                    <span th:if="${member.grade.gradeDiscription.equals('최고') }">🥇</span>
+                    <span th:if="${member.grade.gradeDiscription.equals('VIP') }" >🥈</span>
+                    <span th:if="${member.grade.gradeDiscription.equals('친구') }" >🥉</span>
+                    <span th:if="${member.grade.gradeDiscription.equals('최고') }" >🥇</span>
+                    <span> (스탬프 : <strong th:text="| ${member.stamp} |"></strong> )</span>
                     <br>
                     <span th:text="| 등급혜택 : ${member.grade.benefit.getBenefitName()}|"></span>
                 </p>
