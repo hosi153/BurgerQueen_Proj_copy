@@ -16,8 +16,10 @@ import com.example.burgerqueen_proj.delivery.service.DeliveryService;
 import com.example.burgerqueen_proj.member.dto.MemberResponseDto;
 import com.example.burgerqueen_proj.member.entity.Member;
 import com.example.burgerqueen_proj.member.service.MemberService;
+import com.example.burgerqueen_proj.order.dto.OrderProductResponseDto;
 import com.example.burgerqueen_proj.order.dto.OrderResponseDto;
 import com.example.burgerqueen_proj.order.entity.Order;
+import com.example.burgerqueen_proj.order.entity.OrderProduct;
 import com.example.burgerqueen_proj.order.mapper.OrderMapper;
 import com.example.burgerqueen_proj.order.service.OrderService;
 import com.example.burgerqueen_proj.product.dto.ProductResponseDto;
@@ -49,6 +51,7 @@ public class HomeViewController {
     private final MemberService memberService;
     private final OrderService orderService;
     private final DeliveryService deliveryService;
+
 
     private final CartMapper cartMapper;
     private final CartService cartService;
@@ -100,24 +103,21 @@ public class HomeViewController {
 
         List<DeliveryResponseDto> delivery = deliveryMapper.deliveryToDeliveryResponseDtos(deliveryService.findDeliveries());
         List<DeliveryResponseDto> deliveryModel = new ArrayList<>();
+        List<Order> order =new ArrayList<>();
+
         for (DeliveryResponseDto de: delivery) {
-            System.out.println("de 아이디 === " +de.getDeliveryId());
-            System.out.println("de 멤버 아이디 === " +orderService.findOrder(de.getOrderId()).getMember().getMemberId());
-            System.out.println("멤버 번호 = " + member.getMemberId());
-            if (orderService.findOrder(de.getOrderId()).getMember().getMemberId()==member.getMemberId()){
+            if (orderService.findOrder(de.getOrderId()).getMember().getMemberId() == member.getMemberId()) {
                 deliveryModel.add(de);
-                System.out.println("딜리버리 사이즈 === " +deliveryModel.size());
+                order.add(orderService.findOrder(de.getOrderId()));
 
             }
 
 
+
+            model.addAttribute("order",order);
+            model.addAttribute("member", member);
+            model.addAttribute("delivery", deliveryModel);
         }
-
-
-
-
-        model.addAttribute("member",member);
-        model.addAttribute("delivery",deliveryModel);
 
 
 
@@ -193,11 +193,15 @@ public class HomeViewController {
     }
 
     private String getUserInfo(){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Member member = (Member) principal;
-        String email = ((Member) principal).getUsername();
+        System.out.println("oauth2test===============================================");
+//        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+//
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println();
+////        Member member = (Member) principal;
+//        String email = ((Member) principal).getUsername();
 
-        return email;
+        return SecurityContextHolder.getContext().getAuthentication().getName();
 
     }
 
