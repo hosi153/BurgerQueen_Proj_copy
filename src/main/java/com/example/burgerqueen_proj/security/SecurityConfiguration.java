@@ -63,6 +63,7 @@ public class SecurityConfiguration {
 
                 .and()
                 .authorizeRequests() //인증과 인가를 설정하겠다는 선언(메서드)
+                .antMatchers("/api/admin/token","/api/admin/authenticated","/api/admin/tokenTest" ).hasRole("ADMIN")
                 .antMatchers("/login", "/signup", "/join", "/api/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                 .anyRequest().authenticated()
 
