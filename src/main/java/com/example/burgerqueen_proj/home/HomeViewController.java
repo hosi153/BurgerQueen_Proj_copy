@@ -98,6 +98,7 @@ public class HomeViewController {
 
     @GetMapping("/myPage")
     public String viewMyPage(Model model){
+
         Member findMember = memberService.findMemberByEmail(getUserInfo());
         MemberResponseDto member = new MemberResponseDto(findMember);
 
@@ -109,16 +110,12 @@ public class HomeViewController {
             if (orderService.findOrder(de.getOrderId()).getMember().getMemberId() == member.getMemberId()) {
                 deliveryModel.add(de);
                 order.add(orderService.findOrder(de.getOrderId()));
-
             }
-
-
-
-            model.addAttribute("order",order);
-            model.addAttribute("member", member);
-            model.addAttribute("delivery", deliveryModel);
         }
+        model.addAttribute("order",order);
+        model.addAttribute("member", member);
 
+        model.addAttribute("delivery", deliveryModel);
 
 
         return "myPage";
