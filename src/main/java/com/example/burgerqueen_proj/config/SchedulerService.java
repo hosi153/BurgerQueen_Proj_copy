@@ -17,7 +17,7 @@ public class SchedulerService {
         this.deliveryService = deliveryService;
     }
 
-    @Scheduled(cron = "10 * * * * *")
+    @Scheduled(cron = "59 * * * * *")
     public void changeDeliveryStatus(){
         System.out.println("스케줄러");
         List<Delivery> deliveries = deliveryService.findDeliveries();
